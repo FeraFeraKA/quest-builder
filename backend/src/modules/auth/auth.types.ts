@@ -1,9 +1,11 @@
-export interface RegisterLoginBody {
+export interface IRegisterLoginBody {
   nickname: string;
   password: string;
 }
 
-export interface RegisterLoginEndpoint {
+export interface IRegisterLoginEndpoint {
   nickname: string;
   passwordHash: string;
 }
+
+export type TNickname = string;
