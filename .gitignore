@@ -16,7 +16,6 @@ build/
 .DS_Store
 
 # prisma
-backend/prisma/migrations/
 backend/generated
 
 # editor
