@@ -1,0 +1,23 @@
+# node
+node_modules/
+
+# build
+dist/
+build/
+
+# env
+.env
+.env.*
+
+# logs
+*.log
+
+# OS
+.DS_Store
+
+# prisma
+prisma/migrations/н7г
+
+# editor
+.vscode/
+.idea/
