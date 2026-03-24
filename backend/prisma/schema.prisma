@@ -11,15 +11,20 @@ model User {
   id String @id @default(uuid())
   nickname String @unique
   password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
   quests Quest[]
 }
 
 model Quest {
-  id String @id @default(uuid())
+  id String @id @default(uuid()) @db.Uuid
   userId String
   startNodeId String @unique
   title String
   description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   nodes Node[] @relation("QuestNodes")
   startNode Node @relation("StartNode", fields: [startNodeId], references: [id])
@@ -33,6 +38,8 @@ model Node {
   description String
   positionX String
   positionY String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   edgesFrom Edge[] @relation("from")
   edgesTo Edge[] @relation("to")
@@ -45,6 +52,8 @@ model Edge {
   nodeFromId String
   nodeToId String
   conditions Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   nodeFrom Node @relation("from", fields: [nodeFromId], references: [id])
   nodeTo Node @relation("to", fields: [nodeToId], references: [id])
