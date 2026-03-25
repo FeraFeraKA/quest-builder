@@ -7,6 +7,6 @@ router.post("/register", AuthController.register);
 
 router.post("/login", AuthController.login);
 
-// router.get("/me");
+router.get("/me", AuthController.me);
 
 export default router;

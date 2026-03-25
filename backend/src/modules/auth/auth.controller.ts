@@ -14,4 +14,10 @@ export const AuthController = {
     const user = await AuthService.login(body);
     res.json(user).status(200);
   },
+
+  async me(req: Request, res: Response) {
+    const userId = req.user?.id;
+    const user = await AuthService.me(userId);
+    res.json(user).status(200);
+  }
 };

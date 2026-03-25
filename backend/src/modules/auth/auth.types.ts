@@ -9,3 +9,5 @@ export interface IRegisterLoginEndpoint {
 }
 
 export type TNickname = string;
+
+export type TUserId = string;

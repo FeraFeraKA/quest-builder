@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { AuthStorage } from "./auth.storage";
-import type { IRegisterLoginBody } from "./auth.types";
+import type { IRegisterLoginBody, TUserId } from "./auth.types";
 
 const SALT_ROUNDS = 10;
 
@@ -27,6 +27,14 @@ export const AuthService = {
     const isValid = bcrypt.compare(password, user.passwordHash);
 
     if (!isValid) throw new Error("Error");
+
+    return user;
+  },
+
+  async me(userId: TUserId) {
+    const user = await AuthStorage.me(userId);
+
+    if (!user) throw new Error("Error");
 
     return user;
   },
