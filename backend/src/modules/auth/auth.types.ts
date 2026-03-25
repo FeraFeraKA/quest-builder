@@ -3,7 +3,7 @@ export interface IRegisterLoginBody {
   password: string;
 }
 
-export interface IRegisterLoginEndpoint {
+export interface IRegisterEndpoint {
   nickname: string;
   passwordHash: string;
 }

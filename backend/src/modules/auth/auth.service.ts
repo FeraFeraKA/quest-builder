@@ -1,3 +1,5 @@
+import { HttpError } from "@/shared/errors/httpError";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import bcrypt from "bcrypt";
 import { AuthStorage } from "./auth.storage";
 import type { IRegisterLoginBody, TUserId } from "./auth.types";
@@ -10,9 +12,15 @@ export const AuthService = {
 
     const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS);
 
-    const user = await AuthStorage.register({ nickname, passwordHash });
+    let user;
 
-    if (!user) throw new Error("Error");
+    try {
+      user = await AuthStorage.register({ nickname, passwordHash });
+    } catch (e) {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2002") {
+        throw new HttpError(409, "EMAIL TAKEN", "Email already taken");
+      }
+    }
 
     return user;
   },
@@ -22,11 +30,12 @@ export const AuthService = {
 
     const user = await AuthStorage.login(nickname);
 
-    if (!user) throw new Error("Error");
+    if (!user) throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
 
     const isValid = bcrypt.compare(password, user.passwordHash);
 
-    if (!isValid) throw new Error("Error");
+    if (!isValid)
+      throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
 
     return user;
   },
@@ -34,7 +43,7 @@ export const AuthService = {
   async me(userId: TUserId) {
     const user = await AuthStorage.me(userId);
 
-    if (!user) throw new Error("Error");
+    if (!user) throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
 
     return user;
   },

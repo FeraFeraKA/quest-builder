@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/prisma";
-import type { IRegisterLoginEndpoint, TNickname, TUserId } from "./auth.types";
+import { prisma } from "@/shared/lib/prisma";
+import type { IRegisterEndpoint, TNickname, TUserId } from "./auth.types";
 
 export const AuthStorage = {
-  async register({ nickname, passwordHash }: IRegisterLoginEndpoint) {
+  async register({ nickname, passwordHash }: IRegisterEndpoint) {
     return prisma.user.create({
       data: {
         nickname,
