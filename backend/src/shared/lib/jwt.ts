@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
 
-interface TJwtPayload {
+export interface IJwtPayload {
   id: string;
   nickname: string;
 }
@@ -11,22 +11,22 @@ type TToken = string;
 const jwtAccessSecret = config.jwtAccessSecret;
 const jwtRefreshSecret = config.jwtRefreshSecret;
 
-export function signAccessToken(payload: TJwtPayload) {
+export function signAccessToken(payload: IJwtPayload) {
   return jwt.sign(payload, jwtAccessSecret, {
     expiresIn: config.jwtAccessExpiresIn,
   });
 }
 
-export function signRefreshToken(payload: TJwtPayload) {
-  return jwt.sign(payload, jwtRefreshSecret, {
+export function signRefreshToken(payload: IJwtPayload) {
+  return jwt.sign({ ...payload, jti: crypto.randomUUID() }, jwtRefreshSecret, {
     expiresIn: config.jwtRefreshExpiresIn,
   });
 }
 
-export function verifyAccessToken(token: TToken): TJwtPayload {
-  return jwt.verify(token, jwtAccessSecret) as TJwtPayload;
+export function verifyAccessToken(token: TToken): IJwtPayload {
+  return jwt.verify(token, jwtAccessSecret) as IJwtPayload;
 }
 
-export function verifyRefreshToken(token: TToken): TJwtPayload {
-  return jwt.verify(token, jwtRefreshSecret) as TJwtPayload;
+export function verifyRefreshToken(token: TToken): IJwtPayload {
+  return jwt.verify(token, jwtRefreshSecret) as IJwtPayload;
 }
