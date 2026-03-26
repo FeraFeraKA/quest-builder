@@ -1,3 +1,4 @@
+import { authGuard } from "@/shared/middleware/authGuard";
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
 
@@ -7,6 +8,10 @@ router.post("/register", AuthController.register);
 
 router.post("/login", AuthController.login);
 
-router.get("/me", AuthController.me);
+router.get("/me", authGuard, AuthController.me);
+
+router.post("/logout", AuthController.logout);
+
+router.post("/refresh", AuthController.refresh);
 
 export default router;

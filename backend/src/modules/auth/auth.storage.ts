@@ -11,7 +11,7 @@ export const AuthStorage = {
     });
   },
 
-  async login(nickname: TNickname) {
+  async getByNickname(nickname: TNickname) {
     return prisma.user.findUnique({
       where: {
         nickname,
@@ -19,7 +19,7 @@ export const AuthStorage = {
     });
   },
 
-  async me(userId: TUserId) {
+  async getById(userId: TUserId) {
     return prisma.user.findUnique({
       where: {
         id: userId,
