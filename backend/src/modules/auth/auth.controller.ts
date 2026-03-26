@@ -6,18 +6,18 @@ export const AuthController = {
   async register(req: Request, res: Response) {
     const body = RegisterLoginSchema.parse(req.body);
     const user = await AuthService.register(body);
-    res.json(user).status(201);
+    res.status(201).json(user);
   },
 
   async login(req: Request, res: Response) {
     const body = RegisterLoginSchema.parse(req.body);
     const user = await AuthService.login(body);
-    res.json(user).status(200);
+    res.status(200).json(user);
   },
 
   async me(req: Request, res: Response) {
     const userId = req.user?.id;
     const user = await AuthService.me(userId);
-    res.json(user).status(200);
+    res.status(200).json(user);
   }
 };

@@ -1,4 +1,4 @@
-import { HttpError } from "@/shared/errors/httpError";
+import { HttpError } from "@/shared/error/httpError";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import bcrypt from "bcrypt";
 import { AuthStorage } from "./auth.storage";
