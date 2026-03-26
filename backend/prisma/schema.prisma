@@ -15,6 +15,7 @@ model User {
   updatedAt DateTime @default(now())
 
   quests Quest[]
+  refreshTokens RefreshToken[]
 }
 
 model Quest {
@@ -59,3 +60,12 @@ model Edge {
   nodeTo Node @relation("to", fields: [nodeToId], references: [id])
 }
 
+model RefreshToken {
+  id String @id @default(uuid())
+  userId String
+  token String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id])
+}
