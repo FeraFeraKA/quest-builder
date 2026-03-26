@@ -1,7 +1,10 @@
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
 
-type TJwtPayload = jwt.JwtPayload;
+interface TJwtPayload {
+  id: string;
+  nickname: string;
+}
 
 type TToken = string;
 
