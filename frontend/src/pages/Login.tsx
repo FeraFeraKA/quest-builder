@@ -61,7 +61,7 @@ const Login = () => {
             type="submit"
             className="cursor-pointer p-3 border-2 border-blue-300"
           >
-            Register
+            Login
           </button>
           <Link to="/" className="cursor-pointer p-3 border-2 border-blue-300">
             Back
