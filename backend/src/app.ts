@@ -5,6 +5,7 @@ import express from "express";
 import helmet from "helmet";
 import authRouter from "./modules/auth/auth.routes";
 import { config } from "./shared/config/env";
+import { authGuard } from "./shared/middleware/authGuard";
 import { errorHandler } from "./shared/middleware/errorHandler";
 import { routeHandler } from "./shared/middleware/routeHandler";
 
@@ -27,6 +28,8 @@ app.use(cookieParser());
 app.use(errorHandler);
 
 app.use("/auth", authRouter);
+
+app.use("/quests", authGuard, authRouter);
 
 app.use(routeHandler);
 
