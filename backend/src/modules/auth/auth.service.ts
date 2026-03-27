@@ -6,13 +6,13 @@ import bcrypt from "bcrypt";
 import { getTokens } from "../token/getTokens";
 import { RefreshTokenStorage } from "../token/token.storage";
 import { AuthStorage } from "./auth.storage";
-import type { IRegisterLoginBody, TToken, TUserId } from "./auth.types";
+import type { IRegisterLoginData, TToken, TUserId } from "./auth.types";
 
 const SALT_ROUNDS = 10;
 
 export const AuthService = {
-  async register(body: IRegisterLoginBody) {
-    const { nickname, password } = body;
+  async register(data: IRegisterLoginData) {
+    const { nickname, password } = data;
 
     const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS);
 
@@ -41,8 +41,8 @@ export const AuthService = {
     }
   },
 
-  async login(body: IRegisterLoginBody) {
-    const { nickname, password } = body;
+  async login(data: IRegisterLoginData) {
+    const { nickname, password } = data;
 
     const user = await AuthStorage.getByNickname(nickname);
 

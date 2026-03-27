@@ -5,19 +5,19 @@ import { AuthService } from "./auth.service";
 
 export const AuthController = {
   async register(req: Request, res: Response) {
-    const body = RegisterLoginSchema.parse(req.body);
-    const userDb = await AuthService.register(body);
+    const data = RegisterLoginSchema.parse(req.body);
+    const userDb = await AuthService.register(data);
     res
       .status(201)
       .cookie("accessToken", userDb.accessToken, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: false,
         maxAge: 15 * 60 * 1000,
       })
       .cookie("refreshToken", userDb.refreshToken, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: false,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
@@ -25,20 +25,20 @@ export const AuthController = {
   },
 
   async login(req: Request, res: Response) {
-    const body = RegisterLoginSchema.parse(req.body);
-    const userDb = await AuthService.login(body);
+    const data = RegisterLoginSchema.parse(req.body);
+    const userDb = await AuthService.login(data);
     res
       .status(200)
       .cookie("accessToken", userDb.accessToken, {
         httpOnly: true,
-        sameSite: "strict",
-        secure: false,
+        sameSite: "none",
+        secure: true,
         maxAge: 15 * 60 * 1000,
       })
       .cookie("refreshToken", userDb.refreshToken, {
         httpOnly: true,
-        sameSite: "strict",
-        secure: false,
+        sameSite: "none",
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json(userDb);
@@ -65,13 +65,13 @@ export const AuthController = {
       .status(200)
       .cookie("accessToken", tokens.accessToken, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: false,
         maxAge: 15 * 60 * 1000,
       })
       .cookie("refreshToken", tokens.refreshToken, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: false,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })

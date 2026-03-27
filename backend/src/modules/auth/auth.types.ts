@@ -1,4 +1,4 @@
-export interface IRegisterLoginBody {
+export interface IRegisterLoginData {
   nickname: string;
   password: string;
 }
