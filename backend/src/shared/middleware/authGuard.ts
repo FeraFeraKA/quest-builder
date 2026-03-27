@@ -1,16 +1,10 @@
 import type { NextFunction, Request, Response } from "express";
 import { HttpError } from "../error/httpError";
-import { verifyRefreshToken } from "../lib/jwt";
+import { verifyAccessToken } from "../lib/jwt";
 
 export function authGuard(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer")) {
-    throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
-  }
-
-  const token = authHeader.split(" ")[1];
-
+  const token = req.cookies["accessToken"] as string;
+  
   if (!token) {
     throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
   }
@@ -18,7 +12,7 @@ export function authGuard(req: Request, res: Response, next: NextFunction) {
   let user;
 
   try {
-    user = verifyRefreshToken(token);
+    user = verifyAccessToken(token);
   } catch (e) {
     throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
   }
