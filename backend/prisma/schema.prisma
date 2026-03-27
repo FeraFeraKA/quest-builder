@@ -21,14 +21,14 @@ model User {
 model Quest {
   id String @id @default(uuid())
   userId String
-  startNodeId String @unique
+  startNodeId String? @unique
   title String
   description String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
   nodes Node[] @relation("QuestNodes")
-  startNode Node @relation("StartNode", fields: [startNodeId], references: [id])
+  startNode Node? @relation("StartNode", fields: [startNodeId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }
 
