@@ -3,8 +3,8 @@ import { HttpError } from "../error/httpError";
 import { verifyAccessToken } from "../lib/jwt";
 
 export function authGuard(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies["accessToken"] as string;
-  
+  const token = req.cookies["accessToken"];
+
   if (!token) {
     throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
   }

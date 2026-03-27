@@ -51,13 +51,15 @@ export const AuthController = {
   },
 
   async logout(req: Request, res: Response) {
-    const { refreshToken } = RefreshTokenSchema.parse(req.body);
+    const refreshToken = RefreshTokenSchema.parse(req.cookies["refreshToken"]);
     const success = await AuthService.logout(refreshToken);
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
     res.status(200).json(success);
   },
 
   async refresh(req: Request, res: Response) {
-    const { refreshToken } = RefreshTokenSchema.parse(req.body);
+    const refreshToken = RefreshTokenSchema.parse(req.cookies["refreshToken"]);
     const tokens = await AuthService.refresh(refreshToken);
     res
       .status(200)
@@ -73,6 +75,6 @@ export const AuthController = {
         secure: false,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .json(tokens);
+      .json({ success: true });
   },
 };
