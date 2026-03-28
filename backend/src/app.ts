@@ -27,11 +27,11 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(errorHandler);
-
 app.use("/auth", authRouter);
 
 app.use("/quests", authGuard, questRouter);
+
+app.use(errorHandler);
 
 app.use(routeHandler);
 
