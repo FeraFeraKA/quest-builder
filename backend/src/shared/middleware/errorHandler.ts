@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import z, { ZodError } from "zod";
+import { ZodError } from "zod";
 import { HttpError } from "../error/httpError";
 
 export function errorHandler(
@@ -8,6 +8,7 @@ export function errorHandler(
   res: Response,
   next: NextFunction,
 ) {
+  console.error(err);
   if (err instanceof HttpError) {
     return res.status(err.status).json({
       error: {
@@ -19,8 +20,7 @@ export function errorHandler(
     return res.status(400).json({
       error: {
         code: "VALIDATION_ERROR",
-        message: err.message,
-        details: z.treeifyError(err),
+        details: err.issues,
       },
     });
   } else {
