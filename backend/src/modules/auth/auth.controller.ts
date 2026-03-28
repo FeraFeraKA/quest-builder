@@ -41,7 +41,7 @@ export const AuthController = {
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .json(userDb);
+      .json(userDb.user);
   },
 
   async me(req: Request, res: Response) {
