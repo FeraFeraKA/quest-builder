@@ -1,6 +1,6 @@
 import { HttpError } from "@/shared/error/httpError";
 import type { TUserId } from "../auth/auth.types";
-import type { TPartialQuestData } from "./quest.schema";
+import type { TQuestUpdateData } from "./quest.schema";
 import { QuestStorage } from "./quest.storage";
 import type { IQuestCredentials, IQuestData } from "./quest.types";
 
@@ -35,7 +35,7 @@ export const QuestService = {
     return quest;
   },
 
-  async update(data: TPartialQuestData, credentials: IQuestCredentials) {
+  async update(data: TQuestUpdateData, credentials: IQuestCredentials) {
     const updatedAt = new Date();
 
     const updatedQuest = await QuestStorage.update({

@@ -8,11 +8,14 @@ export const QuestDataSchema = z.object({
   description: z
     .string()
     .min(1, "Description is required")
-    .max(2000, "Description must be shorter than 100 characters"),
+    .max(2000, "Description must be shorter than 2000 characters"),
 });
 
-export const PartialQuestDataSchema = QuestDataSchema.partial();
+export const QuestUpdateDataSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+});
 
-export type TPartialQuestData = z.infer<typeof PartialQuestDataSchema>;
+export type TQuestUpdateData = z.infer<typeof QuestUpdateDataSchema>;
 
 export const QuestIdSchema = z.string();

@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 import {
-  PartialQuestDataSchema,
   QuestDataSchema,
   QuestIdSchema,
+  QuestUpdateDataSchema,
 } from "./quest.schema";
 import { QuestService } from "./quest.service";
 import type { TQuestId } from "./quest.types";
@@ -31,7 +31,7 @@ export const QuestController = {
   async update(req: Request<TQuestId>, res: Response) {
     const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
-    const data = PartialQuestDataSchema.parse(req.body);
+    const data = QuestUpdateDataSchema.parse(req.body);
     const updatedQuest = await QuestService.update(data, { questId, userId });
     res.status(200).json(updatedQuest);
   },

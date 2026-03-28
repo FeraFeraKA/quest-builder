@@ -1,5 +1,5 @@
 export type TQuestId = {
-  id: string;
+  questId: string;
 };
 
 export type TTitle = string;
