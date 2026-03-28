@@ -22,14 +22,14 @@ export const QuestController = {
   },
 
   async getQuest(req: Request<TQuestId>, res: Response) {
-    const questId = QuestIdSchema.parse(req.params.id);
+    const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     const quest = await QuestService.getQuest({ questId, userId });
     res.status(200).json(quest);
   },
 
   async update(req: Request<TQuestId>, res: Response) {
-    const questId = QuestIdSchema.parse(req.params.id);
+    const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     const data = PartialQuestDataSchema.parse(req.body);
     const updatedQuest = await QuestService.update(data, { questId, userId });
@@ -37,9 +37,9 @@ export const QuestController = {
   },
 
   async delete(req: Request<TQuestId>, res: Response) {
-    const questId = QuestIdSchema.parse(req.params.id);
+    const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     await QuestService.delete({ questId, userId });
-    res.status(204);
+    res.status(204).send();
   },
 };
