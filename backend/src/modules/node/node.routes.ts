@@ -7,6 +7,6 @@ router.post("/quests/:questId/nodes", NodeController.create);
 
 // router.patch("/nodes/:nodeId", NodeController.update);
 
-// router.delete("/nodes/:nodeId", NodeController.delete);
+router.delete("/nodes/:nodeId", NodeController.delete);
 
 export default router;

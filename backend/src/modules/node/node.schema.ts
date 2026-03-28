@@ -1,4 +1,5 @@
 import z from "zod";
+import type { TQuestId } from "../quest/quest.types";
 
 export const NodeSchema = z.object({
   title: z
@@ -13,9 +14,7 @@ export const NodeSchema = z.object({
   positionY: z.number(),
 });
 
-export type TNode = z.infer<typeof NodeSchema> & {
-  questId: string;
-};
+export type TNode = z.infer<typeof NodeSchema> & TQuestId;
 
 export const PartialNodeSchema = NodeSchema.partial();
 

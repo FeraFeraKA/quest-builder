@@ -58,6 +58,6 @@ export const QuestService = {
       throw new HttpError(404, "NOT_FOUND", "Quest not found");
     }
 
-    return await QuestStorage.delete(payload);
+    return QuestStorage.delete(payload);
   },
 };
