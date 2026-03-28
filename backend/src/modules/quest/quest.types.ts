@@ -1,8 +1,11 @@
-import type { TPartialQuestData } from "./quest.schema";
+export type TTitle = string;
+
+export type TDescription = string;
 
 export interface IQuestData {
   title: string;
   description: string;
+  userId: string;
 }
 
 export interface IQuestCredentials {
@@ -11,5 +14,5 @@ export interface IQuestCredentials {
 }
 
 export interface IQuestUpdate extends IQuestCredentials {
-  body: TPartialQuestData;
+  updatedAt: Date;
 }

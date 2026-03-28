@@ -1,15 +1,12 @@
 import { HttpError } from "@/shared/error/httpError";
 import type { TUserId } from "../auth/auth.types";
+import type { TPartialQuestData } from "./quest.schema";
 import { QuestStorage } from "./quest.storage";
-import type {
-  IQuestCredentials,
-  IQuestData,
-  IQuestUpdate,
-} from "./quest.types";
+import type { IQuestCredentials, IQuestData } from "./quest.types";
 
 export const QuestService = {
-  async create(body: IQuestData) {
-    const quest = await QuestStorage.create(body);
+  async create(data: IQuestData) {
+    const quest = await QuestStorage.create(data);
 
     if (!quest) {
       throw new HttpError(400, "INVALID_DATA", "Invalid data");
@@ -32,17 +29,23 @@ export const QuestService = {
     const quest = await QuestStorage.getQuest(payload);
 
     if (!quest) {
-      throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
+      throw new HttpError(404, "NOT_FOUND", "Quest not found");
     }
 
     return quest;
   },
 
-  async update(payload: IQuestUpdate) {
-    const updatedQuest = await QuestStorage.update(payload);
+  async update(data: TPartialQuestData, credentials: IQuestCredentials) {
+    const updatedAt = new Date();
+
+    const updatedQuest = await QuestStorage.update({
+      ...data,
+      ...credentials,
+      updatedAt,
+    });
 
     if (!updatedQuest) {
-      throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
+      throw new HttpError(404, "NOT_FOUND", "Quest not found");
     }
 
     return updatedQuest;
@@ -56,5 +59,5 @@ export const QuestService = {
     }
 
     return true;
-  }
+  },
 };

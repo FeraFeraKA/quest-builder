@@ -16,6 +16,7 @@ app.use(
     origin: config.corsOrigin,
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   }),
 );
 

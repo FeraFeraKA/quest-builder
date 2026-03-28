@@ -1,11 +1,16 @@
 import type { Request, Response } from "express";
-import { PartialQuestDataSchema, QuestDataSchema, QuestIdSchema } from "./quest.schema";
+import {
+  PartialQuestDataSchema,
+  QuestDataSchema,
+  QuestIdSchema,
+} from "./quest.schema";
 import { QuestService } from "./quest.service";
 
 export const QuestController = {
   async create(req: Request, res: Response) {
     const body = QuestDataSchema.parse(req.body);
-    const quest = await QuestService.create(body);
+    const userId = req.user.id;
+    const quest = await QuestService.create({ ...body, userId });
     res.status(201).json(quest);
   },
 
@@ -25,8 +30,8 @@ export const QuestController = {
   async update(req: Request, res: Response) {
     const questId = QuestIdSchema.parse(req.params);
     const userId = req.user.id;
-    const body = PartialQuestDataSchema.parse(req.body);
-    const updatedQuest = await QuestService.update({ questId, userId, body });
+    const data = PartialQuestDataSchema.parse(req.body);
+    const updatedQuest = await QuestService.update(data, { questId, userId });
     res.status(200).json(updatedQuest);
   },
 

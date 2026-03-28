@@ -12,13 +12,13 @@ export const AuthController = {
       .cookie("accessToken", userDb.accessToken, {
         httpOnly: true,
         sameSite: "none",
-        secure: false,
+        secure: true,
         maxAge: 15 * 60 * 1000,
       })
       .cookie("refreshToken", userDb.refreshToken, {
         httpOnly: true,
         sameSite: "none",
-        secure: false,
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json(userDb.user);
@@ -66,13 +66,13 @@ export const AuthController = {
       .cookie("accessToken", tokens.accessToken, {
         httpOnly: true,
         sameSite: "none",
-        secure: false,
+        secure: true,
         maxAge: 15 * 60 * 1000,
       })
       .cookie("refreshToken", tokens.refreshToken, {
         httpOnly: true,
         sameSite: "none",
-        secure: false,
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json({ success: true });

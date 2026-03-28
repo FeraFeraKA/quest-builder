@@ -1,6 +1,6 @@
 import { HttpError } from "@/shared/error/httpError";
 import { verifyRefreshToken, type IJwtPayload } from "@/shared/lib/jwt";
-import { toSafeUser } from "@/shared/mapper/safeUser";
+import { toSafeUser } from "@/shared/helpers/safeUser";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import bcrypt from "bcrypt";
 import { getTokens } from "../token/getTokens";
