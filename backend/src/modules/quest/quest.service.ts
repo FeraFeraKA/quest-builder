@@ -52,12 +52,12 @@ export const QuestService = {
   },
 
   async delete(payload: IQuestCredentials) {
-    const isDeleted = await QuestStorage.delete(payload);
+    const quest = await QuestStorage.getQuest(payload);
 
-    if (!isDeleted) {
-      throw new HttpError(401, "UNAUTHORIZED", "Unauthorized");
+    if (!quest) {
+      throw new HttpError(404, "NOT_FOUND", "Quest not found");
     }
 
-    return true;
+    return await QuestStorage.delete(payload);
   },
 };
