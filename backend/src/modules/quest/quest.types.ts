@@ -1,3 +1,7 @@
+export type TQuestId = {
+  id: string;
+};
+
 export type TTitle = string;
 
 export type TDescription = string;
