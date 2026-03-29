@@ -1,4 +1,5 @@
 import { prisma } from "@/shared/lib/prisma";
+import type { TQuestId } from "../quest/quest.types";
 import type { TNode } from "./node.schema";
 import type { INodePayload, INodeUpdateData } from "./node.types";
 
@@ -7,6 +8,18 @@ export const NodeStorage = {
     return prisma.node.findFirst({
       where: {
         id: nodeId,
+        quest: {
+          userId,
+        },
+      },
+    });
+  },
+
+  async getByQuestId({ questId, nodeId, userId }: INodePayload & TQuestId) {
+    return prisma.node.findFirst({
+      where: {
+        id: nodeId,
+        questId,
         quest: {
           userId,
         },

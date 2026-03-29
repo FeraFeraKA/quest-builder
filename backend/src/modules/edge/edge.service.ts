@@ -2,10 +2,10 @@ import { HttpError } from "@/shared/error/httpError";
 import { NodeStorage } from "../node/node.storage";
 import { QuestStorage } from "../quest/quest.storage";
 import { EdgeStorage } from "./edge.storage";
-import type { ICreateEdge } from "./edge.types";
+import type { IEdgeData, IEdgeUpdateData } from "./edge.types";
 
 export const EdgeService = {
-  async create({ data, userId }: ICreateEdge) {
+  async create({ data, userId }: IEdgeData) {
     const quest = await QuestStorage.getQuest({
       questId: data.questId,
       userId,
@@ -32,5 +32,44 @@ export const EdgeService = {
     }
 
     return edge;
+  },
+
+  async update({ data, questId, edgeId, userId }: IEdgeUpdateData) {
+    const nodeFromId = data.nodeFromId;
+    const nodeToId = data.nodeToId;
+
+    const nodeFrom = await NodeStorage.getByQuestId({
+      questId,
+      nodeId: nodeFromId,
+      userId,
+    });
+    const nodeTo = await NodeStorage.getByQuestId({
+      questId,
+      nodeId: nodeToId,
+      userId,
+    });
+
+    if (!nodeFrom || !nodeTo) {
+      throw new HttpError(404, "NOT_FOUND", "Node not found");
+    }
+
+    const { count } = await EdgeStorage.update({
+      data,
+      questId,
+      edgeId,
+      userId,
+    });
+
+    if (count === 0) {
+      throw new HttpError(404, "NOT_FOUND", "Edge not found");
+    }
+
+    const updatedEdge = await EdgeStorage.getById({ edgeId, userId });
+
+    if (!updatedEdge) {
+      throw new HttpError(404, "NOT_FOUND", "Edge not found");
+    }
+
+    return updatedEdge;
   },
 };

@@ -1,6 +1,5 @@
 import { HttpError } from "@/shared/error/httpError";
 import { removeUndefined } from "@/shared/helpers/removeUndefined";
-import type { Prisma } from "generated/prisma/client";
 import { QuestStorage } from "../quest/quest.storage";
 import { NodeStorage } from "./node.storage";
 import type {
@@ -30,7 +29,7 @@ export const NodeService = {
   },
 
   async update({ payload, nodeId, userId }: INodeUpdatePayload) {
-    const data: Prisma.NodeUpdateInput = removeUndefined(payload);
+    const data = removeUndefined(payload);
     const { count } = await NodeStorage.update({
       data,
       nodeId,
