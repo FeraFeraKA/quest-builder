@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { QuestList } from "../components/QuestList";
 
 const Dashboard = () => {
   const [error, setError] = useState<string>("");
@@ -26,6 +27,7 @@ const Dashboard = () => {
     <>
       <div className="flex flex-col items-center my-4 gap-4">
         <h1 className="text-3xl">It's your page with quests</h1>
+        <QuestList />
         <form
           className="flex items-center gap-4"
           onSubmit={(e) => handleSubmit(e)}
