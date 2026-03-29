@@ -18,6 +18,12 @@ const MainPage = () => {
           >
             Login
           </Link>
+          <Link
+            to="/quests"
+            className="cursor-pointer m-3 p-3 border-2 border-blue-300"
+          >
+            Profile
+          </Link>
         </div>
       </div>
     </>

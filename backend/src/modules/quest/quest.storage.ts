@@ -28,6 +28,10 @@ export const QuestStorage = {
         id: questId,
         userId,
       },
+      include: {
+        nodes: true,
+        edges: true,
+      }
     });
   },
 

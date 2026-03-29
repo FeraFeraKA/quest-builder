@@ -29,6 +29,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.set("etag", false);
+
 app.use("/auth", authRouter);
 
 app.use("/quests", authGuard, questRouter);
