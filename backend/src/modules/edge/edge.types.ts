@@ -6,13 +6,20 @@ export type TEdgeId = {
   edgeId: string;
 };
 
+export interface IEdgeIds extends TEdgeId {
+  userId: TUserId;
+}
+
 export interface IEdgeData {
   data: TEdge;
   userId: TUserId;
 }
 
-export interface IEdgeUpdateData extends TEdgeId {
+export interface IEdgeUpdateData extends IEdgeIds {
   data: Omit<TEdge, "questId">;
   questId: TQuestId["questId"];
-  userId: TUserId;
+}
+
+export interface IEdgeDeleteData extends IEdgeIds {
+  questId: TQuestId["questId"];
 }

@@ -1,15 +1,9 @@
 import { prisma } from "@/shared/lib/prisma";
-import type { TUserId } from "../auth/auth.types";
 import type { TEdge } from "./edge.schema";
-import type { IEdgeUpdateData, TEdgeId } from "./edge.types";
+import type { IEdgeDeleteData, IEdgeIds, IEdgeUpdateData } from "./edge.types";
 
 export const EdgeStorage = {
-  async getById({
-    edgeId,
-    userId,
-  }: TEdgeId & {
-    userId: TUserId;
-  }) {
+  async getById({ edgeId, userId }: IEdgeIds) {
     return prisma.edge.findFirst({
       where: {
         id: edgeId,
@@ -32,6 +26,18 @@ export const EdgeStorage = {
       where: {
         questId,
         id: edgeId,
+        quest: {
+          userId,
+        },
+      },
+    });
+  },
+
+  async delete({ edgeId, questId, userId }: IEdgeDeleteData) {
+    return prisma.edge.deleteMany({
+      where: {
+        id: edgeId,
+        questId,
         quest: {
           userId,
         },

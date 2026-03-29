@@ -19,7 +19,20 @@ export const EdgeController = {
     const userId = req.user.id;
     const questId = req.params.questId;
     const data = EdgeSchema.parse(req.body);
-    const updatedEdge = await EdgeService.update({ data, questId, edgeId, userId });
+    const updatedEdge = await EdgeService.update({
+      data,
+      questId,
+      edgeId,
+      userId,
+    });
     res.status(200).json(updatedEdge);
+  },
+
+  async delete(req: Request<TEdgeId & TQuestId>, res: Response) {
+    const edgeId = req.params.edgeId;
+    const questId = req.params.questId;
+    const userId = req.user.id;
+    await EdgeService.delete({ edgeId, questId, userId });
+    res.status(204).send();
   },
 };

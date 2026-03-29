@@ -7,6 +7,6 @@ router.post("/quests/:questId/edges", EdgeController.create);
 
 router.patch("edges/:edgeId", EdgeController.update);
 
-// router.delete("/edges/:edgeId", EdgeController.delete);
+router.delete("/edges/:edgeId", EdgeController.delete);
 
 export default router;
