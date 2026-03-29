@@ -1,14 +1,23 @@
-import type { TNode } from "./node.schema";
-
-export interface INodeCreatePayload {
-  data: TNode;
-  userId: string;
-}
+import type { Prisma } from "generated/prisma/client";
+import type { TNode, TPartialNode } from "./node.schema";
 
 export type TNodeId = {
   nodeId: string;
 };
 
-export interface INodeDeletePayload extends TNodeId {
+export interface INodeCreateData {
+  data: TNode;
   userId: string;
+}
+
+export interface INodePayload extends TNodeId {
+  userId: string;
+}
+
+export interface INodeUpdatePayload extends INodePayload {
+  payload: TPartialNode;
+}
+
+export interface INodeUpdateData extends INodePayload {
+  data: Prisma.NodeUpdateInput;
 }
