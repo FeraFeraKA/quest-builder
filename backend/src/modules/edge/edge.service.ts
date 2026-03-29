@@ -1,4 +1,5 @@
 import { HttpError } from "@/shared/error/httpError";
+import { NodeStorage } from "../node/node.storage";
 import { QuestStorage } from "../quest/quest.storage";
 import { EdgeStorage } from "./edge.storage";
 import type { ICreateEdge } from "./edge.types";
@@ -12,6 +13,16 @@ export const EdgeService = {
 
     if (!quest) {
       throw new HttpError(404, "NOT_FOUND", "Quest not found");
+    }
+
+    const nodeFrom = await NodeStorage.getById({
+      nodeId: data.nodeFromId,
+      userId,
+    });
+    const nodeTo = await NodeStorage.getById({ nodeId: data.nodeToId, userId });
+
+    if (!nodeFrom || !nodeTo) {
+      throw new HttpError(404, "NOT_FOUND", "Node not found");
     }
 
     const edge = await EdgeStorage.create(data);
