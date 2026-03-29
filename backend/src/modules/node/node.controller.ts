@@ -7,9 +7,9 @@ import type { TNodeId } from "./node.types";
 export const NodeController = {
   async create(req: Request<TQuestId>, res: Response) {
     const questId = req.params.questId;
+    const userId = req.user.id;
     const parsedData = NodeSchema.parse(req.body);
     const data = { ...parsedData, questId };
-    const userId = req.user.id;
     const node = await NodeService.create({ data, userId });
     res.status(201).json(node);
   },

@@ -1,4 +1,5 @@
 import type { Prisma } from "generated/prisma/client";
+import type { TUserId } from "../auth/auth.types";
 import type { TNode, TPartialNode } from "./node.schema";
 
 export type TNodeId = {
@@ -7,11 +8,11 @@ export type TNodeId = {
 
 export interface INodeCreateData {
   data: TNode;
-  userId: string;
+  userId: TUserId;
 }
 
 export interface INodePayload extends TNodeId {
-  userId: string;
+  userId: TUserId;
 }
 
 export interface INodeUpdatePayload extends INodePayload {

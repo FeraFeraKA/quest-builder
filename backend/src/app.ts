@@ -4,6 +4,7 @@ import type { Express } from "express";
 import express from "express";
 import helmet from "helmet";
 import authRouter from "./modules/auth/auth.routes";
+import edgeRouter from "./modules/edge/edge.routes";
 import nodeRouter from "./modules/node/node.routes";
 import questRouter from "./modules/quest/quest.routes";
 import { config } from "./shared/config/env";
@@ -33,6 +34,8 @@ app.use("/auth", authRouter);
 app.use("/quests", authGuard, questRouter);
 
 app.use("/", authGuard, nodeRouter);
+
+app.use("/", authGuard, edgeRouter);
 
 app.use(errorHandler);
 
