@@ -28,6 +28,7 @@ model Quest {
   updatedAt DateTime @default(now())
 
   nodes Node[] @relation("QuestNodes")
+  edges Edge[]
   startNode Node? @relation("StartNode", fields: [startNodeId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }
@@ -50,12 +51,14 @@ model Node {
 
 model Edge {
   id String @id @default(uuid())
+  questId String
   nodeFromId String
   nodeToId String
   conditions Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
+  quest Quest @relation(fields: [questId], references: [id])
   nodeFrom Node @relation("from", fields: [nodeFromId], references: [id])
   nodeTo Node @relation("to", fields: [nodeToId], references: [id])
 }
