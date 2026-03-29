@@ -2,7 +2,7 @@ import { HttpError } from "@/shared/error/httpError";
 import { NodeStorage } from "../node/node.storage";
 import { QuestStorage } from "../quest/quest.storage";
 import { EdgeStorage } from "./edge.storage";
-import type { IEdgeData, IEdgeDeleteData, IEdgeUpdateData } from "./edge.types";
+import type { IEdgeData, IEdgeIds, IEdgeUpdateData } from "./edge.types";
 
 export const EdgeService = {
   async create({ data, userId }: IEdgeData) {
@@ -73,8 +73,8 @@ export const EdgeService = {
     return updatedEdge;
   },
 
-  async delete({ edgeId, questId, userId }: IEdgeDeleteData) {
-    const { count } = await EdgeStorage.delete({ edgeId, questId, userId });
+  async delete({ edgeId, userId }: IEdgeIds) {
+    const { count } = await EdgeStorage.delete({ edgeId, userId });
 
     if (count === 0) {
       throw new HttpError(404, "NOT_FOUND", "Edge not found");

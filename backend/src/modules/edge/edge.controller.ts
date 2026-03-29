@@ -30,9 +30,8 @@ export const EdgeController = {
 
   async delete(req: Request<TEdgeId & TQuestId>, res: Response) {
     const edgeId = req.params.edgeId;
-    const questId = req.params.questId;
     const userId = req.user.id;
-    await EdgeService.delete({ edgeId, questId, userId });
+    await EdgeService.delete({ edgeId, userId });
     res.status(204).send();
   },
 };

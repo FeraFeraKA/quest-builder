@@ -19,7 +19,3 @@ export interface IEdgeUpdateData extends IEdgeIds {
   data: Omit<TEdge, "questId">;
   questId: TQuestId["questId"];
 }
-
-export interface IEdgeDeleteData extends IEdgeIds {
-  questId: TQuestId["questId"];
-}
