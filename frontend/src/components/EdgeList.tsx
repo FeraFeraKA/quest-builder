@@ -5,7 +5,20 @@ import Edge from "./Edge";
 const EdgeList = ({ edges }: { edges: IEdge[] }) => {
   const [error, setError] = useState<string>("");
   const deleteEdge = async (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
 
+    try {
+      const res = await fetch(`/api/edges/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Что-то не так");
+      }
+    } catch {
+      setError("Что-то сломалось");
+    }
   };
 
   useEffect(() => {}, [edges]);

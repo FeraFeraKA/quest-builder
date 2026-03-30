@@ -1,6 +1,7 @@
 import { Link } from "react-router";
+import DeleteQuest from "./DeleteQuest";
 
-const Quest = ({ title, description, questId }) => {
+const Quest = ({ title, description, questId, loadQuests }) => {
   return (
     <>
       <div className="flex justify-center items-center border-2 border-blue-300 w-70 h-13">
@@ -12,6 +13,7 @@ const Quest = ({ title, description, questId }) => {
         >
           Go to quest
         </Link>
+        <DeleteQuest questId={questId} loadQuests={loadQuests} />
       </div>
     </>
   );
