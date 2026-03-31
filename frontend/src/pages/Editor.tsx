@@ -32,13 +32,13 @@ const Editor = () => {
     };
 
     loadQuest();
-  }, [questId]);
+  }, [questId, nodes, edges]);
 
   return (
     <>
       <div className="flex flex-col justify-center gap-4 m-3 text-3xl text-center">
         <h1 className="">It's editor!</h1>
-        <NodeList nodes={nodes} />
+        <NodeList nodes={nodes} setNodes={setNodes} questId={questId} />
         <EdgeList edges={edges} />
         {error && <p>{error}</p>}
         <Link
