@@ -13,7 +13,7 @@ export const AuthController = {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        maxAge: 15 * 60 * 1000,
+        maxAge: 60 * 60 * 1000,
       })
       .cookie("refreshToken", userDb.refreshToken, {
         httpOnly: true,
@@ -33,7 +33,7 @@ export const AuthController = {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        maxAge: 15 * 60 * 1000,
+        maxAge: 60 * 60 * 1000,
       })
       .cookie("refreshToken", userDb.refreshToken, {
         httpOnly: true,
@@ -67,7 +67,7 @@ export const AuthController = {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        maxAge: 15 * 60 * 1000,
+        maxAge: 60 * 60 * 1000,
       })
       .cookie("refreshToken", tokens.refreshToken, {
         httpOnly: true,
