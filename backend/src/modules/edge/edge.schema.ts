@@ -12,3 +12,5 @@ export const EdgeSchema = z
   });
 
 export type TEdge = z.infer<typeof EdgeSchema> & TQuestId;
+
+export const EdgeIdSchema = z.string();

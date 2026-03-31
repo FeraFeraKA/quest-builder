@@ -20,9 +20,12 @@ export const EdgeStorage = {
     });
   },
 
-  async update({ data, questId, edgeId, userId }: IEdgeUpdateData) {
+  async update({ data, questId, edgeId, userId, updatedAt }: IEdgeUpdateData) {
     return prisma.edge.updateMany({
-      data,
+      data: {
+        ...data,
+        updatedAt,
+      },
       where: {
         questId,
         id: edgeId,

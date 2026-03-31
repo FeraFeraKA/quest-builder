@@ -1,12 +1,13 @@
 import type { Request, Response } from "express";
+import { QuestIdSchema } from "../quest/quest.schema";
 import type { TQuestId } from "../quest/quest.types";
-import { EdgeSchema } from "./edge.schema";
+import { EdgeIdSchema, EdgeSchema } from "./edge.schema";
 import { EdgeService } from "./edge.service";
 import type { TEdgeId } from "./edge.types";
 
 export const EdgeController = {
   async create(req: Request<TQuestId>, res: Response) {
-    const questId = req.params.questId;
+    const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     const parsedData = EdgeSchema.parse(req.body);
     const data = { ...parsedData, questId };
@@ -15,9 +16,9 @@ export const EdgeController = {
   },
 
   async update(req: Request<TEdgeId & TQuestId>, res: Response) {
-    const edgeId = req.params.edgeId;
+    const edgeId = EdgeIdSchema.parse(req.params.edgeId);
     const userId = req.user.id;
-    const questId = req.params.questId;
+    const questId = QuestIdSchema.parse(req.params.questId);
     const data = EdgeSchema.parse(req.body);
     const updatedEdge = await EdgeService.update({
       data,
@@ -29,7 +30,7 @@ export const EdgeController = {
   },
 
   async delete(req: Request<TEdgeId & TQuestId>, res: Response) {
-    const edgeId = req.params.edgeId;
+    const edgeId = EdgeIdSchema.parse(req.params.edgeId);
     const userId = req.user.id;
     await EdgeService.delete({ edgeId, userId });
     res.status(204).send();

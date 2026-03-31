@@ -34,9 +34,15 @@ export const EdgeService = {
     return edge;
   },
 
-  async update({ data, questId, edgeId, userId }: IEdgeUpdateData) {
+  async update({
+    data,
+    questId,
+    edgeId,
+    userId,
+  }: Omit<IEdgeUpdateData, "updatedAt">) {
     const nodeFromId = data.nodeFromId;
     const nodeToId = data.nodeToId;
+    const updatedAt = new Date();
 
     const nodeFrom = await NodeStorage.getByQuestId({
       questId,
@@ -58,6 +64,7 @@ export const EdgeService = {
       questId,
       edgeId,
       userId,
+      updatedAt,
     });
 
     if (count === 0) {

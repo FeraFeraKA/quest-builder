@@ -18,4 +18,5 @@ export interface IEdgeData {
 export interface IEdgeUpdateData extends IEdgeIds {
   data: Omit<TEdge, "questId">;
   questId: TQuestId["questId"];
+  updatedAt: Date;
 }
