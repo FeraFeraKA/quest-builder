@@ -1,12 +1,13 @@
 import type { Request, Response } from "express";
+import { QuestIdSchema } from "../quest/quest.schema";
 import type { TQuestId } from "../quest/quest.types";
-import { NodeSchema, PartialNodeSchema } from "./node.schema";
+import { NodeIdSchema, NodeSchema, PartialNodeSchema } from "./node.schema";
 import { NodeService } from "./node.service";
 import type { TNodeId } from "./node.types";
 
 export const NodeController = {
   async create(req: Request<TQuestId>, res: Response) {
-    const questId = req.params.questId;
+    const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     const parsedData = NodeSchema.parse(req.body);
     const data = { ...parsedData, questId };
@@ -15,7 +16,7 @@ export const NodeController = {
   },
 
   async update(req: Request<TNodeId>, res: Response) {
-    const nodeId = req.params.nodeId;
+    const nodeId = NodeIdSchema.parse(req.params.nodeId);
     const userId = req.user.id;
     const payload = PartialNodeSchema.parse(req.body);
     const updatedNode = await NodeService.update({ payload, nodeId, userId });
@@ -23,7 +24,7 @@ export const NodeController = {
   },
 
   async delete(req: Request<TNodeId>, res: Response) {
-    const nodeId = req.params.nodeId;
+    const nodeId = NodeIdSchema.parse(req.params.nodeId);
     const userId = req.user.id;
     await NodeService.delete({ nodeId, userId });
     res.status(204).send();

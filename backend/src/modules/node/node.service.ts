@@ -29,7 +29,8 @@ export const NodeService = {
   },
 
   async update({ payload, nodeId, userId }: INodeUpdatePayload) {
-    const data = removeUndefined(payload);
+    const updatedAt = new Date();
+    const data = removeUndefined({ ...payload, updatedAt });
     const { count } = await NodeStorage.update({
       data,
       nodeId,

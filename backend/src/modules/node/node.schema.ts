@@ -19,3 +19,5 @@ export type TNode = z.infer<typeof NodeSchema> & TQuestId;
 export const PartialNodeSchema = NodeSchema.partial();
 
 export type TPartialNode = z.infer<typeof PartialNodeSchema>;
+
+export const NodeIdSchema = z.string();
