@@ -39,8 +39,8 @@ app.use("/", authGuard, nodeRouter);
 
 app.use("/", authGuard, edgeRouter);
 
-app.use(errorHandler);
-
 app.use(routeHandler);
+
+app.use(errorHandler);
 
 export default app;
