@@ -6,6 +6,9 @@ import type { IEdgeData, IEdgeIds, IEdgeUpdateData } from "./edge.types";
 
 export const EdgeService = {
   async create({ data, userId }: IEdgeData) {
+    const nodeFromId = data.nodeFromId;
+    const nodeToId = data.nodeToId;
+
     const quest = await QuestStorage.getQuest({
       questId: data.questId,
       userId,
@@ -16,13 +19,23 @@ export const EdgeService = {
     }
 
     const nodeFrom = await NodeStorage.getById({
-      nodeId: data.nodeFromId,
+      nodeId: nodeFromId,
       userId,
     });
-    const nodeTo = await NodeStorage.getById({ nodeId: data.nodeToId, userId });
+    const nodeTo = await NodeStorage.getById({ nodeId: nodeToId, userId });
 
     if (!nodeFrom || !nodeTo) {
       throw new HttpError(404, "NOT_FOUND", "Node not found");
+    }
+
+    const existingEdge = await EdgeStorage.getByNodesId({
+      nodeFromId,
+      nodeToId,
+      userId,
+    });
+
+    if (existingEdge) {
+      throw new HttpError(409, "DUPLICATE", "Edge already exists");
     }
 
     const edge = await EdgeStorage.create(data);
@@ -57,16 +70,6 @@ export const EdgeService = {
 
     if (!nodeFrom || !nodeTo) {
       throw new HttpError(404, "NOT_FOUND", "Node not found");
-    }
-
-    const existingEdge = await EdgeStorage.getByNodesId({
-      nodeFromId,
-      nodeToId,
-      userId,
-    });
-
-    if (existingEdge) {
-      throw new HttpError(409, "DUPLICATE", "Edge already exists");
     }
 
     const { count } = await EdgeStorage.update({
