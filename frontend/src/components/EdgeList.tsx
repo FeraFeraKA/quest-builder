@@ -1,29 +1,10 @@
-import { useEffect, useState } from "react";
-import type { IEdge } from "../types/quest.types";
+import AddEdge from "./AddEdge";
 import Edge from "./Edge";
 
-const EdgeList = ({ edges }: { edges: IEdge[] }) => {
-  const [error, setError] = useState<string>("");
-  const deleteEdge = async (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch(`/api/edges/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        throw new Error("Что-то не так");
-      }
-    } catch {
-      setError("Что-то сломалось");
-    }
-  };
-
-  useEffect(() => {}, [edges]);
+const EdgeList = ({ edges, setEdges, questId }) => {
   return (
     <>
+      <AddEdge setEdges={setEdges} questId={questId} />
       <p>Your edges: </p>
       <div className="flex justify-center">
         {edges.map((edge) => (
@@ -32,10 +13,9 @@ const EdgeList = ({ edges }: { edges: IEdge[] }) => {
             id={edge.id}
             nodeFromId={edge.nodeFromId}
             nodeToId={edge.nodeToId}
-            deleteEdge={deleteEdge}
+            setEdges={setEdges}
           />
         ))}
-        {error && <p>{error}</p>}
       </div>
     </>
   );
