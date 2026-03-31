@@ -1,6 +1,8 @@
 import { HttpError } from "@/shared/error/httpError";
 import { removeUndefined } from "@/shared/helpers/removeUndefined";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import type { TUserId } from "../auth/auth.types";
+import { NodeStorage } from "../node/node.storage";
 import type { TQuestUpdateData } from "./quest.schema";
 import { QuestStorage } from "./quest.storage";
 import type {
@@ -44,13 +46,16 @@ export const QuestService = {
     const updatedAt = new Date();
     const data = removeUndefined({ ...payload, updatedAt });
 
-    const updatedQuest = await QuestStorage.update(data, credentials);
+    try {
+      const updatedQuest = await QuestStorage.update(data, credentials);
 
-    if (!updatedQuest) {
-      throw new HttpError(404, "NOT_FOUND", "Quest not found");
+      return updatedQuest;
+    } catch (e) {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+        throw new HttpError(404, "NOT_FOUND", "Quest not found");
+      }
+      throw e;
     }
-
-    return updatedQuest;
   },
 
   async setStartNode(
@@ -58,26 +63,41 @@ export const QuestService = {
     credentials: IQuestCredentials,
   ) {
     const updatedAt = new Date();
+    const nodeId = startNodeId["startNodeId"];
 
-    const updatedQuest = await QuestStorage.update(
-      { ...startNodeId, updatedAt },
-      credentials,
-    );
+    const node = await NodeStorage.getByQuestId({
+      questId: credentials.questId,
+      nodeId,
+      userId: credentials.userId,
+    });
 
-    if (!updatedQuest) {
-      throw new HttpError(404, "NOT_FOUND", "Quest not found");
+    if (!node) {
+      throw new HttpError(404, "NOT_FOUND", "Node not found");
     }
 
-    return updatedQuest;
+    try {
+      const updatedQuest = await QuestStorage.update(
+        { ...startNodeId, updatedAt },
+        credentials,
+      );
+
+      return updatedQuest;
+    } catch (e) {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+        throw new HttpError(404, "NOT_FOUND", "Quest not found");
+      }
+      throw e;
+    }
   },
 
   async delete(payload: IQuestCredentials) {
-    const quest = await QuestStorage.getQuest(payload);
-
-    if (!quest) {
-      throw new HttpError(404, "NOT_FOUND", "Quest not found");
+    try {
+      await QuestStorage.delete(payload);
+    } catch (e) {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+        throw new HttpError(404, "NOT_FOUND", "Quest not found");
+      }
+      throw e;
     }
-
-    return QuestStorage.delete(payload);
   },
 };

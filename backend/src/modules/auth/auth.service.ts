@@ -1,6 +1,6 @@
 import { HttpError } from "@/shared/error/httpError";
-import { verifyRefreshToken, type IJwtPayload } from "@/shared/lib/jwt";
 import { toSafeUser } from "@/shared/helpers/safeUser";
+import { verifyRefreshToken, type IJwtPayload } from "@/shared/lib/jwt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import bcrypt from "bcrypt";
 import { getTokens } from "../token/getTokens";
@@ -16,10 +16,8 @@ export const AuthService = {
 
     const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS);
 
-    let user;
-
     try {
-      user = await AuthStorage.register({ nickname, passwordHash });
+      const user = await AuthStorage.register({ nickname, passwordHash });
 
       const { accessToken, refreshToken, refreshTokenExpiresAt } = getTokens({
         id: user.id,
