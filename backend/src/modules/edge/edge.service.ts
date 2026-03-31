@@ -49,13 +49,20 @@ export const EdgeService = {
 
   async update({
     data,
-    questId,
     edgeId,
     userId,
-  }: Omit<IEdgeUpdateData, "updatedAt">) {
+  }: Omit<IEdgeUpdateData, "updatedAt" | "questId">) {
     const nodeFromId = data.nodeFromId;
     const nodeToId = data.nodeToId;
     const updatedAt = new Date();
+
+    const existingEdge = await EdgeStorage.getById({ edgeId, userId });
+
+    if (!existingEdge) {
+      throw new HttpError(404, "NOT_FOUND", "Edge not found");
+    }
+
+    const questId = existingEdge.questId;
 
     const nodeFrom = await NodeStorage.getByQuestId({
       questId,
