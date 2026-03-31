@@ -45,7 +45,7 @@ model Node {
 
   edgesFrom Edge[] @relation("from")
   edgesTo Edge[] @relation("to")
-  quest Quest @relation("QuestNodes",fields: [questId], references: [id])
+  quest Quest @relation("QuestNodes",fields: [questId], references: [id], onDelete: Cascade)
   startForQuest Quest? @relation("StartNode")
 }
 
@@ -59,8 +59,8 @@ model Edge {
   updatedAt DateTime @default(now())
 
   quest Quest @relation(fields: [questId], references: [id])
-  nodeFrom Node @relation("from", fields: [nodeFromId], references: [id])
-  nodeTo Node @relation("to", fields: [nodeToId], references: [id])
+  nodeFrom Node @relation("from", fields: [nodeFromId], references: [id], onDelete: Cascade)
+  nodeTo Node @relation("to", fields: [nodeToId], references: [id], onDelete: Cascade)
 }
 
 model RefreshToken {
