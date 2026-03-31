@@ -31,8 +31,8 @@ export const QuestController = {
   async update(req: Request<TQuestId>, res: Response) {
     const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
-    const data = QuestUpdateDataSchema.parse(req.body);
-    const updatedQuest = await QuestService.update(data, { questId, userId });
+    const payload = QuestUpdateDataSchema.parse(req.body);
+    const updatedQuest = await QuestService.update(payload, { questId, userId });
     res.status(200).json(updatedQuest);
   },
 

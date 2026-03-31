@@ -1,11 +1,7 @@
 import { prisma } from "@/shared/lib/prisma";
+import type { Prisma } from "generated/prisma/client";
 import type { TUserId } from "../auth/auth.types";
-import type { TQuestUpdateData } from "./quest.schema";
-import type {
-  IQuestCredentials,
-  IQuestData,
-  IQuestUpdate,
-} from "./quest.types";
+import type { IQuestCredentials, IQuestData } from "./quest.types";
 
 export const QuestStorage = {
   async create(data: IQuestData) {
@@ -31,21 +27,17 @@ export const QuestStorage = {
       include: {
         nodes: true,
         edges: true,
-      }
+      },
     });
   },
 
-  async update(payload: IQuestUpdate & TQuestUpdateData) {
+  async update(data: Prisma.QuestUpdateInput, credentials: IQuestCredentials) {
     return prisma.quest.update({
       where: {
-        id: payload.questId,
-        userId: payload.userId,
+        id: credentials.questId,
+        userId: credentials.userId,
       },
-      data: {
-        title: payload.title,
-        description: payload.description,
-        updatedAt: payload.updatedAt,
-      },
+      data,
     });
   },
 

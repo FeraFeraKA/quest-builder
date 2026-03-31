@@ -1,4 +1,5 @@
 import { HttpError } from "@/shared/error/httpError";
+import { removeUndefined } from "@/shared/helpers/removeUndefined";
 import type { TUserId } from "../auth/auth.types";
 import type { TQuestUpdateData } from "./quest.schema";
 import { QuestStorage } from "./quest.storage";
@@ -35,14 +36,11 @@ export const QuestService = {
     return quest;
   },
 
-  async update(data: TQuestUpdateData, credentials: IQuestCredentials) {
+  async update(payload: TQuestUpdateData, credentials: IQuestCredentials) {
     const updatedAt = new Date();
+    const data = removeUndefined({ ...payload, updatedAt });
 
-    const updatedQuest = await QuestStorage.update({
-      ...data,
-      ...credentials,
-      updatedAt,
-    });
+    const updatedQuest = await QuestStorage.update(data, credentials);
 
     if (!updatedQuest) {
       throw new HttpError(404, "NOT_FOUND", "Quest not found");
