@@ -59,6 +59,16 @@ export const EdgeService = {
       throw new HttpError(404, "NOT_FOUND", "Node not found");
     }
 
+    const existingEdge = await EdgeStorage.getByNodesId({
+      nodeFromId,
+      nodeToId,
+      userId,
+    });
+
+    if (existingEdge) {
+      throw new HttpError(409, "DUPLICATE", "Edge already exists");
+    }
+
     const { count } = await EdgeStorage.update({
       data,
       questId,

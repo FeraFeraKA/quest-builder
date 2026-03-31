@@ -45,7 +45,7 @@ model Node {
 
   edgesFrom Edge[] @relation("from")
   edgesTo Edge[] @relation("to")
-  quest Quest @relation("QuestNodes",fields: [questId], references: [id], onDelete: Cascade)
+  quest Quest @relation("QuestNodes", fields: [questId], references: [id], onDelete: Cascade)
   startForQuest Quest? @relation("StartNode")
 }
 

@@ -1,12 +1,24 @@
 import { prisma } from "@/shared/lib/prisma";
 import type { TEdge } from "./edge.schema";
-import type { IEdgeIds, IEdgeUpdateData } from "./edge.types";
+import type { IEdgeGet, IEdgeIds, IEdgeUpdateData } from "./edge.types";
 
 export const EdgeStorage = {
   async getById({ edgeId, userId }: IEdgeIds) {
     return prisma.edge.findFirst({
       where: {
         id: edgeId,
+        quest: {
+          userId,
+        },
+      },
+    });
+  },
+
+  async getByNodesId({ nodeFromId, nodeToId, userId }: IEdgeGet) {
+    return prisma.edge.findFirst({
+      where: {
+        nodeFromId,
+        nodeToId,
         quest: {
           userId,
         },
