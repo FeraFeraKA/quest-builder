@@ -8,9 +8,10 @@ export const EdgeService = {
   async create({ data, userId }: IEdgeData) {
     const nodeFromId = data.nodeFromId;
     const nodeToId = data.nodeToId;
+    const questId = data.questId;
 
     const quest = await QuestStorage.getQuest({
-      questId: data.questId,
+      questId,
       userId,
     });
 
@@ -18,11 +19,16 @@ export const EdgeService = {
       throw new HttpError(404, "NOT_FOUND", "Quest not found");
     }
 
-    const nodeFrom = await NodeStorage.getById({
+    const nodeFrom = await NodeStorage.getByQuestId({
+      questId,
       nodeId: nodeFromId,
       userId,
     });
-    const nodeTo = await NodeStorage.getById({ nodeId: nodeToId, userId });
+    const nodeTo = await NodeStorage.getByQuestId({
+      questId,
+      nodeId: nodeToId,
+      userId,
+    });
 
     if (!nodeFrom || !nodeTo) {
       throw new HttpError(404, "NOT_FOUND", "Node not found");
