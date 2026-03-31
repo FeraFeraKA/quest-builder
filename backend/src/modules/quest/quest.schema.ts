@@ -17,4 +17,6 @@ export type TQuestUpdateData = z.infer<typeof QuestUpdateDataSchema>;
 
 export const QuestIdSchema = z.string();
 
-export const StartNodeIdSchema = z.string();
+export const StartNodeIdSchema = z.object({
+  startNodeId: z.string(),
+});

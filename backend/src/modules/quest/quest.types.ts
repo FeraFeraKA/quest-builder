@@ -2,7 +2,9 @@ export type TQuestId = {
   questId: string;
 };
 
-export type TStartNodeId = string;
+export type TStartNodeId = {
+  startNodeId: string;
+};
 
 export type TTitle = string;
 

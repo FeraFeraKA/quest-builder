@@ -60,7 +60,7 @@ export const QuestService = {
     const updatedAt = new Date();
 
     const updatedQuest = await QuestStorage.update(
-      { startNodeId, updatedAt },
+      { ...startNodeId, updatedAt },
       credentials,
     );
 
