@@ -31,7 +31,7 @@ export const QuestStorage = {
     });
   },
 
-  async update(data: Prisma.QuestUpdateInput, credentials: IQuestCredentials) {
+  async update(data: Prisma.QuestUncheckedUpdateInput, credentials: IQuestCredentials) {
     return prisma.quest.update({
       where: {
         id: credentials.questId,

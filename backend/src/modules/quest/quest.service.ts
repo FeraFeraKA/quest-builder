@@ -3,7 +3,11 @@ import { removeUndefined } from "@/shared/helpers/removeUndefined";
 import type { TUserId } from "../auth/auth.types";
 import type { TQuestUpdateData } from "./quest.schema";
 import { QuestStorage } from "./quest.storage";
-import type { IQuestCredentials, IQuestData } from "./quest.types";
+import type {
+  IQuestCredentials,
+  IQuestData,
+  TStartNodeId,
+} from "./quest.types";
 
 export const QuestService = {
   async create(data: IQuestData) {
@@ -41,6 +45,24 @@ export const QuestService = {
     const data = removeUndefined({ ...payload, updatedAt });
 
     const updatedQuest = await QuestStorage.update(data, credentials);
+
+    if (!updatedQuest) {
+      throw new HttpError(404, "NOT_FOUND", "Quest not found");
+    }
+
+    return updatedQuest;
+  },
+
+  async setStartNode(
+    startNodeId: TStartNodeId,
+    credentials: IQuestCredentials,
+  ) {
+    const updatedAt = new Date();
+
+    const updatedQuest = await QuestStorage.update(
+      { startNodeId, updatedAt },
+      credentials,
+    );
 
     if (!updatedQuest) {
       throw new HttpError(404, "NOT_FOUND", "Quest not found");

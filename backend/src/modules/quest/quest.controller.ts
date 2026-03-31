@@ -3,6 +3,7 @@ import {
   QuestDataSchema,
   QuestIdSchema,
   QuestUpdateDataSchema,
+  StartNodeIdSchema,
 } from "./quest.schema";
 import { QuestService } from "./quest.service";
 import type { TQuestId } from "./quest.types";
@@ -32,7 +33,21 @@ export const QuestController = {
     const questId = QuestIdSchema.parse(req.params.questId);
     const userId = req.user.id;
     const payload = QuestUpdateDataSchema.parse(req.body);
-    const updatedQuest = await QuestService.update(payload, { questId, userId });
+    const updatedQuest = await QuestService.update(payload, {
+      questId,
+      userId,
+    });
+    res.status(200).json(updatedQuest);
+  },
+
+  async setStartNode(req: Request<TQuestId>, res: Response) {
+    const questId = QuestIdSchema.parse(req.params.questId);
+    const userId = req.user.id;
+    const startNodeId = StartNodeIdSchema.parse(req.body);
+    const updatedQuest = await QuestService.setStartNode(startNodeId, {
+      questId,
+      userId,
+    });
     res.status(200).json(updatedQuest);
   },
 

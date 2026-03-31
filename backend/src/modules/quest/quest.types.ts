@@ -2,6 +2,8 @@ export type TQuestId = {
   questId: string;
 };
 
+export type TStartNodeId = string;
+
 export type TTitle = string;
 
 export type TDescription = string;

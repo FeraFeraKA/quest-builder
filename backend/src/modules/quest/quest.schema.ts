@@ -16,3 +16,5 @@ export const QuestUpdateDataSchema = QuestDataSchema.partial();
 export type TQuestUpdateData = z.infer<typeof QuestUpdateDataSchema>;
 
 export const QuestIdSchema = z.string();
+
+export const StartNodeIdSchema = z.string();

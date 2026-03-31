@@ -11,6 +11,8 @@ router.get("/:questId", QuestController.getQuest);
 
 router.patch("/:questId", QuestController.update);
 
+router.patch("/:questId/startNode", QuestController.setStartNode);
+
 router.delete("/:questId", QuestController.delete);
 
 export default router;
