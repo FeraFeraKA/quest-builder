@@ -1,1 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+  --font-pixel: "Silkscreen", sans-serif;
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
+  button {
+    @apply cursor-pointer m-3 p-3 border-2 border-blue-300;
+  }
+
+  .link {
+    @apply cursor-pointer m-3 p-3 border-2 border-blue-300;
+  }
+}
