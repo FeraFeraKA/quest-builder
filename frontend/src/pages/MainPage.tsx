@@ -1,9 +1,12 @@
 const MainPage = () => {
   return (
     <>
-      <div className="flex flex-col items-center my-4 gap-4">
-        <h1>Hello! It's main page</h1>
-      </div>
+      <div
+        className="absolute inset-0 -z-20 h-screen flex items-center justify-between
+  bg-[url(/images/bg.png)]
+  bg-repeat
+  bg-top"
+      ></div>
     </>
   );
 };
