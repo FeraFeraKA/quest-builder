@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="hidden md:flex gap-6 mb-3">
+      <nav className="hidden md:flex gap-6">
         <LinkButton text={"Register"} url={"/"} />
         <LinkButton text={"Login"} url={"/"} />
         <LinkButton text={"Profile"} url={"/"} />
