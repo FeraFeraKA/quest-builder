@@ -3,29 +3,24 @@ import type { ILinkButton } from "./Button.types";
 
 const LinkButton = ({ text, url }: ILinkButton) => {
   return (
-    <Link
-      to={url}
-      className="inline-flex items-stretch h-14 hover:brightness-110 active:translate-y-px"
-    >
+    <Link to={url} className="inline-flex items-stretch active:translate-y-px">
       <img
         src="/images/button-left.png"
         alt=""
-        className="block h-full w-auto shrink-0 [image-rendering:pixelated]"
+        className="block h-13 w-auto shrink-0 [image-rendering:pixelated]"
       />
 
-      <span className="relative block h-full min-w-55 w-80 overflow-hidden">
+      <span className="relative flex items-center justify-center h-13 shrink-0">
         <img
           src="/images/button-middle.png"
           alt=""
-          className="block w-full h-full object-fill [image-rendering:pixelated]"
+          className="absolute inset-0 w-full h-full object-fill [image-rendering:pixelated]"
         />
 
         <span
           className="
-            absolute inset-0
-            flex items-center justify-center
-            font-pixel text-[#f5d742] text-xl
-            drop-shadow-[1px_1px_0_#000]"
+            relative z-10 font-pixel text-[#f5d742] text-xl
+            [text-shadow:2px_2px_0_#7a1f00] whitespace-nowrap hover:brightness-110"
         >
           {text}
         </span>
@@ -34,7 +29,7 @@ const LinkButton = ({ text, url }: ILinkButton) => {
       <img
         src="/images/button-right.png"
         alt=""
-        className="block h-full w-auto shrink-0 [image-rendering:pixelated]"
+        className="block h-13 w-auto shrink-0 [image-rendering:pixelated]"
       />
     </Link>
   );

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import LinkButton from "../ui/Button/LinkButton";
 
 const Navbar = () => {
@@ -24,15 +23,8 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="md:hidden flex">
-          <Link to="/auth/register" className="link mt-0">
-            Register
-          </Link>
-          <Link to="/auth/login" className="link mt-0">
-            Login
-          </Link>
-          <Link to="/quests" className="link mt-0">
-            Profile
-          </Link>
+          <LinkButton text={"Регистрация"} url={"/"} />
+          <LinkButton text={"Логин"} url={"/"} />
         </div>
       )}
     </>
