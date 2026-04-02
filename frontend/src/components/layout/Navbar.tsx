@@ -7,8 +7,13 @@ const Navbar = () => {
   return (
     <>
       <nav className="hidden md:flex gap-6">
-        <LinkButton text={"Регистрация"} url={"/"} />
-        <LinkButton text={"Логин"} url={"/"} />
+        <LinkButton
+          text="Регистрация"
+          url="/"
+          height="h-13"
+          textSize="text-xl"
+        />
+        <LinkButton text="Логин" url="/" height="h-13" textSize="text-xl" />
         {/* <LinkButton text={"Профиль"} url={"/"} /> */}
       </nav>
 
@@ -29,8 +34,13 @@ const Navbar = () => {
           ></div>
 
           <div className="relative flex flex-col items-center gap-5 w-fit">
-            <LinkButton text={"Регистрация"} url={"/"} />
-            <LinkButton text={"Логин"} url={"/"} />
+            <LinkButton
+              text="Регистрация"
+              url="/"
+              height="h-13"
+              textSize="text-xl"
+            />
+            <LinkButton text="Логин" url="/" height="h-13" textSize="text-xl" />
           </div>
         </div>
       )}
