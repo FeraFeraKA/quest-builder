@@ -8,9 +8,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="hidden md:flex gap-6">
-        <LinkButton text={"Register"} url={"/"} />
-        <LinkButton text={"Login"} url={"/"} />
-        <LinkButton text={"Profile"} url={"/"} />
+        <LinkButton text={"Регистрация"} url={"/"} />
+        <LinkButton text={"Логин"} url={"/"} />
+        {/* <LinkButton text={"Профиль"} url={"/"} /> */}
       </nav>
 
       <button
