@@ -14,17 +14,24 @@ const Navbar = () => {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden flex flex-col gap-1 border-none p-0 mt-5 mb-8"
+        className="md:hidden flex flex-col gap-1 border-none p-0"
       >
-        <span className="w-6 h-0.5 bg-black"></span>
-        <span className="w-6 h-0.5 bg-black"></span>
-        <span className="w-6 h-0.5 bg-black"></span>
+        <span className="w-6 h-0.5 bg-yellow-400"></span>
+        <span className="w-6 h-0.5 bg-yellow-400"></span>
+        <span className="w-6 h-0.5 bg-yellow-400"></span>
       </button>
 
       {isOpen && (
-        <div className="md:hidden flex">
-          <LinkButton text={"Регистрация"} url={"/"} />
-          <LinkButton text={"Логин"} url={"/"} />
+        <div className="md:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setIsOpen(!isOpen)}
+          ></div>
+
+          <div className="relative flex flex-col items-center gap-5 w-fit">
+            <LinkButton text={"Регистрация"} url={"/"} />
+            <LinkButton text={"Логин"} url={"/"} />
+          </div>
         </div>
       )}
     </>
