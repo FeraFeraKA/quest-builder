@@ -47,6 +47,7 @@ const Register = () => {
           />
           <Input
             label={"Пароль"}
+            type={"password"}
             height={"h-13"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -65,7 +66,9 @@ const Register = () => {
           height={"h-13"}
           textSize={"text-md md:text-xl"}
         />
-        {registerMutation.isError && <p className="mt-4">{registerMutation.error.message}</p>}
+        {registerMutation.isError && (
+          <p className="mt-4">{registerMutation.error.message}</p>
+        )}
       </div>
     </>
   );

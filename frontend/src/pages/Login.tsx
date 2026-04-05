@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import LinkButton from "../components/ui/LinkButton";
 import useLogin from "../hooks/auth/useLogin";
 
 const Login = () => {
@@ -8,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const loginMutation = useLogin();
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
 
     loginMutation.mutate(
@@ -26,42 +29,44 @@ const Login = () => {
 
   return (
     <>
-      <div className="my-4 text-center flex flex-col items-center">
-        <h1 className="text-3xl">Login</h1>
+      <div
+        className="absolute inset-0 -z-50 h-screen
+        bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
+      ></div>
+      <div className="my-4 text-center flex flex-col items-center ">
+        <h1 className="font-pixel text-green-300">Авторизация</h1>
         <form
-          className="flex flex-col my-4 gap-2"
+          className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <label>
-            Nickname
-            <input
-              className="ml-2 border-2"
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              className="ml-2 border-2"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button
+          <Input
+            label={"Никнейм"}
+            height={"h-13"}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <Input
+            label={"Пароль"}
+            type={"password"}
+            height={"h-13"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            text={loginMutation.isPending ? "Загрузка..." : "Войти"}
             disabled={loginMutation.isPending}
             type="submit"
-            className="cursor-pointer p-3 border-2 border-blue-300"
-          >
-            {loginMutation.isPending ? "Загрузка..." : "Зарегистрироваться"}
-          </button>
-          <Link to="/" className="cursor-pointer p-3 border-2 border-blue-300">
-            Back
-          </Link>
-          {loginMutation.isError && <p>{loginMutation.error.message}</p>}
+          />
         </form>
+        <LinkButton
+          text={"Назад"}
+          url={"/"}
+          height={"h-13"}
+          textSize={"text-md md:text-xl"}
+        />
+        {loginMutation.isError && (
+          <p className="mt-4">{loginMutation.error.message}</p>
+        )}
       </div>
     </>
   );
