@@ -1,34 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import useRegister from "../hooks/auth/useRegister";
 
 const Register = () => {
-  const [error, setError] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const registerMutation = useRegister();
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+    registerMutation.mutate(
+      {
+        nickname,
+        password,
+      },
+      {
+        onSuccess: () => {
+          navigate("/quests");
         },
-        body: JSON.stringify({
-          nickname,
-          password,
-        }),
-      });
-
-      if (!res.ok) throw new Error("Register failed");
-
-      navigate("/quests");
-    } catch {
-      setError("Неверные данные");
-    }
+      },
+    );
   };
 
   return (
@@ -58,15 +51,16 @@ const Register = () => {
             />
           </label>
           <button
+            disabled={registerMutation.isPending}
             type="submit"
             className="cursor-pointer p-3 border-2 border-blue-300"
           >
-            Register
+            {registerMutation.isPending ? "Загрузка..." : "Зарегистрироваться"}
           </button>
           <Link to="/" className="cursor-pointer p-3 border-2 border-blue-300">
             Back
           </Link>
-          {error && <p>{error}</p>}
+          {registerMutation.isError && <p>{registerMutation.error.message}</p>}
         </form>
       </div>
     </>

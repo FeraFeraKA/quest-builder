@@ -19,7 +19,8 @@ export const fetcher = async <T>({
   });
 
   if (!res.ok) {
-    throw new Error("Request failed");
+    const data = await res.json();
+    throw new Error(data.error.message);
   }
 
   return res.json();

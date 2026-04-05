@@ -20,6 +20,7 @@ export function errorHandler(
     return res.status(400).json({
       error: {
         code: "VALIDATION_ERROR",
+        message: err.issues[0]?.message,
         details: err.issues,
       },
     });
