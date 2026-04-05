@@ -19,7 +19,12 @@ const Navbar = () => {
           height="h-13"
           textSize="text-xl"
         />
-        {/* <LinkButton text={"Профиль"} url={"/"} /> */}
+        <LinkButton
+          text="Профиль"
+          url="/quests"
+          height="h-13"
+          textSize="text-xl"
+        />
       </nav>
 
       <button

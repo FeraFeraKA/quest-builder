@@ -30,4 +30,12 @@
   .link {
     @apply cursor-pointer m-3 p-3 border-2 border-blue-300;
   }
+
+  .pixel-panel {
+    border: 16px solid transparent;
+    border-image-source: url("/images/panel-frame.png");
+    border-image-slice: 16 fill;
+    border-image-repeat: stretch;
+    image-rendering: pixelated;
+  }
 }

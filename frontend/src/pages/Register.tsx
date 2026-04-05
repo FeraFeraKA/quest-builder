@@ -40,15 +40,15 @@ const Register = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <Input
-            label={"Никнейм"}
-            height={"h-13"}
+            label="Никнейм"
+            height="h-13"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <Input
-            label={"Пароль"}
-            type={"password"}
-            height={"h-13"}
+            label="Пароль"
+            type="password"
+            height="h-13"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -61,10 +61,10 @@ const Register = () => {
           />
         </form>
         <LinkButton
-          text={"Назад"}
-          url={"/"}
-          height={"h-13"}
-          textSize={"text-md md:text-xl"}
+          text="Назад"
+          url="/"
+          height="h-13"
+          textSize="text-md md:text-xl"
         />
         {registerMutation.isError && (
           <p className="mt-4">{registerMutation.error.message}</p>
