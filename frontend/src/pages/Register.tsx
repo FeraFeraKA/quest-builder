@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import LinkButton from "../components/ui/LinkButton";
 import useRegister from "../hooks/auth/useRegister";
 
 const Register = () => {
@@ -26,42 +29,43 @@ const Register = () => {
 
   return (
     <>
-      <div className="my-4 text-center flex flex-col items-center">
-        <h1 className="text-3xl">Register</h1>
+      <div
+        className="absolute inset-0 -z-50 h-screen
+        bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
+      ></div>
+      <div className="my-4 text-center flex flex-col items-center ">
+        <h1 className="font-pixel text-green-300">Регистрация</h1>
         <form
-          className="flex flex-col my-4 gap-2"
+          className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <label>
-            Nickname
-            <input
-              className="ml-2 border-2"
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              className="ml-2 border-2"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button
+          <Input
+            label={"Никнейм"}
+            height={"h-13"}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <Input
+            label={"Пароль"}
+            height={"h-13"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            text={
+              registerMutation.isPending ? "Загрузка..." : "Зарегистрироваться"
+            }
             disabled={registerMutation.isPending}
             type="submit"
-            className="cursor-pointer p-3 border-2 border-blue-300"
-          >
-            {registerMutation.isPending ? "Загрузка..." : "Зарегистрироваться"}
-          </button>
-          <Link to="/" className="cursor-pointer p-3 border-2 border-blue-300">
-            Back
-          </Link>
-          {registerMutation.isError && <p>{registerMutation.error.message}</p>}
+          />
         </form>
+        <LinkButton
+          text={"Назад"}
+          url={"/"}
+          height={"h-13"}
+          textSize={"text-md md:text-xl"}
+        />
+        {registerMutation.isError && <p className="mt-4">{registerMutation.error.message}</p>}
       </div>
     </>
   );

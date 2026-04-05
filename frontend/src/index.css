@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 @font-face {
   font-family: "Silkscreen";
@@ -10,15 +11,20 @@
 
 @theme {
   --font-pixel: "Silkscreen", sans-serif;
+  --font-jetbrains: "JetBrains Mono", sans-serif;
 }
 
 @layer base {
   h1 {
-    @apply text-3xl font-bold;
+    @apply text-3xl;
+  }
+
+  p {
+    @apply font-pixel text-yellow-300;
   }
 
   button {
-    @apply cursor-pointer m-3 p-3 border-2 border-blue-300;
+    @apply cursor-pointer;
   }
 
   .link {

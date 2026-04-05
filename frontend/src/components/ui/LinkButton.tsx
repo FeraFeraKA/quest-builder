@@ -1,7 +1,13 @@
 import { Link } from "react-router";
-import type { ILinkButton } from "./Button.types";
 
-const LinkButton = ({ text, url, height, textSize }: ILinkButton) => {
+interface ILinkButtonProps {
+  text: string;
+  url: string;
+  height: string;
+  textSize: string;
+}
+
+const LinkButton = ({ text, url, height, textSize }: ILinkButtonProps) => {
   return (
     <Link to={url} className="inline-flex items-stretch active:translate-y-px">
       <img

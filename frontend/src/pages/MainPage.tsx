@@ -1,4 +1,4 @@
-import LinkButton from "../components/ui/Button/LinkButton";
+import LinkButton from "../components/ui/LinkButton";
 
 const MainPage = () => {
   return (

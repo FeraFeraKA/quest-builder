@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LinkButton from "../ui/Button/LinkButton";
+import LinkButton from "../ui/LinkButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
