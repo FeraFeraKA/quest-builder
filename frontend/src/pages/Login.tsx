@@ -1,34 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import useLogin from "../hooks/auth/useLogin";
 
 const Login = () => {
-  const [error, setError] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const loginMutation = useLogin();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+    loginMutation.mutate(
+      {
+        nickname,
+        password,
+      },
+      {
+        onSuccess: () => {
+          navigate("/quests");
         },
-        body: JSON.stringify({
-          nickname,
-          password,
-        }),
-      });
-
-      if (!res.ok) throw new Error("Login failed");
-
-      navigate("/quests");
-    } catch {
-      setError("Неверные данные");
-    }
+      },
+    );
   };
 
   return (
@@ -58,15 +51,16 @@ const Login = () => {
             />
           </label>
           <button
+            disabled={loginMutation.isPending}
             type="submit"
             className="cursor-pointer p-3 border-2 border-blue-300"
           >
-            Login
+            {loginMutation.isPending ? "Загрузка..." : "Зарегистрироваться"}
           </button>
           <Link to="/" className="cursor-pointer p-3 border-2 border-blue-300">
             Back
           </Link>
-          {error && <p>{error}</p>}
+          {loginMutation.isError && <p>{loginMutation.error.message}</p>}
         </form>
       </div>
     </>

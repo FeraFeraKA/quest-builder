@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import AddQuest from "../components/AddQuest";
-import { QuestList } from "../components/QuestList";
+import AddQuest from "../deprecated/AddQuest";
+import { QuestList } from "../deprecated/QuestList";
 import type { IQuest } from "../types/quest.types";
 
 const Dashboard = () => {

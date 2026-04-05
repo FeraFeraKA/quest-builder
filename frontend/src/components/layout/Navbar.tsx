@@ -9,11 +9,16 @@ const Navbar = () => {
       <nav className="hidden md:flex gap-6">
         <LinkButton
           text="Регистрация"
-          url="/"
+          url="/auth/register"
           height="h-13"
           textSize="text-xl"
         />
-        <LinkButton text="Логин" url="/" height="h-13" textSize="text-xl" />
+        <LinkButton
+          text="Логин"
+          url="/auth/login"
+          height="h-13"
+          textSize="text-xl"
+        />
         {/* <LinkButton text={"Профиль"} url={"/"} /> */}
       </nav>
 
