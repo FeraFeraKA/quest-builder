@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 import LinkButton from "../components/ui/LinkButton";
 import useQuests from "../hooks/auth/useQuests";
-import Button from "../components/ui/Button";
 
 const Dashboard = () => {
   const { data: quests, isPending, isError, error } = useQuests();
@@ -28,8 +29,15 @@ const Dashboard = () => {
       ></div>
       <div className="flex flex-col items-center my-4 gap-4 font-pixel text-yellow-300">
         <h1 className="text-3xl">Это твоя страница с квестами</h1>
-        {/* <AddQuest loadQuests={loadQuests} />
-        <QuestList quests={quests} loadQuests={loadQuests} /> */}
+        <Card>
+          <h2 className="font-pixel text-2xl text-yellow-300 my-4">
+            Quest Card
+          </h2>
+
+          <p className="font-jetbrains text-white">
+            Здесь лежит текст карточки. Центр повторяется, края не ломаются.
+          </p>
+        </Card>
         <form
           className="flex items-center gap-4"
           onSubmit={(e) => handleSubmit(e)}
@@ -40,7 +48,7 @@ const Dashboard = () => {
             height="h-13"
             textSize="text-xl"
           />
-          <Button text="Выйти"/>
+          <Button text="Выйти" />
         </form>
         {isError && <p>{error.message}</p>}
       </div>
