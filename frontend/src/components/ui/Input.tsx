@@ -18,17 +18,17 @@ const Input = ({ label, height, ...props }: TInputProps) => {
           />
 
           <span
-            className={`relative flex items-center justify-center ${height} w-50 shrink-0`}
+            className={`
+            relative flex items-center justify-center
+            ${height} w-50 shrink-0
+            bg-repeat-x bg-size-[auto_100%]
+            [image-rendering:pixelated]
+          `}
+            style={{ backgroundImage: "url('/images/input-middle.png')" }}
           >
-            <img
-              src="/images/input-middle.png"
-              alt=""
-              className="absolute inset-0 w-full h-full object-fill [image-rendering:pixelated]"
-            />
-
             <input
               {...props}
-              className="text-2xl font-jetbrains z-10 outline-0 w-50 mb-0.75"
+              className="relative z-10 text-2xl font-jetbrains outline-0 w-50 mb-0.75 bg-transparent"
             />
           </span>
 
