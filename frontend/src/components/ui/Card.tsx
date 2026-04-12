@@ -1,5 +1,3 @@
-import React from "react";
-
 type TCardProps = {
   children: React.ReactNode;
   className?: string;
@@ -9,6 +7,7 @@ type TCardProps = {
   left?: number;
   right?: number;
 };
+
 const CARD_SLICE_SOURCE = {
   topHeight: 165,
   bottomHeight: 387,
@@ -92,7 +91,7 @@ const Card = ({
       />
 
       <div
-        className={`min-w-0 min-h-0 ${contentClassName} [image-rendering:pixelated]`}
+        className={`min-w-0 min-h-0 pt-5 ${contentClassName} [image-rendering:pixelated]`}
         style={{
           backgroundImage: "url('/images/card/card_center.png')",
           backgroundRepeat: "repeat",

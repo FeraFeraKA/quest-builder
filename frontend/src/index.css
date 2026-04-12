@@ -19,6 +19,10 @@
     @apply text-3xl;
   }
 
+  h2 {
+    @apply text-2xl;
+  }
+
   p {
     @apply font-pixel text-yellow-300;
   }
