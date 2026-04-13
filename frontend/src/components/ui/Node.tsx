@@ -1,6 +1,12 @@
 import Card from "./Card";
 
-const Node = ({ id, title, description }) => {
+interface INodeProps {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const Node = ({ id, title, description }: INodeProps) => {
   return (
     <>
       <Card className="hover:brightness-110 hover:-translate-y-1 transition-all duration-200">

@@ -1,6 +1,11 @@
+import type { INode } from "../../types/quest.types";
 import Node from "../ui/Node";
 
-const NodeList = ({ nodes }) => {
+type TNodeListProps = {
+  nodes: INode[];
+};
+
+const NodeList = ({ nodes }: TNodeListProps) => {
   return (
     <>
       <p className="font-pixel text-yellow-300">Your nodes: </p>

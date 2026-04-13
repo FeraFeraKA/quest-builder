@@ -6,7 +6,7 @@ import useQuest from "../hooks/quests/useQuest";
 const Editor = () => {
   const params = useParams();
   const questId = params.id!;
-  const { data: quest, isPending, isError, error } = useQuest(questId);
+  const { data: quest, isError, error } = useQuest(questId);
 
   return (
     <>

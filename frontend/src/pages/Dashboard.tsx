@@ -5,7 +5,7 @@ import LinkButton from "../components/ui/LinkButton";
 import useQuests from "../hooks/quests/useQuests";
 
 const Dashboard = () => {
-  const { data: quests, isPending, isError, error } = useQuests();
+  const { data: quests, isError, error } = useQuests();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
