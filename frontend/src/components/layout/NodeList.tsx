@@ -8,12 +8,11 @@ type TNodeListProps = {
 const NodeList = ({ nodes }: TNodeListProps) => {
   return (
     <>
-      <p className="font-pixel text-yellow-300">Your nodes: </p>
+      <p className="font-pixel text-yellow-300">Твои узлы (события): </p>
       <div className="flex justify-center">
         {nodes.map((node) => (
           <Node
             key={node.id}
-            id={node.id}
             title={node.title}
             description={node.description}
           />

@@ -15,16 +15,16 @@ const Editor = () => {
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
       <div className="flex flex-col items-center gap-4 m-3 text-3xl font-pixel text-yellow-300">
-        <h1>It's editor!</h1>
+        <h1>Это редактор</h1>
         {isError && <p>{error.message}</p>}
-        {quest?.nodes ? (
+        {quest?.nodes.length ? (
           <NodeList nodes={quest.nodes} />
         ) : (
-          <p>There is no nodes</p>
+          <p>У тебя нет узлов (событий)</p>
         )}
         <LinkButton
           url="/quests"
-          text="Back to quests"
+          text="Назад к квестам"
           height="h-13"
           textSize="text-xl"
         ></LinkButton>
