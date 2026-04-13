@@ -6,7 +6,7 @@ type TButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & TText;
 
 const Button = ({ text }: TButtonProps) => {
   return (
-    <button className={`inline-flex items-stretch active:translate-y-px`}>
+    <button className="inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
       <img
         src="/images/button-left.png"
         alt=""

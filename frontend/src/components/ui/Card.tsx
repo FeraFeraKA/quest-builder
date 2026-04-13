@@ -2,11 +2,12 @@ type TCardProps = {
   children: React.ReactNode;
   className?: string;
   contentClassName?: string;
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
 };
+
+const top = 24;
+const bottom = 56;
+const left = 48;
+const right = 48;
 
 const CARD_SLICE_SOURCE = {
   topHeight: 165,
@@ -21,10 +22,6 @@ const Card = ({
   children,
   className = "",
   contentClassName = "",
-  top = 24,
-  bottom = 56,
-  left = 48,
-  right = 48,
 }: TCardProps) => {
   const scaleX =
     (left / CARD_SLICE_SOURCE.leftWidth +
