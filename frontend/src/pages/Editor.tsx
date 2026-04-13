@@ -1,52 +1,33 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
-import EdgeList from "../components/EdgeList";
-import NodeList from "../components/NodeList";
-import type { IEdge, INode, IQuest } from "../types/quest.types";
+import { useParams } from "react-router";
+import NodeList from "../components/layout/NodeList";
+import LinkButton from "../components/ui/LinkButton";
+import useQuest from "../hooks/quests/useQuest";
 
 const Editor = () => {
   const params = useParams();
-  const questId = params.questId;
-  const [error, setError] = useState<string>("");
-  const [nodes, setNodes] = useState<INode[]>([]);
-  const [edges, setEdges] = useState<IEdge[]>([]);
-
-  useEffect(() => {
-    const loadQuest = async () => {
-      try {
-        const res = await fetch(`/api/quests/${questId}`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        if (!res.ok) {
-          throw new Error("Cannot get quest");
-        }
-
-        const quest: IQuest = await res.json();
-        setNodes(quest.nodes);
-        setEdges(quest.edges);
-      } catch {
-        setError("Что-то сломалось");
-      }
-    };
-
-    loadQuest();
-  }, [questId, nodes, edges]);
+  const questId = params.id!;
+  const { data: quest, isPending, isError, error } = useQuest(questId);
 
   return (
     <>
-      <div className="flex flex-col justify-center gap-4 m-3 text-3xl text-center">
-        <h1 className="">It's editor!</h1>
-        <NodeList nodes={nodes} setNodes={setNodes} questId={questId} />
-        <EdgeList edges={edges} setEdges={setEdges} questId={questId} />
-        {error && <p>{error}</p>}
-        <Link
-          to="/quests"
-          className="cursor-pointer p-3 border-2 border-blue-300"
-        >
-          Back to quests
-        </Link>
+      <div
+        className="absolute inset-0 -z-50 h-screen
+        bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
+      ></div>
+      <div className="flex flex-col items-center gap-4 m-3 text-3xl font-pixel text-yellow-300">
+        <h1>It's editor!</h1>
+        {isError && <p>{error.message}</p>}
+        {quest?.nodes ? (
+          <NodeList nodes={quest.nodes} />
+        ) : (
+          <p>There is no nodes</p>
+        )}
+        <LinkButton
+          url="/quests"
+          text="Back to quests"
+          height="h-13"
+          textSize="text-xl"
+        ></LinkButton>
       </div>
     </>
   );

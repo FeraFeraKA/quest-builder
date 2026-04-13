@@ -1,5 +1,5 @@
 import type { IQuest } from "../../types/quest.types";
-import Quest from "../ui/Quest";
+import Quest from "../ui/QuestCard";
 
 interface IQuestListProps {
   quests?: IQuest[];
