@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { getMe } from "./api/auth";
 import Layout from "./components/layout/MainLayout";
 import "./index.css";
 import Dashboard from "./pages/Dashboard";
@@ -10,6 +11,15 @@ import Editor from "./pages/Editor";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
 import Register from "./pages/Register";
+
+const requireAuth = async () => {
+  try {
+    const user = await getMe();
+    return user;
+  } catch {
+    throw redirect("/auth/login");
+  }
+};
 
 const router = createBrowserRouter([
   {
@@ -26,10 +36,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/quests",
+        loader: requireAuth,
         Component: Dashboard,
       },
       {
         path: "/quests/:id",
+        loader: requireAuth,
         Component: Editor,
       },
     ],

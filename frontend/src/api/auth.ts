@@ -33,3 +33,12 @@ export const logoutUser = async () => {
 
   return user;
 };
+
+export const getMe = async () => {
+  const me = await fetcher({
+    url: "/api/auth/me",
+    method: "GET",
+  });
+
+  return me;
+};
