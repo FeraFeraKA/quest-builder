@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import QuestList from "../components/layout/QuestList";
 import Button from "../components/ui/Button";
 import LinkButton from "../components/ui/LinkButton";
@@ -7,17 +6,12 @@ import useQuests from "../hooks/quests/useQuests";
 
 const Dashboard = () => {
   const { data: quests, isError, error } = useQuests();
-  const navigate = useNavigate();
   const logoutMutation = useLogout();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    logoutMutation.mutate(undefined, {
-      onSuccess: () => {
-        navigate("/");
-      },
-    });
+    logoutMutation.mutate(undefined);
   };
 
   return (

@@ -4,9 +4,12 @@ type TText = {
 
 type TButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & TText;
 
-const Button = ({ text }: TButtonProps) => {
+const Button = ({ text, ...props }: TButtonProps) => {
   return (
-    <button className="inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+    <button
+      {...props}
+      className={`inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200`}
+    >
       <img
         src="/images/button-left.png"
         alt=""

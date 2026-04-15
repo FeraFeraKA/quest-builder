@@ -42,4 +42,9 @@
     border-image-repeat: stretch;
     image-rendering: pixelated;
   }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #e8edf6 inset !important;
+    -webkit-text-fill-color: black !important;
+  }
 }

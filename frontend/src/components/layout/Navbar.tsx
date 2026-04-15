@@ -1,30 +1,49 @@
 import { useState } from "react";
+import useLogout from "../../hooks/auth/useLogout";
+import useMe from "../../hooks/auth/useMe";
+import Button from "../ui/Button";
 import LinkButton from "../ui/LinkButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { data: user } = useMe();
+  const logoutMutation = useLogout();
 
   return (
     <>
       <nav className="hidden md:flex gap-6">
-        <LinkButton
-          text="Регистрация"
-          url="/auth/register"
-          height="h-13"
-          textSize="text-xl"
-        />
-        <LinkButton
-          text="Логин"
-          url="/auth/login"
-          height="h-13"
-          textSize="text-xl"
-        />
-        <LinkButton
-          text="Профиль"
-          url="/quests"
-          height="h-13"
-          textSize="text-xl"
-        />
+        {user ? null : (
+          <LinkButton
+            text="Регистрация"
+            url="/auth/register"
+            height="h-13"
+            textSize="text-xl"
+          />
+        )}
+        {user ? null : (
+          <LinkButton
+            text="Логин"
+            url="/auth/login"
+            height="h-13"
+            textSize="text-xl"
+          />
+        )}
+        {user ? (
+          <LinkButton
+            text="Профиль"
+            url="/quests"
+            height="h-13"
+            textSize="text-xl"
+          />
+        ) : null}
+        {user ? (
+          <Button
+            type="button"
+            disabled={logoutMutation.isPending}
+            onClick={() => logoutMutation.mutate(undefined)}
+            text="Выйти"
+          />
+        ) : null}
       </nav>
 
       <button
