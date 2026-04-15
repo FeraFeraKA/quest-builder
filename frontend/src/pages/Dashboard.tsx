@@ -2,23 +2,22 @@ import { useNavigate } from "react-router";
 import QuestList from "../components/layout/QuestList";
 import Button from "../components/ui/Button";
 import LinkButton from "../components/ui/LinkButton";
+import useLogout from "../hooks/auth/useLogout";
 import useQuests from "../hooks/quests/useQuests";
 
 const Dashboard = () => {
   const { data: quests, isError, error } = useQuests();
   const navigate = useNavigate();
+  const logoutMutation = useLogout();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    const res = await fetch("/api/auth/logout", {
-      method: "POST",
-      credentials: "include",
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        navigate("/");
+      },
     });
-
-    if (!res.ok) throw new Error("Logout failed");
-
-    navigate("/");
   };
 
   return (
@@ -40,7 +39,7 @@ const Dashboard = () => {
             height="h-13"
             textSize="text-xl"
           />
-          <Button text="Выйти" />
+          <Button text={logoutMutation.isPending ? "Выход..." : "Выйти"} />
         </form>
         {isError && <p>{error.message}</p>}
       </div>

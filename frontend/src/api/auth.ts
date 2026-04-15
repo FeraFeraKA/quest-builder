@@ -24,3 +24,12 @@ export const loginUser = async (data: IFetchUser) => {
 
   return user;
 };
+
+export const logoutUser = async () => {
+  const user = await fetcher({
+    url: "/api/auth/logout",
+    method: "POST",
+  });
+
+  return user;
+};
