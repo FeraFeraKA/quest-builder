@@ -10,11 +10,7 @@ const Editor = () => {
 
   return (
     <>
-      <div
-        className="absolute inset-0 -z-50 h-screen
-        bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
-      ></div>
-      <div className="flex flex-col items-center gap-4 m-3 text-3xl font-pixel text-yellow-300">
+      <div className="flex flex-col items-center text-center gap-4 m-3 text-3xl font-pixel text-yellow-300">
         <h1>Это редактор</h1>
         {isError && <p>{error.message}</p>}
         {quest?.nodes.length ? (
