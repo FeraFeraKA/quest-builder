@@ -1,12 +1,12 @@
 import { useParams } from "react-router";
 import NodeList from "../components/layout/NodeList";
 import LinkButton from "../components/ui/LinkButton";
-import useQuest from "../hooks/quests/useQuest";
+import useGetQuest from "../hooks/quests/useGetQuest";
 
 const Editor = () => {
   const params = useParams();
   const questId = params.id!;
-  const { data: quest, isError, error } = useQuest(questId);
+  const { data: quest, isError, error } = useGetQuest(questId);
 
   return (
     <>
@@ -18,14 +18,10 @@ const Editor = () => {
         ) : (
           <p>У тебя нет узлов (событий)</p>
         )}
-        <LinkButton
-          url="/quests"
-          text="Назад к квестам"
-        ></LinkButton>
+        <LinkButton url="/quests" text="Назад к квестам"></LinkButton>
       </div>
     </>
   );
 };
 
 export default Editor;
-
