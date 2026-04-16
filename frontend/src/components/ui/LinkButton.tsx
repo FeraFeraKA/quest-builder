@@ -3,11 +3,16 @@ import { Link } from "react-router";
 interface ILinkButtonProps {
   text: string;
   url: string;
-  height: string;
-  textSize: string;
+  height?: string;
+  textSize?: string;
 }
 
-const LinkButton = ({ text, url, height, textSize }: ILinkButtonProps) => {
+const LinkButton = ({
+  text,
+  url,
+  height = "h-13",
+  textSize = "text-xl",
+}: ILinkButtonProps) => {
   return (
     <Link
       to={url}

@@ -41,14 +41,12 @@ const Login = () => {
         >
           <Input
             label="Никнейм"
-            height="h-13"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <Input
             label="Пароль"
             type="password"
-            height="h-13"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -58,12 +56,7 @@ const Login = () => {
             type="submit"
           />
         </form>
-        <LinkButton
-          text="Назад"
-          url="/"
-          height="h-13"
-          textSize="text-md md:text-xl"
-        />
+        <LinkButton text="Назад" url="/" />
         {loginMutation.isError && (
           <p className="mt-4">{loginMutation.error.message}</p>
         )}

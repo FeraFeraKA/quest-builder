@@ -3,6 +3,11 @@ import { fetcher } from "./fetcher";
 
 export type TQuestID = string;
 
+interface ICreateQuest {
+  title: string;
+  description: string;
+}
+
 export const getQuests = async () => {
   const quests = await fetcher<IQuest[]>({
     url: "/api/quests",
@@ -20,3 +25,14 @@ export const getQuest = async (id: TQuestID) => {
 
   return quest;
 };
+
+export const createQuest = async ({ title, description }: ICreateQuest) => {
+  const quest = await fetcher<IQuest>({
+    url: "/api/quests",
+    method: "POST",
+    body: { title, description },
+  });
+
+  return quest;
+};
+

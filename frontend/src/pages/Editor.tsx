@@ -21,8 +21,6 @@ const Editor = () => {
         <LinkButton
           url="/quests"
           text="Назад к квестам"
-          height="h-13"
-          textSize="text-xl"
         ></LinkButton>
       </div>
     </>
@@ -30,3 +28,4 @@ const Editor = () => {
 };
 
 export default Editor;
+

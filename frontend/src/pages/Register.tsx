@@ -41,14 +41,12 @@ const Register = () => {
         >
           <Input
             label="Никнейм"
-            height="h-13"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <Input
             label="Пароль"
             type="password"
-            height="h-13"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -63,7 +61,6 @@ const Register = () => {
         <LinkButton
           text="Назад"
           url="/"
-          height="h-13"
           textSize="text-md md:text-xl"
         />
         {registerMutation.isError && (
@@ -75,3 +72,4 @@ const Register = () => {
 };
 
 export default Register;
+

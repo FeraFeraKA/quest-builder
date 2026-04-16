@@ -8,7 +8,7 @@ interface IQuestListProps {
 const QuestList = ({ quests }: IQuestListProps) => {
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-center gap-4">
         {quests?.map((quest) => (
           <Quest
             id={quest.id}

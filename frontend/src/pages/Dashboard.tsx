@@ -8,29 +8,25 @@ const Dashboard = () => {
   const { data: quests, isError, error } = useQuests();
   const logoutMutation = useLogout();
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-
-    logoutMutation.mutate(undefined);
-  };
-
   return (
     <>
-      <div className="flex flex-col items-center py-4 gap-4 font-pixel text-yellow-300">
+      <div className="flex flex-col items-center p-4 md:px-8 lg:px-12 gap-4 font-pixel text-yellow-300">
         <h1 className="text-3xl text-center">Это твоя страница с квестами</h1>
         <QuestList quests={quests} />
-        <form
-          className="flex flex-col md:flex-row items-center gap-4"
-          onSubmit={(e) => handleSubmit(e)}
-        >
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <LinkButton
             text="На главную"
             url="/"
-            height="h-13"
-            textSize="text-xl"
           />
-          <Button text={logoutMutation.isPending ? "Выход..." : "Выйти"} />
-        </form>
+          <Button
+            text={logoutMutation.isPending ? "Выход..." : "Выйти"}
+            onClick={() => logoutMutation.mutate(undefined)}
+          />
+          <LinkButton
+            text="Создать квест"
+            url="/quests/create"
+          />
+        </div>
         {isError && <p>{error.message}</p>}
       </div>
     </>
@@ -38,3 +34,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

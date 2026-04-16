@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router/dom";
 import { getMe } from "./api/auth";
 import Layout from "./components/layout/MainLayout";
 import "./index.css";
+import CreateQuest from "./pages/CreateQuest";
 import Dashboard from "./pages/Dashboard";
 import Editor from "./pages/Editor";
 import Login from "./pages/Login";
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         path: "/quests/:id",
         loader: requireAuth,
         Component: Editor,
+      },
+      {
+        path: "/quests/create",
+        loader: requireAuth,
+        Component: CreateQuest,
       },
     ],
   },

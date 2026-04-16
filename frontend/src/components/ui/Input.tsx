@@ -1,10 +1,16 @@
 type TLabel = {
   label: string;
+  textSize?: string;
 };
 
 type TInputProps = React.InputHTMLAttributes<HTMLInputElement> & TLabel;
 
-const Input = ({ label, height, ...props }: TInputProps) => {
+const Input = ({
+  label,
+  height = "h-13",
+  textSize = "text-xl",
+  ...props
+}: TInputProps) => {
   return (
     <>
       <div className="grid md:grid-cols-[max-content_minmax(0,1fr)] gap-x-4 items-center text-3xl font-pixel text-yellow-300">
@@ -28,7 +34,7 @@ const Input = ({ label, height, ...props }: TInputProps) => {
           >
             <input
               {...props}
-              className="relative z-10 text-2xl font-jetbrains outline-0 w-50 mb-0.75 bg-transparent"
+              className={`relative z-10 ${textSize} font-jetbrains outline-0 w-50 mb-0.75 bg-transparent`}
             />
           </span>
 

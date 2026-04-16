@@ -16,24 +16,18 @@ const Navbar = () => {
           <LinkButton
             text="Регистрация"
             url="/auth/register"
-            height="h-13"
-            textSize="text-xl"
           />
         )}
         {user ? null : (
           <LinkButton
             text="Логин"
             url="/auth/login"
-            height="h-13"
-            textSize="text-xl"
           />
         )}
         {user ? (
           <LinkButton
             text="Профиль"
             url="/quests"
-            height="h-13"
-            textSize="text-xl"
           />
         ) : null}
         {user ? (
@@ -66,10 +60,8 @@ const Navbar = () => {
             <LinkButton
               text="Регистрация"
               url="/auth/register"
-              height="h-13"
-              textSize="text-xl"
             />
-            <LinkButton text="Логин" url="/auth/login" height="h-13" textSize="text-xl" />
+            <LinkButton text="Логин" url="/auth/login" />
           </div>
         </div>
       )}
@@ -78,3 +70,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
