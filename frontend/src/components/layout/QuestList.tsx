@@ -11,6 +11,7 @@ const QuestList = ({ quests }: IQuestListProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-center gap-4">
         {quests?.map((quest) => (
           <Quest
+            key={quest.id}
             id={quest.id}
             title={quest.title}
             description={quest.description}

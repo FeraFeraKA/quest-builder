@@ -10,12 +10,13 @@ const Button = ({
   text,
   height = "h-13",
   textSize = "text-xl",
+  className = "",
   ...props
 }: TButtonProps) => {
   return (
     <button
       {...props}
-      className={`inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200`}
+      className={`inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ${className}`}
     >
       <img
         src="/images/button-left.png"

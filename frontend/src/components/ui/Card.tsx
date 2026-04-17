@@ -1,8 +1,4 @@
-type TCardProps = {
-  children: React.ReactNode;
-  className?: string;
-  contentClassName?: string;
-};
+type TCardProps = React.HTMLAttributes<HTMLDivElement>;
 
 const top = 24;
 const bottom = 56;
@@ -18,11 +14,7 @@ const CARD_SLICE_SOURCE = {
   centerHeight: 211,
 } as const;
 
-const Card = ({
-  children,
-  className = "",
-  contentClassName = "",
-}: TCardProps) => {
+const Card = ({ children, className = "", ...props }: TCardProps) => {
   const scaleX =
     (left / CARD_SLICE_SOURCE.leftWidth +
       right / CARD_SLICE_SOURCE.rightWidth) /
@@ -42,6 +34,7 @@ const Card = ({
 
   return (
     <div
+      {...props}
       className={className}
       style={{
         display: "grid",
@@ -88,7 +81,7 @@ const Card = ({
       />
 
       <div
-        className={`min-w-0 min-h-0 pt-5 ${contentClassName} [image-rendering:pixelated]`}
+        className={`min-w-0 min-h-0 pt-5.5 [image-rendering:pixelated]`}
         style={{
           backgroundImage: "url('/images/card/card_center.png')",
           backgroundRepeat: "repeat",

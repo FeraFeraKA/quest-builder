@@ -58,7 +58,7 @@ model Edge {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  quest Quest @relation(fields: [questId], references: [id])
+  quest Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
   nodeFrom Node @relation("from", fields: [nodeFromId], references: [id], onDelete: Cascade)
   nodeTo Node @relation("to", fields: [nodeToId], references: [id], onDelete: Cascade)
 }

@@ -37,10 +37,8 @@ export const createQuest = async ({ title, description }: ICreateQuest) => {
 };
 
 export const deleteQuest = async (id: TQuestID) => {
-  const success = await fetcher<boolean>({
+  await fetcher<void>({
     url: `/api/quests/${id}`,
     method: "DELETE",
   });
-
-  return success;
 };

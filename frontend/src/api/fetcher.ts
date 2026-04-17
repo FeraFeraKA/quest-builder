@@ -47,5 +47,9 @@ export const fetcher = async <T>({
     throw new Error(data.error.message);
   }
 
+  if (res.status === 204 || res.status === 205) {
+    return undefined as T;
+  }
+
   return res.json();
 };

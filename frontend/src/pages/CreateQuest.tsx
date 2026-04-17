@@ -3,12 +3,14 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import LinkButton from "../components/ui/LinkButton";
 import useCreateQuest from "../hooks/quests/useCreateQuest";
+import useTimeout from "../hooks/useTimeout";
 
 const CreateQuest = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [log, setLog] = useState("");
   const questMutation = useCreateQuest();
+  const { startTimeout, clearTimeoutSafe } = useTimeout();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,10 +19,11 @@ const CreateQuest = () => {
       { title, description },
       {
         onSuccess: () => {
+          clearTimeoutSafe();
           setLog("Квест успешно добавлен!");
           setTitle("");
           setDescription("");
-          setTimeout(() => {
+          startTimeout(() => {
             setLog("");
           }, 5000);
         },
@@ -50,7 +53,8 @@ const CreateQuest = () => {
             <Button text="Создать" type="submit" />
             <LinkButton text="Назад" url="/quests" />
           </div>
-          <p>{log ? log : questMutation.error?.message}</p>
+          {log ? <p>{log}</p> : null}
+          {questMutation.isError ? <p>{questMutation.error.message}</p> : null}
         </form>
       </div>
     </>
