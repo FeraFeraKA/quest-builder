@@ -9,6 +9,7 @@ import "./index.css";
 import CreateQuest from "./pages/CreateQuest";
 import Dashboard from "./pages/Dashboard";
 import Editor from "./pages/Editor";
+import Graph from "./pages/Graph";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
 import Register from "./pages/Register";
@@ -41,14 +42,19 @@ const router = createBrowserRouter([
         Component: Dashboard,
       },
       {
+        path: "/quests/create",
+        loader: requireAuth,
+        Component: CreateQuest,
+      },
+      {
         path: "/quests/:id",
         loader: requireAuth,
         Component: Editor,
       },
       {
-        path: "/quests/create",
+        path: "/quests/:id/graph",
         loader: requireAuth,
-        Component: CreateQuest,
+        Component: Graph,
       },
     ],
   },
