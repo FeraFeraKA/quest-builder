@@ -9,6 +9,8 @@ import {
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import useCreateEdge from "../hooks/edges/useCreateEdge";
+import useDeleteEdge from "../hooks/edges/useDeleteEdge";
+import useDeleteNode from "../hooks/nodes/useDeleteNode";
 import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
 
@@ -25,32 +27,43 @@ const Graph = () => {
   const { data: quest } = useGetQuest(questId);
   const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
-  const createEdgeMutation = useCreateEdge();
   const updateNodeMutation = useUpdateGraphNode();
+  const deleteNodeMutation = useDeleteNode();
+  const createEdgeMutation = useCreateEdge();
+  const deleteEdgeMutation = useDeleteEdge();
 
   const handleConnect = async (connection: Connection) => {
-    const optimisticEdge = {
-      id: crypto.randomUUID(),
+    const tempId = `temp-${crypto.randomUUID()}`;
+
+    const tempEdge: Edge = {
+      id: tempId,
       source: connection.source,
       target: connection.target,
     };
 
-    setEdges((prev) => [...prev, optimisticEdge]);
+    setEdges((prev) => [...prev, tempEdge]);
 
-    createEdgeMutation.mutate(
-      {
+    try {
+      const createdEdge = await createEdgeMutation.mutateAsync({
         questId,
         nodeFromId: connection.source,
         nodeToId: connection.target,
-      },
-      {
-        onError: () => {
-          setEdges((prev) =>
-            prev.filter((edge) => edge.id !== optimisticEdge.id),
-          );
-        },
-      },
-    );
+      });
+
+      setEdges((prev) =>
+        prev.map((edge) =>
+          edge.id === tempId
+            ? {
+                id: createdEdge.id,
+                source: createdEdge.nodeFromId,
+                target: createdEdge.nodeToId,
+              }
+            : edge,
+        ),
+      );
+    } catch {
+      setEdges((prev) => prev.filter((edge) => edge.id !== tempId));
+    }
   };
 
   const handleNodeDragStop = (_event: React.MouseEvent, node: QuestNode) => {
@@ -61,9 +74,22 @@ const Graph = () => {
     });
   };
 
-  // const handleDelete = (params: { nodes: QuestNode[]; edges: Edge[] }) => {
-
-  // };
+  const handleDelete = (params: { nodes: QuestNode[]; edges: Edge[] }) => {
+    params.nodes.map((node) =>
+      deleteNodeMutation.mutate(node.id, {
+        onError: () => {
+          setNodes((prev) => [...prev, node]);
+        },
+      }),
+    );
+    params.edges.map((edge) =>
+      deleteEdgeMutation.mutate(edge.id, {
+        onError: () => {
+          setEdges((prev) => [...prev, edge]);
+        },
+      }),
+    );
+  };
 
   useEffect(() => {
     if (!quest) return;

@@ -1,6 +1,6 @@
 import { fetcher } from "./fetcher";
 
-type TNodeId = string;
+export type TNodeId = string;
 
 export interface INodeUpdate {
   nodeId: TNodeId;
@@ -25,4 +25,11 @@ export const updateGraphNode = async ({
   });
 
   return node;
+};
+
+export const deleteNode = async (nodeId: TNodeId) => {
+  await fetcher({
+    url: `/api/nodes/${nodeId}`,
+    method: "DELETE",
+  });
 };

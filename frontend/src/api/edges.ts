@@ -1,5 +1,8 @@
+import type { IEdge } from "../types/quest.types";
 import { fetcher } from "./fetcher";
 import type { TQuestID } from "./quests";
+
+export type TEdgeId = string;
 
 export interface ICreateEdge {
   questId: TQuestID;
@@ -12,7 +15,7 @@ export const createEdge = async ({
   nodeFromId,
   nodeToId,
 }: ICreateEdge) => {
-  const edge = await fetcher({
+  const edge = await fetcher<IEdge>({
     url: `/api/quests/${questId}/edges`,
     method: "POST",
     body: {
@@ -22,4 +25,11 @@ export const createEdge = async ({
   });
 
   return edge;
+};
+
+export const deleteEdge = async (edgeId: TEdgeId) => {
+  await fetcher({
+    url: `/api/edges/${edgeId}`,
+    method: "DELETE",
+  });
 };
