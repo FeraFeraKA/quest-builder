@@ -2,11 +2,14 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  type Connection,
   type Edge,
   type Node,
 } from "@xyflow/react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import useCreateEdge from "../hooks/edges/useCreateEdge";
+import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
 
 type IData = {
@@ -20,8 +23,47 @@ const Graph = () => {
   const params = useParams();
   const questId = params.id!;
   const { data: quest } = useGetQuest(questId);
-  const [nodes, setNodes] = useNodesState<QuestNode>([]);
-  const [edges, setEdges] = useEdgesState<Edge>([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+  const createEdgeMutation = useCreateEdge();
+  const updateNodeMutation = useUpdateGraphNode();
+
+  const handleConnect = async (connection: Connection) => {
+    const optimisticEdge = {
+      id: crypto.randomUUID(),
+      source: connection.source,
+      target: connection.target,
+    };
+
+    setEdges((prev) => [...prev, optimisticEdge]);
+
+    createEdgeMutation.mutate(
+      {
+        questId,
+        nodeFromId: connection.source,
+        nodeToId: connection.target,
+      },
+      {
+        onError: () => {
+          setEdges((prev) =>
+            prev.filter((edge) => edge.id !== optimisticEdge.id),
+          );
+        },
+      },
+    );
+  };
+
+  const handleNodeDragStop = (_event: React.MouseEvent, node: QuestNode) => {
+    updateNodeMutation.mutate({
+      nodeId: node.id,
+      positionX: node.position.x,
+      positionY: node.position.y,
+    });
+  };
+
+  // const handleDelete = (params: { nodes: QuestNode[]; edges: Edge[] }) => {
+
+  // };
 
   useEffect(() => {
     if (!quest) return;
@@ -53,7 +95,16 @@ const Graph = () => {
   return (
     <>
       <div className="h-[calc(100dvh-20rem)] w-full text-yellow-300 font-pixel">
-        <ReactFlow nodes={nodes} edges={edges} fitView />
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={handleConnect}
+          onNodeDragStop={handleNodeDragStop}
+          onDelete={handleDelete}
+          fitView
+        />
       </div>
     </>
   );

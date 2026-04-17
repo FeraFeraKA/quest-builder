@@ -17,9 +17,9 @@ export const getQuests = async () => {
   return quests;
 };
 
-export const getQuest = async (id: TQuestID) => {
+export const getQuest = async (questId: TQuestID) => {
   const quest = await fetcher<IQuest>({
-    url: `/api/quests/${id}`,
+    url: `/api/quests/${questId}`,
     method: "GET",
   });
 
@@ -36,9 +36,9 @@ export const createQuest = async ({ title, description }: ICreateQuest) => {
   return quest;
 };
 
-export const deleteQuest = async (id: TQuestID) => {
+export const deleteQuest = async (questId: TQuestID) => {
   await fetcher<void>({
-    url: `/api/quests/${id}`,
+    url: `/api/quests/${questId}`,
     method: "DELETE",
   });
 };
