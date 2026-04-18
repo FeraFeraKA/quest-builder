@@ -1,11 +1,11 @@
 import type { IEdge } from "../types/quest.types";
 import { fetcher } from "./fetcher";
-import type { TQuestID } from "./quests";
+import type { TQuestId } from "./quests";
 
 export type TEdgeId = string;
 
 export interface ICreateEdge {
-  questId: TQuestID;
+  questId: TQuestId;
   nodeFromId: string;
   nodeToId: string;
 }

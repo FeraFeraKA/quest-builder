@@ -16,7 +16,7 @@ const LinkButton = ({
   return (
     <Link
       to={url}
-      className="inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+      className="inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:brightness-75"
     >
       <img
         src="/images/button-left.png"

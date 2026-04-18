@@ -5,7 +5,7 @@ import {
   type Connection,
   type Edge,
 } from "@xyflow/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import type { INodeCreate } from "../api/nodes";
 import Editor from "../components/layout/Editor";
@@ -16,7 +16,7 @@ import useCreateNode from "../hooks/nodes/useCreateNode";
 import useDeleteNode from "../hooks/nodes/useDeleteNode";
 import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
-import type { INode } from "../types/quest.types";
+import useSetStartNode from "../hooks/quests/useSetStartNode";
 
 const nodeTypes = {
   customNode: CustomNode,
@@ -26,8 +26,11 @@ const Graph = () => {
   const params = useParams();
   const questId = params.id!;
   const { data: quest } = useGetQuest(questId);
+  const setStartNodeMutation = useSetStartNode();
   const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+  const [selectedNodeId, setSelectedNodeId] = useState("");
+  const [startNodeId, setStartNodeId] = useState("");
   const createNodeMutation = useCreateNode();
   const updateGraphNodeMutation = useUpdateGraphNode();
   const deleteNodeMutation = useDeleteNode();
@@ -43,10 +46,8 @@ const Graph = () => {
   ) => {
     e.preventDefault();
 
-    let createdNode: INode;
-
     try {
-      createdNode = await createNodeMutation.mutateAsync({
+      const createdNode = await createNodeMutation.mutateAsync({
         questId,
         title,
         description,
@@ -141,6 +142,31 @@ const Graph = () => {
     );
   };
 
+  const handleNodeClick = (_event: React.MouseEvent, node: QuestNode) => {
+    setSelectedNodeId(node.id);
+  };
+
+  const handlePaneClick = () => {
+    setSelectedNodeId("");
+  };
+
+  const handleSetStartNode = async () => {
+    const selectedNode = nodes.filter((node) => node.id == selectedNodeId);
+
+    if (!selectedNode) return;
+
+    try {
+      const updatedQuest = await setStartNodeMutation.mutateAsync({
+        questId,
+        startNodeId: selectedNodeId,
+      });
+
+      setStartNodeId(updatedQuest.startNodeId!);
+    } catch (error) {
+      console.error("Не удалось задать стартовую ноду", error);
+    }
+  };
+
   useEffect(() => {
     if (!quest) return;
 
@@ -170,13 +196,17 @@ const Graph = () => {
         },
       })),
     );
+
+    if (!quest.startNodeId) return;
+
+    setStartNodeId(quest.startNodeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quest?.id]);
 
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-20rem)] text-yellow-300 font-pixel border-2 border-amber-700">
+        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-25rem)] text-yellow-300 font-pixel border-2 border-amber-700">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -186,10 +216,18 @@ const Graph = () => {
             onConnect={handleConnect}
             onNodeDragStop={handleNodeDragStop}
             onDelete={handleDelete}
+            onNodeClick={handleNodeClick}
+            onPaneClick={handlePaneClick}
             fitView
           ></ReactFlow>
         </div>
-        <Editor questId={questId} handleCreateNode={handleCreateNode} />
+        <Editor
+          questId={questId}
+          selectedNodeId={selectedNodeId}
+          startNodeId={startNodeId}
+          handleCreateNode={handleCreateNode}
+          handleSetStartNode={handleSetStartNode}
+        />
       </div>
     </>
   );

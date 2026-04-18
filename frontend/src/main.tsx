@@ -12,6 +12,7 @@ import EditorPage from "./pages/EditorPage";
 import Graph from "./pages/Graph";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
+import Playtest from "./pages/Playtest";
 import Register from "./pages/Register";
 
 const requireAuth = async () => {
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
         path: "/quests/:id/graph",
         loader: requireAuth,
         Component: Graph,
+      },
+      {
+        path: "/quests/:id/playtest",
+        loader: requireAuth,
+        Component: Playtest,
       },
     ],
   },

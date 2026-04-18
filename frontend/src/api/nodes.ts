@@ -1,11 +1,11 @@
 import type { INode } from "../types/quest.types";
 import { fetcher } from "./fetcher";
-import type { TQuestID } from "./quests";
+import type { TQuestId } from "./quests";
 
 export type TNodeId = string;
 
 export interface INodeCreate {
-  questId: TQuestID;
+  questId: TQuestId;
   title: string;
   description: string;
   positionX: number;

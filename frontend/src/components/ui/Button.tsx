@@ -16,7 +16,12 @@ const Button = ({
   return (
     <button
       {...props}
-      className={`inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ${className}`}
+      className={`
+        inline-flex items-stretch transition-all duration-200
+        enabled:hover:-translate-y-0.5 enabled:active:translate-y-0
+        disabled:opacity-60 disabled:cursor-not-allowed disabled:brightness-75
+        ${className}
+      `}
     >
       <img
         src="/images/button-left.png"
@@ -38,7 +43,7 @@ const Button = ({
             relative z-10 whitespace-nowrap mb-1
             font-pixel text-[#f5d742]
             [text-shadow:2px_2px_0_#7a1f00]
-            hover:brightness-110
+            enabled:hover:brightness-110
           "
           style={{
             fontSize: textSize.startsWith("text-") ? undefined : textSize,

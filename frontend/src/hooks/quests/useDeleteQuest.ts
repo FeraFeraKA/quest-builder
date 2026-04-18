@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteQuest, type TQuestID } from "../../api/quests";
+import { deleteQuest, type TQuestId } from "../../api/quests";
 
-const useDeleteQuest = (id: TQuestID) => {
+const useDeleteQuest = (id: TQuestId) => {
   const queryClient = useQueryClient();
 
   return useMutation({

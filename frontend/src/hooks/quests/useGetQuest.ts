@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getQuest, type TQuestID } from "../../api/quests";
+import { getQuest, type TQuestId } from "../../api/quests";
 
-const useGetQuest = (id: TQuestID) => {
+const useGetQuest = (id: TQuestId) => {
   return useQuery({
     queryKey: [`quest/${id}`],
     queryFn: () => getQuest(id),
