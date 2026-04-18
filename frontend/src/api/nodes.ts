@@ -1,6 +1,16 @@
+import type { INode } from "../types/quest.types";
 import { fetcher } from "./fetcher";
+import type { TQuestID } from "./quests";
 
 export type TNodeId = string;
+
+export interface INodeCreate {
+  questId: TQuestID;
+  title: string;
+  description: string;
+  positionX: number;
+  positionY: number;
+}
 
 export interface INodeUpdate {
   nodeId: TNodeId;
@@ -9,6 +19,27 @@ export interface INodeUpdate {
   positionX?: number;
   positionY?: number;
 }
+
+export const createNode = async ({
+  questId,
+  title,
+  description,
+  positionX,
+  positionY,
+}: INodeCreate) => {
+  const node = await fetcher<INode>({
+    url: `/api/quests/${questId}/nodes`,
+    method: "POST",
+    body: {
+      title,
+      description,
+      positionX,
+      positionY,
+    },
+  });
+
+  return node;
+};
 
 export const updateGraphNode = async ({
   nodeId,

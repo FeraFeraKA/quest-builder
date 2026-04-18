@@ -8,7 +8,7 @@ import Layout from "./components/layout/MainLayout";
 import "./index.css";
 import CreateQuest from "./pages/CreateQuest";
 import Dashboard from "./pages/Dashboard";
-import Editor from "./pages/Editor";
+import EditorPage from "./pages/EditorPage";
 import Graph from "./pages/Graph";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/quests/:id",
         loader: requireAuth,
-        Component: Editor,
+        Component: EditorPage,
       },
       {
         path: "/quests/:id/graph",

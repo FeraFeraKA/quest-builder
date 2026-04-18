@@ -3,7 +3,7 @@ import NodeList from "../components/layout/NodeList";
 import LinkButton from "../components/ui/LinkButton";
 import useGetQuest from "../hooks/quests/useGetQuest";
 
-const Editor = () => {
+const EditorPage = () => {
   const params = useParams();
   const questId = params.id!;
   const { data: quest, isError, error } = useGetQuest(questId);
@@ -31,4 +31,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default EditorPage;

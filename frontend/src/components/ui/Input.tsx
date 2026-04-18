@@ -1,19 +1,23 @@
 type TLabel = {
-  label: string;
+  label?: string;
   textSize?: string;
+  gapX?: string;
 };
 
 type TInputProps = React.InputHTMLAttributes<HTMLInputElement> & TLabel;
 
 const Input = ({
-  label,
+  label = "",
   height = "h-13",
   textSize = "text-xl",
+  gapX = "gap-x-4",
   ...props
 }: TInputProps) => {
   return (
     <>
-      <div className="grid md:grid-cols-[max-content_minmax(0,1fr)] gap-x-4 items-center text-3xl font-pixel text-yellow-300">
+      <div
+        className={`grid md:grid-cols-[max-content_minmax(0,1fr)] ${gapX} items-center text-3xl font-pixel text-yellow-300`}
+      >
         <label>{label}</label>
 
         <div className="inline-flex items-stretch">

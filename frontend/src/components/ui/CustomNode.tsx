@@ -11,7 +11,7 @@ export type QuestNode = Node<TCustomNodeData, "customNode">;
 const CustomNode = ({ data }: NodeProps<QuestNode>) => {
   return (
     <div>
-      <Handle position={Position.Top} type="source" />
+      <Handle position={Position.Top} type="source" className=""/>
 
       <Card className="max-w-130 whitespace-normal wrap-break-word">
         <h1>{data.label}</h1>

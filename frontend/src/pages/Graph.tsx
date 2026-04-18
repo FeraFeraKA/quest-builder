@@ -7,13 +7,16 @@ import {
 } from "@xyflow/react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import type { INodeCreate } from "../api/nodes";
+import Editor from "../components/layout/Editor";
 import CustomNode, { type QuestNode } from "../components/ui/CustomNode";
-import LinkButton from "../components/ui/LinkButton";
 import useCreateEdge from "../hooks/edges/useCreateEdge";
 import useDeleteEdge from "../hooks/edges/useDeleteEdge";
+import useCreateNode from "../hooks/nodes/useCreateNode";
 import useDeleteNode from "../hooks/nodes/useDeleteNode";
 import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
+import type { INode } from "../types/quest.types";
 
 const nodeTypes = {
   customNode: CustomNode,
@@ -25,10 +28,51 @@ const Graph = () => {
   const { data: quest } = useGetQuest(questId);
   const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
-  const updateNodeMutation = useUpdateGraphNode();
+  const createNodeMutation = useCreateNode();
+  const updateGraphNodeMutation = useUpdateGraphNode();
   const deleteNodeMutation = useDeleteNode();
   const createEdgeMutation = useCreateEdge();
   const deleteEdgeMutation = useDeleteEdge();
+
+  const handleCreateNode = async (
+    e: React.SubmitEvent,
+    {
+      title,
+      description,
+    }: Omit<INodeCreate, "questId" | "positionX" | "positionY">,
+  ) => {
+    e.preventDefault();
+
+    let createdNode: INode;
+
+    try {
+      createdNode = await createNodeMutation.mutateAsync({
+        questId,
+        title,
+        description,
+        positionX: 300,
+        positionY: 300,
+      });
+
+      setNodes((prev) => [
+        ...prev,
+        {
+          id: createdNode.id,
+          type: "customNode",
+          position: {
+            x: createdNode.positionX,
+            y: createdNode.positionY,
+          },
+          data: {
+            label: createdNode.title,
+            description: createdNode.description,
+          },
+        },
+      ]);
+    } catch (error) {
+      console.error("Не удалось создать узел", error);
+    }
+  };
 
   const handleConnect = async (connection: Connection) => {
     const tempId = `temp-${crypto.randomUUID()}`;
@@ -37,6 +81,10 @@ const Graph = () => {
       id: tempId,
       source: connection.source,
       target: connection.target,
+      style: {
+        stroke: "brown",
+        strokeWidth: 2,
+      },
     };
 
     setEdges((prev) => [...prev, tempEdge]);
@@ -55,6 +103,10 @@ const Graph = () => {
                 id: createdEdge.id,
                 source: createdEdge.nodeFromId,
                 target: createdEdge.nodeToId,
+                style: {
+                  stroke: "brown",
+                  strokeWidth: 2,
+                },
               }
             : edge,
         ),
@@ -65,7 +117,7 @@ const Graph = () => {
   };
 
   const handleNodeDragStop = (_event: React.MouseEvent, node: QuestNode) => {
-    updateNodeMutation.mutate({
+    updateGraphNodeMutation.mutate({
       nodeId: node.id,
       positionX: node.position.x,
       positionY: node.position.y,
@@ -73,14 +125,14 @@ const Graph = () => {
   };
 
   const handleDelete = (params: { nodes: QuestNode[]; edges: Edge[] }) => {
-    params.nodes.map((node) =>
+    params.nodes.forEach((node) =>
       deleteNodeMutation.mutate(node.id, {
         onError: () => {
           setNodes((prev) => [...prev, node]);
         },
       }),
     );
-    params.edges.map((edge) =>
+    params.edges.forEach((edge) =>
       deleteEdgeMutation.mutate(edge.id, {
         onError: () => {
           setEdges((prev) => [...prev, edge]);
@@ -112,6 +164,10 @@ const Graph = () => {
         id: edge.id,
         source: edge.nodeFromId,
         target: edge.nodeToId,
+        style: {
+          stroke: "brown",
+          strokeWidth: 2,
+        },
       })),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +176,7 @@ const Graph = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-20rem)] text-yellow-300 font-pixel">
+        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-20rem)] text-yellow-300 font-pixel border-2 border-amber-700">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -133,9 +189,7 @@ const Graph = () => {
             fitView
           ></ReactFlow>
         </div>
-        <div className="flex items-center justify-center">
-          <LinkButton text="Назад" url={`/quests/${questId}`} />
-        </div>
+        <Editor questId={questId} handleCreateNode={handleCreateNode} />
       </div>
     </>
   );
