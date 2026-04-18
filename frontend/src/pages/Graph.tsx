@@ -4,22 +4,20 @@ import {
   useNodesState,
   type Connection,
   type Edge,
-  type Node,
 } from "@xyflow/react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import CustomNode, { type QuestNode } from "../components/ui/CustomNode";
+import LinkButton from "../components/ui/LinkButton";
 import useCreateEdge from "../hooks/edges/useCreateEdge";
 import useDeleteEdge from "../hooks/edges/useDeleteEdge";
 import useDeleteNode from "../hooks/nodes/useDeleteNode";
 import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
 
-type IData = {
-  label: string;
-  description: string;
+const nodeTypes = {
+  customNode: CustomNode,
 };
-
-type QuestNode = Node<IData>;
 
 const Graph = () => {
   const params = useParams();
@@ -97,6 +95,7 @@ const Graph = () => {
     setNodes(
       (quest.nodes ?? []).map((node) => ({
         id: node.id,
+        type: "customNode",
         position: {
           x: node.positionX,
           y: node.positionY,
@@ -120,17 +119,23 @@ const Graph = () => {
 
   return (
     <>
-      <div className="h-[calc(100dvh-20rem)] w-full text-yellow-300 font-pixel">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={handleConnect}
-          onNodeDragStop={handleNodeDragStop}
-          onDelete={handleDelete}
-          fitView
-        />
+      <div className="flex flex-col md:flex-row">
+        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-20rem)] text-yellow-300 font-pixel">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={handleConnect}
+            onNodeDragStop={handleNodeDragStop}
+            onDelete={handleDelete}
+            fitView
+          ></ReactFlow>
+        </div>
+        <div className="flex items-center justify-center">
+          <LinkButton text="Назад" url={`/quests/${questId}`} />
+        </div>
       </div>
     </>
   );
