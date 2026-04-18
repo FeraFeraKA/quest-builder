@@ -7,7 +7,7 @@ import {
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import type { INodeCreate } from "../api/nodes";
+import type { INodeCreate, INodeUpdate } from "../api/nodes";
 import Editor from "../components/layout/Editor";
 import CustomNode, { type QuestNode } from "../components/ui/CustomNode";
 import useCreateEdge from "../hooks/edges/useCreateEdge";
@@ -15,6 +15,7 @@ import useDeleteEdge from "../hooks/edges/useDeleteEdge";
 import useCreateNode from "../hooks/nodes/useCreateNode";
 import useDeleteNode from "../hooks/nodes/useDeleteNode";
 import useUpdateGraphNode from "../hooks/nodes/useUpdateGraphNode";
+import useUpdateNode from "../hooks/nodes/useUpdateNode";
 import useGetQuest from "../hooks/quests/useGetQuest";
 import useSetStartNode from "../hooks/quests/useSetStartNode";
 
@@ -32,10 +33,13 @@ const Graph = () => {
   const [selectedNodeId, setSelectedNodeId] = useState("");
   const [startNodeId, setStartNodeId] = useState("");
   const createNodeMutation = useCreateNode();
+  const updateNodeMutatuon = useUpdateNode();
   const updateGraphNodeMutation = useUpdateGraphNode();
   const deleteNodeMutation = useDeleteNode();
   const createEdgeMutation = useCreateEdge();
   const deleteEdgeMutation = useDeleteEdge();
+
+  const selectedNode = nodes.find((node) => node.id == selectedNodeId) ?? null;
 
   const handleCreateNode = async (
     e: React.SubmitEvent,
@@ -125,6 +129,42 @@ const Graph = () => {
     });
   };
 
+  const handleUpdateNode = async (
+    e: React.SubmitEvent,
+    { nodeId, title, description }: INodeUpdate,
+  ) => {
+    e.preventDefault();
+
+    try {
+      const updatedNode = await updateNodeMutatuon.mutateAsync({
+        nodeId,
+        title,
+        description,
+      });
+
+      setNodes((prev) =>
+        prev.map((node) =>
+          node.id === nodeId
+            ? {
+                id: updatedNode.id,
+                type: "customNode",
+                position: {
+                  x: updatedNode.positionX,
+                  y: updatedNode.positionY,
+                },
+                data: {
+                  label: updatedNode.title,
+                  description: updatedNode.description,
+                },
+              }
+            : node,
+        ),
+      );
+    } catch (error) {
+      console.error("Не получилось обновить ноду", error);
+    }
+  };
+
   const handleDelete = (params: { nodes: QuestNode[]; edges: Edge[] }) => {
     params.nodes.forEach((node) =>
       deleteNodeMutation.mutate(node.id, {
@@ -151,8 +191,6 @@ const Graph = () => {
   };
 
   const handleSetStartNode = async () => {
-    const selectedNode = nodes.filter((node) => node.id == selectedNodeId);
-
     if (!selectedNode) return;
 
     try {
@@ -223,9 +261,10 @@ const Graph = () => {
         </div>
         <Editor
           questId={questId}
-          selectedNodeId={selectedNodeId}
+          selectedNode={selectedNode}
           startNodeId={startNodeId}
           handleCreateNode={handleCreateNode}
+          handleUpdateNode={handleUpdateNode}
           handleSetStartNode={handleSetStartNode}
         />
       </div>

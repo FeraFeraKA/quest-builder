@@ -58,6 +58,23 @@ export const updateGraphNode = async ({
   return node;
 };
 
+export const updateNode = async ({
+  nodeId,
+  title,
+  description,
+}: INodeUpdate) => {
+  const node = await fetcher<INode>({
+    url: `/api/nodes/${nodeId}`,
+    method: "PATCH",
+    body: {
+      title,
+      description,
+    },
+  });
+
+  return node;
+};
+
 export const deleteNode = async (nodeId: TNodeId) => {
   await fetcher({
     url: `/api/nodes/${nodeId}`,
