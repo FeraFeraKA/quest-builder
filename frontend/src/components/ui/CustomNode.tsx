@@ -11,14 +11,14 @@ export type QuestNode = Node<TCustomNodeData, "customNode">;
 const CustomNode = ({ data }: NodeProps<QuestNode>) => {
   return (
     <div>
-      <Handle position={Position.Top} type="source" className=""/>
+      <Handle position={Position.Bottom} type="source" />
 
       <Card className="max-w-130 whitespace-normal wrap-break-word">
         <h1>{data.label}</h1>
         <h2>{data.description}</h2>
       </Card>
 
-      <Handle type="target" position={Position.Bottom} />
+      <Handle position={Position.Top} type="target" />
     </div>
   );
 };
