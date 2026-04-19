@@ -15,7 +15,7 @@ export interface ISetStartNode {
 
 export const createQuest = async ({ title, description }: ICreateQuest) => {
   const quest = await fetcher<IQuest>({
-    url: "/api/quests",
+    url: "/quests",
     method: "POST",
     body: { title, description },
   });
@@ -25,7 +25,7 @@ export const createQuest = async ({ title, description }: ICreateQuest) => {
 
 export const getQuests = async () => {
   const quests = await fetcher<IQuest[]>({
-    url: "/api/quests",
+    url: "/quests",
     method: "GET",
   });
 
@@ -34,7 +34,7 @@ export const getQuests = async () => {
 
 export const getQuest = async (questId: TQuestId) => {
   const quest = await fetcher<IQuest>({
-    url: `/api/quests/${questId}`,
+    url: `/quests/${questId}`,
     method: "GET",
   });
 
@@ -43,7 +43,7 @@ export const getQuest = async (questId: TQuestId) => {
 
 export const setStartNode = async ({ questId, startNodeId }: ISetStartNode) => {
   const quest = await fetcher<IQuest>({
-    url: `/api/quests/${questId}/startNode`,
+    url: `/quests/${questId}/startNode`,
     method: "PATCH",
     body: {
       startNodeId,
@@ -55,7 +55,7 @@ export const setStartNode = async ({ questId, startNodeId }: ISetStartNode) => {
 
 export const deleteQuest = async (questId: TQuestId) => {
   await fetcher<void>({
-    url: `/api/quests/${questId}`,
+    url: `/quests/${questId}`,
     method: "DELETE",
   });
 };

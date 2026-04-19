@@ -28,7 +28,7 @@ export const createNode = async ({
   positionY,
 }: INodeCreate) => {
   const node = await fetcher<INode>({
-    url: `/api/quests/${questId}/nodes`,
+    url: `/quests/${questId}/nodes`,
     method: "POST",
     body: {
       title,
@@ -47,7 +47,7 @@ export const updateGraphNode = async ({
   positionY,
 }: INodeUpdate) => {
   const node = await fetcher({
-    url: `/api/nodes/${nodeId}`,
+    url: `/nodes/${nodeId}`,
     method: "PATCH",
     body: {
       positionX,
@@ -64,7 +64,7 @@ export const updateNode = async ({
   description,
 }: INodeUpdate) => {
   const node = await fetcher<INode>({
-    url: `/api/nodes/${nodeId}`,
+    url: `/nodes/${nodeId}`,
     method: "PATCH",
     body: {
       title,
@@ -77,7 +77,7 @@ export const updateNode = async ({
 
 export const deleteNode = async (nodeId: TNodeId) => {
   await fetcher({
-    url: `/api/nodes/${nodeId}`,
+    url: `/nodes/${nodeId}`,
     method: "DELETE",
   });
 };

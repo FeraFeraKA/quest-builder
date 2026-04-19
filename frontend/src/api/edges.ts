@@ -16,7 +16,7 @@ export const createEdge = async ({
   nodeToId,
 }: ICreateEdge) => {
   const edge = await fetcher<IEdge>({
-    url: `/api/quests/${questId}/edges`,
+    url: `/quests/${questId}/edges`,
     method: "POST",
     body: {
       nodeFromId,
@@ -29,7 +29,7 @@ export const createEdge = async ({
 
 export const deleteEdge = async (edgeId: TEdgeId) => {
   await fetcher({
-    url: `/api/edges/${edgeId}`,
+    url: `/edges/${edgeId}`,
     method: "DELETE",
   });
 };

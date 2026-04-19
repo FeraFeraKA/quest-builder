@@ -7,7 +7,7 @@ interface IFetchUser {
 
 export const registerUser = async (data: IFetchUser) => {
   const user = await fetcher({
-    url: "/api/auth/register",
+    url: "/auth/register",
     method: "POST",
     body: data,
   });
@@ -17,7 +17,7 @@ export const registerUser = async (data: IFetchUser) => {
 
 export const loginUser = async (data: IFetchUser) => {
   const user = await fetcher({
-    url: "/api/auth/login",
+    url: "/auth/login",
     method: "POST",
     body: data,
   });
@@ -27,7 +27,7 @@ export const loginUser = async (data: IFetchUser) => {
 
 export const logoutUser = async () => {
   const user = await fetcher({
-    url: "/api/auth/logout",
+    url: "/auth/logout",
     method: "POST",
   });
 
@@ -36,7 +36,7 @@ export const logoutUser = async () => {
 
 export const getMe = async () => {
   const me = await fetcher({
-    url: "/api/auth/me",
+    url: "/auth/me",
     method: "GET",
   });
 

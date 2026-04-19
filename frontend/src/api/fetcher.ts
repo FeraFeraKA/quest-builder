@@ -6,8 +6,15 @@ interface IFetcherOptions {
   body?: unknown;
 }
 
+const API_URL = (import.meta.env.VITE_API_URL ?? "").replace(/\/+$/, "");
+
+const toApiUrl = (path: string) => {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${API_URL}${normalizedPath}`;
+};
+
 const refreshToken = async () => {
-  const res = await fetch("/auth/refresh", {
+  const res = await fetch(toApiUrl("/auth/refresh"), {
     method: "POST",
     credentials: "include",
   });
@@ -20,8 +27,10 @@ export const fetcher = async <T>({
   method,
   body,
 }: IFetcherOptions): Promise<T> => {
+  const requestUrl = toApiUrl(url);
+
   const makeRequest = () =>
-    fetch(url, {
+    fetch(requestUrl, {
       method,
       credentials: "include",
       headers: {
