@@ -1,70 +1,20 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import type { TNodeId } from "../api/nodes";
 import Button from "../components/ui/Button";
 import LinkButton from "../components/ui/LinkButton";
-import useGetQuest from "../hooks/quests/useGetQuest";
-
-interface IStack {
-  nodeFromId: TNodeId;
-  nodeToId: TNodeId;
-}
+import useQuestTraversal from "../hooks/useQuestTraversal";
 
 const Playtest = () => {
   const params = useParams();
   const questId = params.id!;
-  const { data: quest } = useGetQuest(questId);
-  const [currentNodeId, setCurrentNodeId] = useState("");
-  const [stack, setStack] = useState<IStack[]>([]);
-
-  const nextIds =
-    !quest || !currentNodeId
-      ? []
-      : quest.edges
-          .filter((edge) => edge.nodeFromId === currentNodeId)
-          .map((edge) => edge.nodeToId);
-
-  const furtherNodes = !quest
-    ? []
-    : quest.nodes.filter((node) => nextIds.includes(node.id));
-
-  const currentNode =
-    !quest || !currentNodeId
-      ? null
-      : quest.nodes.find((node) => node.id === currentNodeId);
-
-  const handleNextClick = (e: React.MouseEvent, nodeId: TNodeId) => {
-    e.preventDefault();
-
-    setStack((prev) => [
-      ...prev,
-      {
-        nodeFromId: currentNodeId,
-        nodeToId: nodeId,
-      },
-    ]);
-
-    setCurrentNodeId(nodeId);
-  };
-
-  const handleBackClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    setStack((prev) => {
-      const last = prev[prev.length - 1];
-      if (!last) return prev;
-
-      setCurrentNodeId(last.nodeFromId);
-      return prev.slice(0, -1);
-    });
-  };
-
-  useEffect(() => {
-    if (!quest || !quest.startNodeId) return;
-
-    setCurrentNodeId(quest.startNodeId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quest?.id]);
+  const {
+    currentNode,
+    currentNodeId,
+    quest,
+    furtherNodes,
+    stack,
+    handleNextClick,
+    handleBackClick,
+  } = useQuestTraversal({ questId });
 
   return (
     <div className="flex flex-col items-center justify-center my-4">
