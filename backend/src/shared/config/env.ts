@@ -1,5 +1,5 @@
 import type { StringValue } from "ms";
-import { env } from "./env.schema";
+import { env } from "./env.schema.js";
 
 export const config = {
   port: env.PORT,

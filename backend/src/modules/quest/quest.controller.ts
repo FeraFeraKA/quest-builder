@@ -4,9 +4,9 @@ import {
   QuestIdSchema,
   QuestUpdateDataSchema,
   StartNodeIdSchema,
-} from "./quest.schema";
-import { QuestService } from "./quest.service";
-import type { TQuestId } from "./quest.types";
+} from "./quest.schema.js";
+import { QuestService } from "./quest.service.js";
+import type { TQuestId } from "./quest.types.js";
 
 export const QuestController = {
   async create(req: Request, res: Response) {

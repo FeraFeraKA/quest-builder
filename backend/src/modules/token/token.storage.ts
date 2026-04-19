@@ -1,5 +1,5 @@
-import { prisma } from "@/shared/lib/prisma";
-import type { TToken, TUserId } from "../auth/auth.types";
+import { prisma } from "./../../shared/lib/prisma.js";
+import type { TToken, TUserId } from "../auth/auth.types.js";
 
 interface ITokenCreate {
   userId: string;

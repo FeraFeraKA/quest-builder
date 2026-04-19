@@ -1,7 +1,7 @@
-import { prisma } from "@/shared/lib/prisma";
-import type { Prisma } from "generated/prisma/client";
-import type { TUserId } from "../auth/auth.types";
-import type { IQuestCredentials, IQuestData } from "./quest.types";
+import { prisma } from "./../../shared/lib/prisma.js";
+import type { Prisma } from "./../../../generated/prisma/client.js";
+import type { TUserId } from "../auth/auth.types.js";
+import type { IQuestCredentials, IQuestData } from "./quest.types.js";
 
 export const QuestStorage = {
   async create(data: IQuestData) {

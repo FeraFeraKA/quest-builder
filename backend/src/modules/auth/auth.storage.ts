@@ -1,5 +1,5 @@
-import { prisma } from "@/shared/lib/prisma";
-import type { IRegisterEndpoint, TNickname, TUserId } from "./auth.types";
+import { prisma } from "./../../shared/lib/prisma.js";
+import type { IRegisterEndpoint, TNickname, TUserId } from "./auth.types.js";
 
 export const AuthStorage = {
   async register(data: IRegisterEndpoint) {

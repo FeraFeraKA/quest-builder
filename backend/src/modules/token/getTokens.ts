@@ -1,10 +1,10 @@
-import { config } from "@/shared/config/env";
-import { HttpError } from "@/shared/error/httpError";
+import { config } from "./../../shared/config/env.js";
+import { HttpError } from "./../../shared/error/httpError.js";
 import {
   signAccessToken,
   signRefreshToken,
   type IJwtPayload,
-} from "@/shared/lib/jwt";
+} from "./../../shared/lib/jwt.js";
 import ms from "ms";
 
 export function getTokens(payload: IJwtPayload) {

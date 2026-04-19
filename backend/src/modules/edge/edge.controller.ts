@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { QuestIdSchema } from "../quest/quest.schema";
-import type { TQuestId } from "../quest/quest.types";
-import { EdgeIdSchema, EdgeSchema } from "./edge.schema";
-import { EdgeService } from "./edge.service";
-import type { TEdgeId } from "./edge.types";
+import { QuestIdSchema } from "../quest/quest.schema.js";
+import type { TQuestId } from "../quest/quest.types.js";
+import { EdgeIdSchema, EdgeSchema } from "./edge.schema.js";
+import { EdgeService } from "./edge.service.js";
+import type { TEdgeId } from "./edge.types.js";
 
 export const EdgeController = {
   async create(req: Request<TQuestId>, res: Response) {

@@ -1,5 +1,5 @@
 import z from "zod";
-import type { TQuestId } from "../quest/quest.types";
+import type { TQuestId } from "../quest/quest.types.js";
 
 export const EdgeSchema = z
   .object({

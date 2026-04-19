@@ -1,12 +1,12 @@
-import { HttpError } from "@/shared/error/httpError";
-import { removeUndefined } from "@/shared/helpers/removeUndefined";
-import { QuestStorage } from "../quest/quest.storage";
-import { NodeStorage } from "./node.storage";
+import { HttpError } from "./../../shared/error/httpError.js";
+import { removeUndefined } from "./../../shared/helpers/removeUndefined.js";
+import { QuestStorage } from "../quest/quest.storage.js";
+import { NodeStorage } from "./node.storage.js";
 import type {
   INodeCreateData,
   INodePayload,
   INodeUpdatePayload,
-} from "./node.types";
+} from "./node.types.js";
 
 export const NodeService = {
   async create({ data, userId }: INodeCreateData) {

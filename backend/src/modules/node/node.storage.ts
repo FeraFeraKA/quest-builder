@@ -1,7 +1,7 @@
-import { prisma } from "@/shared/lib/prisma";
-import type { TQuestId } from "../quest/quest.types";
-import type { TNode } from "./node.schema";
-import type { INodePayload, INodeUpdateData } from "./node.types";
+import { prisma } from "./../../shared/lib/prisma.js";
+import type { TQuestId } from "../quest/quest.types.js";
+import type { TNode } from "./node.schema.js";
+import type { INodePayload, INodeUpdateData } from "./node.types.js";
 
 export const NodeStorage = {
   async getById({ nodeId, userId }: INodePayload) {

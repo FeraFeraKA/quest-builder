@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import { HttpError } from "../error/httpError";
-import { verifyAccessToken } from "../lib/jwt";
+import { HttpError } from "../error/httpError.js";
+import { verifyAccessToken } from "../lib/jwt.js";
 
 export function authGuard(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies["accessToken"];

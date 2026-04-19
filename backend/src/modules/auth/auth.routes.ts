@@ -1,6 +1,6 @@
-import { authGuard } from "@/shared/middleware/authGuard";
+import { authGuard } from "./../../shared/middleware/authGuard.js";
 import { Router } from "express";
-import { AuthController } from "./auth.controller";
+import { AuthController } from "./auth.controller.js";
 
 const router: Router = Router();
 

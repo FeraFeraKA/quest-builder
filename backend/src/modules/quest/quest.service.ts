@@ -1,15 +1,15 @@
-import { HttpError } from "@/shared/error/httpError";
-import { removeUndefined } from "@/shared/helpers/removeUndefined";
+import { HttpError } from "./../../shared/error/httpError.js";
+import { removeUndefined } from "./../../shared/helpers/removeUndefined.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
-import type { TUserId } from "../auth/auth.types";
-import { NodeStorage } from "../node/node.storage";
-import type { TQuestUpdateData } from "./quest.schema";
-import { QuestStorage } from "./quest.storage";
+import type { TUserId } from "../auth/auth.types.js";
+import { NodeStorage } from "../node/node.storage.js";
+import type { TQuestUpdateData } from "./quest.schema.js";
+import { QuestStorage } from "./quest.storage.js";
 import type {
   IQuestCredentials,
   IQuestData,
   TStartNodeId,
-} from "./quest.types";
+} from "./quest.types.js";
 
 export const QuestService = {
   async create(data: IQuestData) {

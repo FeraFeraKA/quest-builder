@@ -1,6 +1,6 @@
-import { prisma } from "@/shared/lib/prisma";
-import type { TEdge } from "./edge.schema";
-import type { IEdgeGet, IEdgeIds, IEdgeUpdateData } from "./edge.types";
+import { prisma } from "./../../shared/lib/prisma.js";
+import type { TEdge } from "./edge.schema.js";
+import type { IEdgeGet, IEdgeIds, IEdgeUpdateData } from "./edge.types.js";
 
 export const EdgeStorage = {
   async getById({ edgeId, userId }: IEdgeIds) {

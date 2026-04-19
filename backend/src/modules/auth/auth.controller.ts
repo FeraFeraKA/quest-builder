@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { RefreshTokenSchema } from "../token/token.schema";
-import RegisterLoginSchema from "./auth.schema";
-import { AuthService } from "./auth.service";
+import { RefreshTokenSchema } from "../token/token.schema.js";
+import RegisterLoginSchema from "./auth.schema.js";
+import { AuthService } from "./auth.service.js";
 
 export const AuthController = {
   async register(req: Request, res: Response) {

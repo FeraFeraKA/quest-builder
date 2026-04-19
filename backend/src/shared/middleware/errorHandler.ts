@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
-import { HttpError } from "../error/httpError";
+import { HttpError } from "../error/httpError.js";
 
 export function errorHandler(
   err: Error,

@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { QuestIdSchema } from "../quest/quest.schema";
-import type { TQuestId } from "../quest/quest.types";
-import { NodeIdSchema, NodeSchema, PartialNodeSchema } from "./node.schema";
-import { NodeService } from "./node.service";
-import type { TNodeId } from "./node.types";
+import { QuestIdSchema } from "../quest/quest.schema.js";
+import type { TQuestId } from "../quest/quest.types.js";
+import { NodeIdSchema, NodeSchema, PartialNodeSchema } from "./node.schema.js";
+import { NodeService } from "./node.service.js";
+import type { TNodeId } from "./node.types.js";
 
 export const NodeController = {
   async create(req: Request<TQuestId>, res: Response) {

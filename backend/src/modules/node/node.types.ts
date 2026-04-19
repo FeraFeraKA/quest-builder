@@ -1,6 +1,6 @@
-import type { Prisma } from "generated/prisma/client";
-import type { TUserId } from "../auth/auth.types";
-import type { TNode, TPartialNode } from "./node.schema";
+import type { Prisma } from "./../../../generated/prisma/client.js";
+import type { TUserId } from "../auth/auth.types.js";
+import type { TNode, TPartialNode } from "./node.schema.js";
 
 export type TNodeId = {
   nodeId: string;

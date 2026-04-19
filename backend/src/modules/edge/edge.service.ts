@@ -1,8 +1,8 @@
-import { HttpError } from "@/shared/error/httpError";
-import { NodeStorage } from "../node/node.storage";
-import { QuestStorage } from "../quest/quest.storage";
-import { EdgeStorage } from "./edge.storage";
-import type { IEdgeData, IEdgeIds, IEdgeUpdateData } from "./edge.types";
+import { HttpError } from "./../../shared/error/httpError.js";
+import { NodeStorage } from "../node/node.storage.js";
+import { QuestStorage } from "../quest/quest.storage.js";
+import { EdgeStorage } from "./edge.storage.js";
+import type { IEdgeData, IEdgeIds, IEdgeUpdateData } from "./edge.types.js";
 
 export const EdgeService = {
   async create({ data, userId }: IEdgeData) {

@@ -1,12 +1,12 @@
-import { HttpError } from "@/shared/error/httpError";
-import { toSafeUser } from "@/shared/helpers/safeUser";
-import { verifyRefreshToken, type IJwtPayload } from "@/shared/lib/jwt";
+import { HttpError } from "./../../shared/error/httpError.js";
+import { toSafeUser } from "./../../shared/helpers/safeUser.js";
+import { verifyRefreshToken, type IJwtPayload } from "./../../shared/lib/jwt.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import bcrypt from "bcrypt";
-import { getTokens } from "../token/getTokens";
-import { RefreshTokenStorage } from "../token/token.storage";
-import { AuthStorage } from "./auth.storage";
-import type { IRegisterLoginData, TToken, TUserId } from "./auth.types";
+import { getTokens } from "../token/getTokens.js";
+import { RefreshTokenStorage } from "../token/token.storage.js";
+import { AuthStorage } from "./auth.storage.js";
+import type { IRegisterLoginData, TToken, TUserId } from "./auth.types.js";
 
 const SALT_ROUNDS = 10;
 

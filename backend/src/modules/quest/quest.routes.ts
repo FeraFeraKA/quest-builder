@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { QuestController } from "./quest.controller";
+import { QuestController } from "./quest.controller.js";
 
 const router: Router = Router();
 
