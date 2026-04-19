@@ -12,6 +12,7 @@ import EditorPage from "./pages/EditorPage";
 import Graph from "./pages/Graph";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
+import Play from "./pages/Play";
 import Playtest from "./pages/Playtest";
 import Register from "./pages/Register";
 
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
         path: "/quests/:id/playtest",
         loader: requireAuth,
         Component: Playtest,
+      },
+      {
+        path: "/quests/:id/play",
+        loader: requireAuth,
+        Component: Play,
       },
     ],
   },

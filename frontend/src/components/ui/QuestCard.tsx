@@ -43,6 +43,11 @@ const Quest = ({
     deleteMutations.mutate();
   };
 
+  const handlePlayClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    navigate(`/quests/${id}/play`);
+  };
+
   return (
     <>
       <Card
@@ -56,13 +61,21 @@ const Quest = ({
         <h2>{description}</h2>
         <p>Создан: {createdAtTime}</p>
         <p>Обновлён: {updatedAtTime}</p>
-        <Button
-          text="Удалить"
-          height="h-10"
-          textSize="text-md"
-          className="mt-1"
-          onClick={(e) => handleDeleteClick(e)}
-        />
+        <div className="flex flex-col gap-2">
+          <Button
+            text="Удалить"
+            height="h-10"
+            textSize="text-md"
+            className="mt-1"
+            onClick={(e) => handleDeleteClick(e)}
+          />
+          <Button
+            text="Играть"
+            height="h-10"
+            textSize="text-md"
+            onClick={(e) => handlePlayClick(e)}
+          />
+        </div>
       </Card>
     </>
   );

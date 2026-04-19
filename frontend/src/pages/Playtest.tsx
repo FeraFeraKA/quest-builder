@@ -17,13 +17,13 @@ const Playtest = () => {
   } = useQuestTraversal({ questId });
 
   return (
-    <div className="flex flex-col items-center justify-center my-4">
+    <div className="flex flex-col items-center justify-center text-center mt-4 gap-4">
       <h1>Тестирование истории</h1>
-      <h1 className="mt-4">{currentNode?.description}</h1>
+      {currentNode ? <h1>{currentNode.description}</h1> : null}
       {!currentNodeId || !quest ? (
-        <p>У тебя не выбран стартовый узел</p>
+        <h1>У тебя не выбран стартовый узел</h1>
       ) : (
-        <div className="flex flex-col gap-4 items-center justify-center mt-6">
+        <div className="flex flex-col gap-4 items-center justify-center mt-2">
           {furtherNodes.map((node) => (
             <Button
               text={node.title}
@@ -36,9 +36,9 @@ const Playtest = () => {
             onClick={(e) => handleBackClick(e)}
             disabled={stack.length === 0}
           />
-          <LinkButton text="Выйти" url={`/quests/${questId}/graph`} />
         </div>
       )}
+      <LinkButton text="Выйти" url={`/quests/${questId}/graph`} />
     </div>
   );
 };
