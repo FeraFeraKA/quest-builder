@@ -13,6 +13,12 @@ export interface ISetStartNode {
   startNodeId: string;
 }
 
+export interface IUpdateQuest {
+  questId: TQuestId;
+  title?: string;
+  description?: string;
+}
+
 export const createQuest = async ({ title, description }: ICreateQuest) => {
   const quest = await fetcher<IQuest>({
     url: "/quests",
@@ -36,6 +42,23 @@ export const getQuest = async (questId: TQuestId) => {
   const quest = await fetcher<IQuest>({
     url: `/quests/${questId}`,
     method: "GET",
+  });
+
+  return quest;
+};
+
+export const updateQuest = async ({
+  questId,
+  title,
+  description,
+}: IUpdateQuest) => {
+  const quest = await fetcher<IQuest>({
+    url: `/quests/${questId}`,
+    method: "PATCH",
+    body: {
+      title,
+      description,
+    },
   });
 
   return quest;

@@ -1,28 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import LinkButton from "../components/ui/LinkButton";
-import useCreateQuest from "../hooks/quests/useCreateQuest";
+import useGetQuest from "../hooks/quests/useGetQuest";
+import useUpdateQuest from "../hooks/quests/useUpdateQuest";
 import useTimeout from "../hooks/useTimeout";
 
-const CreateQuest = () => {
+const EditQuest = () => {
+  const params = useParams();
+  const questId = params.id!;
+  const { data: quest } = useGetQuest(questId);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [log, setLog] = useState("");
-  const createQuestMutation = useCreateQuest();
+  const updateQuestMutation = useUpdateQuest();
   const { startTimeout, clearTimeoutSafe } = useTimeout();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    createQuestMutation.mutate(
-      { title, description },
+    updateQuestMutation.mutate(
+      { questId, title, description },
       {
         onSuccess: () => {
           clearTimeoutSafe();
-          setLog("Квест успешно добавлен!");
-          setTitle("");
-          setDescription("");
+          setLog("Квест успешно обновлён!");
           startTimeout(() => {
             setLog("");
           }, 5000);
@@ -30,6 +33,14 @@ const CreateQuest = () => {
       },
     );
   };
+
+  useEffect(() => {
+    if (!quest) return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTitle(quest.title);
+    setDescription(quest.description);
+  }, [quest]);
 
   return (
     <>
@@ -50,12 +61,12 @@ const CreateQuest = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
           <div className="flex flex-col md:flex-row items-center gap-4">
-            <Button text="Создать" type="submit" />
+            <Button text="Обновить" type="submit" />
             <LinkButton text="Назад" url="/quests" />
           </div>
           {log ? <p>{log}</p> : null}
-          {createQuestMutation.isError ? (
-            <p>{createQuestMutation.error.message}</p>
+          {updateQuestMutation.isError ? (
+            <p>{updateQuestMutation.error.message}</p>
           ) : null}
         </form>
       </div>
@@ -63,4 +74,4 @@ const CreateQuest = () => {
   );
 };
 
-export default CreateQuest;
+export default EditQuest;

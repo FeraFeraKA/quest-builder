@@ -48,6 +48,11 @@ const Quest = ({
     navigate(`/quests/${id}/play`);
   };
 
+  const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    navigate(`/quests/${id}/edit`);
+  };
+
   return (
     <>
       <Card
@@ -65,15 +70,18 @@ const Quest = ({
           <Button
             text="Удалить"
             height="h-10"
-            textSize="text-md"
             className="mt-1"
             onClick={(e) => handleDeleteClick(e)}
           />
           <Button
             text="Играть"
             height="h-10"
-            textSize="text-md"
             onClick={(e) => handlePlayClick(e)}
+          />
+          <Button
+            text="Редактировать"
+            height="h-10"
+            onClick={(e) => handleEditClick(e)}
           />
         </div>
       </Card>
