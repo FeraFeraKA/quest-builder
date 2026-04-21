@@ -19,7 +19,7 @@ const EditorPage = () => {
         ) : (
           <p>У тебя нет узлов (событий)</p>
         )}
-        <div className="flex gap-4">
+        <div className="flex flex-col items-center gap-4">
           <LinkButton
             url={`/quests/${questId}/graph`}
             text="Перейти к графу"

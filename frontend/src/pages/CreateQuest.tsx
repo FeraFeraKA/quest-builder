@@ -49,7 +49,7 @@ const CreateQuest = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <Button text="Создать" type="submit" />
             <LinkButton text="Назад" url="/quests" />
           </div>

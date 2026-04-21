@@ -61,9 +61,9 @@ const Editor = ({
               setTitle("");
               setDescription("");
             }}
-            className="flex flex-col justify-center items-center text-xl "
+            className="flex flex-col justify-center items-center"
           >
-            <label className="flex flex-col gap-3 ">
+            <label className="flex flex-col gap-3 text-xl md:text-2xl">
               <p>Название</p>
               <Input
                 gapX="gap-x-0"
@@ -71,7 +71,7 @@ const Editor = ({
                 onChange={(e) => setTitle(e.target.value)}
               />
             </label>
-            <label className="flex flex-col gap-3 mt-2.5">
+            <label className="flex flex-col gap-3 mt-2.5 text-xl md:text-2xl">
               <p>Описание</p>
               <Input
                 gapX="gap-x-0"
@@ -79,13 +79,23 @@ const Editor = ({
                 onChange={(e) => setDescription(e.target.value)}
               />
             </label>
-            <Button type="submit" text="Создать" className="mt-3" />
+            <Button
+              type="submit"
+              textSize="text-lg md:text-xl"
+              text="Создать"
+              className="mt-3"
+            />
           </form>
-          <LinkButton text="Назад" url={`/quests/${questId}`} />
+          <LinkButton
+            text="Назад"
+            textSize="text-lg md:text-xl"
+            url={`/quests/${questId}`}
+          />
           <LinkButton
             text="Тестировать"
+            textSize="text-lg md:text-xl"
             url={`/quests/${questId}/playtest`}
-          />{" "}
+          />
         </>
       ) : (
         <>
@@ -98,9 +108,9 @@ const Editor = ({
                 description: updateDescription,
               });
             }}
-            className="flex flex-col justify-center items-center text-xl "
+            className="flex flex-col justify-center items-center"
           >
-            <label className="flex flex-col gap-3 ">
+            <label className="flex flex-col gap-3 text-xl md:text-2xl">
               <p>Название</p>
               <Input
                 gapX="gap-x-0"
@@ -108,7 +118,7 @@ const Editor = ({
                 onChange={(e) => setUpdateTitle(e.target.value)}
               />
             </label>
-            <label className="flex flex-col gap-3 mt-2.5">
+            <label className="flex flex-col gap-3 mt-2.5 text-xl md:text-2xl">
               <p>Описание</p>
               <Input
                 gapX="gap-x-0"
@@ -116,10 +126,16 @@ const Editor = ({
                 onChange={(e) => setUpdateDescription(e.target.value)}
               />
             </label>
-            <Button type="submit" text="Обновить" className="mt-3" />
+            <Button
+              type="submit"
+              textSize="text-lg md:text-xl"
+              text="Обновить"
+              className="mt-3"
+            />
           </form>
           <Button
             text="Задать стартовым"
+            textSize="text-lg md:text-xl"
             onClick={handleSetStartNode}
             disabled={selectedNode.id === startNodeId}
           />

@@ -61,7 +61,7 @@ const Quest = ({
         <h2>{description}</h2>
         <p>Создан: {createdAtTime}</p>
         <p>Обновлён: {updatedAtTime}</p>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-start gap-2">
           <Button
             text="Удалить"
             height="h-10"
