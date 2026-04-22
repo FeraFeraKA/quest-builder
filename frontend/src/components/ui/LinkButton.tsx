@@ -38,7 +38,7 @@ const LinkButton = ({
       >
         <span
           className={`
-        relative z-10 font-pixel text-[#f5d742] ${textSize} mb-1
+        relative z-10 font-pixel text-[#f5d742] ${textSize}
         [text-shadow:2px_2px_0_#7a1f00] whitespace-nowrap hover:brightness-110
       `}
         >

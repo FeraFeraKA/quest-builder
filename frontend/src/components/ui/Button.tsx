@@ -40,7 +40,7 @@ const Button = ({
       >
         <span
           className="
-            relative z-10 whitespace-nowrap mb-1
+            relative z-10 whitespace-nowrap
             font-pixel text-[#f5d742]
             [text-shadow:2px_2px_0_#7a1f00]
             enabled:hover:brightness-110

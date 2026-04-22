@@ -38,7 +38,7 @@ const Input = ({
           >
             <input
               {...props}
-              className={`relative z-10 ${textSize} font-jetbrains outline-0 w-50 mb-0.75 bg-transparent`}
+              className={`relative z-10 ${textSize} outline-0 w-50 bg-transparent`}
             />
           </span>
 
