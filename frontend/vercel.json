@@ -4,6 +4,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://quest-builder.onrender.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
