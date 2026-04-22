@@ -19,17 +19,17 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="hidden md:flex gap-6">
+      <nav className="hidden lg:flex gap-6">
         <Button
           text="RU"
           onClick={() => handleChangeLanguage("ru")}
-          disabled={currentLanguage === "ru"}
+          hidden={currentLanguage === "ru"}
         />
         <Button
           text="EN"
           onClick={() => handleChangeLanguage("en")}
-          disabled={currentLanguage === "en"}
-          className="mr-12"
+          hidden={currentLanguage === "en"}
+          className="mr-6"
         />
         {user ? null : (
           <LinkButton text={t("navbar.register")} url="/auth/register" />
@@ -50,7 +50,7 @@ const Navbar = () => {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden flex flex-col gap-1 border-none p-0"
+        className="lg:hidden flex flex-col gap-1 border-none p-0"
       >
         <span className="w-6 h-0.5 bg-yellow-400"></span>
         <span className="w-6 h-0.5 bg-yellow-400"></span>
@@ -58,7 +58,7 @@ const Navbar = () => {
       </button>
 
       {isOpen && (
-        <div className="md:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5">
+        <div className="lg:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5">
           <div
             className="absolute inset-0 bg-black/50"
             onClick={() => setIsOpen(!isOpen)}
@@ -68,12 +68,12 @@ const Navbar = () => {
             <Button
               text="RU"
               onClick={() => handleChangeLanguage("ru")}
-              disabled={currentLanguage === "ru"}
+              hidden={currentLanguage === "ru"}
             />
             <Button
               text="EN"
               onClick={() => handleChangeLanguage("en")}
-              disabled={currentLanguage === "en"}
+              hidden={currentLanguage === "en"}
             />
             {user ? null : (
               <LinkButton text={t("navbar.register")} url="/auth/register" />

@@ -4,13 +4,10 @@
     "languageEn": "EN",
     "profile": "Профиль",
     "logout": "Выйти",
-    "mobileRegister": "Регистрация",
-    "mobileLogin": "Логин"
+    "register": "Регистрация",
+    "login": "Вход"
   },
   "footer": {
     "copyright": "2026. Сделано Fera."
-  },
-  "logo": {
-    "alt": "Quest Builder"
   }
 }
