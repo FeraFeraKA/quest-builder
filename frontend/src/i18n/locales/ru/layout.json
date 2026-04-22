@@ -1,0 +1,16 @@
+{
+  "navbar": {
+    "languageRu": "RU",
+    "languageEn": "EN",
+    "profile": "Профиль",
+    "logout": "Выйти",
+    "mobileRegister": "Регистрация",
+    "mobileLogin": "Логин"
+  },
+  "footer": {
+    "copyright": "2026. Сделано Fera."
+  },
+  "logo": {
+    "alt": "Quest Builder"
+  }
+}

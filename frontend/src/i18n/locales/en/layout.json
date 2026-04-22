@@ -1,0 +1,16 @@
+{
+  "navbar": {
+    "languageRu": "RU",
+    "languageEn": "EN",
+    "profile": "Profile",
+    "logout": "Log out",
+    "mobileRegister": "Register",
+    "mobileLogin": "Login"
+  },
+  "footer": {
+    "copyright": "2026. Made by Fera."
+  },
+  "logo": {
+    "alt": "Quest Builder"
+  }
+}

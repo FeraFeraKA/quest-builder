@@ -1,0 +1,22 @@
+{
+  "createMode": {
+    "title": "Create node",
+    "create": "Create",
+    "back": "Back",
+    "playtest": "Playtest"
+  },
+  "editMode": {
+    "title": "Edit node",
+    "update": "Update",
+    "setAsStart": "Set as start"
+  },
+  "node": {
+    "titlePrefix": "Title:",
+    "descriptionPrefix": "Description:"
+  },
+  "graph": {
+    "createNodeError": "Failed to create node",
+    "updateNodeError": "Failed to update node",
+    "setStartNodeError": "Failed to set start node"
+  }
+}

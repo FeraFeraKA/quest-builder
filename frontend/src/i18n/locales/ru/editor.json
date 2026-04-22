@@ -1,0 +1,22 @@
+{
+  "createMode": {
+    "title": "Создать узел",
+    "create": "Создать",
+    "back": "Назад",
+    "playtest": "Тестировать"
+  },
+  "editMode": {
+    "title": "Редактировать узел",
+    "update": "Обновить",
+    "setAsStart": "Задать стартовым"
+  },
+  "node": {
+    "titlePrefix": "Название:",
+    "descriptionPrefix": "Описание:"
+  },
+  "graph": {
+    "createNodeError": "Не удалось создать узел",
+    "updateNodeError": "Не получилось обновить ноду",
+    "setStartNodeError": "Не удалось задать стартовую ноду"
+  }
+}

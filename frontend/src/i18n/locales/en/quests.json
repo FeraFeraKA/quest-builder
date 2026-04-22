@@ -1,0 +1,35 @@
+{
+  "mainPage": {
+    "heroTitle": "Bring your dreams to life",
+    "startCta": "Start creating a quest"
+  },
+  "dashboard": {
+    "title": "This is your quests page",
+    "home": "Home",
+    "logoutIdle": "Log out",
+    "logoutPending": "Logging out...",
+    "createQuest": "Create quest"
+  },
+  "createQuest": {
+    "title": "Create quest",
+    "success": "Quest added successfully!"
+  },
+  "editQuest": {
+    "title": "Create quest",
+    "success": "Quest updated successfully!"
+  },
+  "editorPage": {
+    "title": "This is the editor",
+    "nodesTitle": "Your nodes (events):",
+    "emptyNodes": "You have no nodes (events)",
+    "toGraph": "Go to graph",
+    "backToQuests": "Back to quests"
+  },
+  "card": {
+    "createdPrefix": "Created:",
+    "updatedPrefix": "Updated:",
+    "delete": "Delete",
+    "play": "Play",
+    "edit": "Edit"
+  }
+}

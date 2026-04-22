@@ -1,0 +1,11 @@
+{
+  "playtest": {
+    "title": "Story testing",
+    "backStep": "Go back",
+    "exit": "Exit"
+  },
+  "play": {
+    "noStartNode": "No start node selected",
+    "exit": "Exit"
+  }
+}

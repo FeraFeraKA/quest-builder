@@ -5,6 +5,7 @@ import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { getMe } from "./api/auth";
 import Layout from "./components/layout/MainLayout";
+import "./i18n";
 import "./index.css";
 import CreateQuest from "./pages/CreateQuest";
 import Dashboard from "./pages/Dashboard";

@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "back": "Назад",
+    "exit": "Выйти",
+    "create": "Создать",
+    "update": "Обновить",
+    "delete": "Удалить",
+    "play": "Играть",
+    "edit": "Редактировать",
+    "loading": "Загрузка..."
+  },
+  "labels": {
+    "nickname": "Никнейм",
+    "password": "Пароль",
+    "title": "Название",
+    "description": "Описание"
+  },
+  "status": {
+    "createdPrefix": "Создан:",
+    "updatedPrefix": "Обновлён:"
+  }
+}

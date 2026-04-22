@@ -1,0 +1,35 @@
+{
+  "mainPage": {
+    "heroTitle": "Воплотите свои мечты в реальность",
+    "startCta": "Начать создавать квест"
+  },
+  "dashboard": {
+    "title": "Это твоя страница с квестами",
+    "home": "На главную",
+    "logoutIdle": "Выйти",
+    "logoutPending": "Выход...",
+    "createQuest": "Создать квест"
+  },
+  "createQuest": {
+    "title": "Создать квест",
+    "success": "Квест успешно добавлен!"
+  },
+  "editQuest": {
+    "title": "Создать квест",
+    "success": "Квест успешно обновлён!"
+  },
+  "editorPage": {
+    "title": "Это редактор",
+    "nodesTitle": "Твои узлы (события):",
+    "emptyNodes": "У тебя нет узлов (событий)",
+    "toGraph": "Перейти к графу",
+    "backToQuests": "Назад к квестам"
+  },
+  "card": {
+    "createdPrefix": "Создан:",
+    "updatedPrefix": "Обновлён:",
+    "delete": "Удалить",
+    "play": "Играть",
+    "edit": "Редактировать"
+  }
+}

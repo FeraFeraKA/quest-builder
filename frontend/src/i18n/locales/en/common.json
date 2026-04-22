@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "back": "Back",
+    "exit": "Exit",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "play": "Play",
+    "edit": "Edit",
+    "loading": "Loading..."
+  },
+  "labels": {
+    "nickname": "Nickname",
+    "password": "Password",
+    "title": "Title",
+    "description": "Description"
+  },
+  "status": {
+    "createdPrefix": "Created:",
+    "updatedPrefix": "Updated:"
+  }
+}
