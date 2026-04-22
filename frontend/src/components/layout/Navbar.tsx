@@ -32,10 +32,10 @@ const Navbar = () => {
           className="mr-12"
         />
         {user ? null : (
-          <LinkButton text={t("navbar.mobileRegister")} url="/auth/register" />
+          <LinkButton text={t("navbar.register")} url="/auth/register" />
         )}
         {user ? null : (
-          <LinkButton text={t("navbar.mobileLogin")} url="/auth/login" />
+          <LinkButton text={t("navbar.login")} url="/auth/login" />
         )}
         {user ? <LinkButton text={t("navbar.profile")} url="/quests" /> : null}
         {user ? (
@@ -65,8 +65,33 @@ const Navbar = () => {
           ></div>
 
           <div className="relative flex flex-col items-center gap-5 w-fit">
-            <LinkButton text={t("navbar.mobileRegister")} url="/auth/register" />
-            <LinkButton text={t("navbar.mobileLogin")} url="/auth/login" />
+            <Button
+              text="RU"
+              onClick={() => handleChangeLanguage("ru")}
+              disabled={currentLanguage === "ru"}
+            />
+            <Button
+              text="EN"
+              onClick={() => handleChangeLanguage("en")}
+              disabled={currentLanguage === "en"}
+            />
+            {user ? null : (
+              <LinkButton text={t("navbar.register")} url="/auth/register" />
+            )}
+            {user ? null : (
+              <LinkButton text={t("navbar.login")} url="/auth/login" />
+            )}
+            {user ? (
+              <LinkButton text={t("navbar.profile")} url="/quests" />
+            ) : null}
+            {user ? (
+              <Button
+                type="button"
+                disabled={logoutMutation.isPending}
+                onClick={() => logoutMutation.mutate(undefined)}
+                text={t("navbar.logout")}
+              />
+            ) : null}
           </div>
         </div>
       )}
