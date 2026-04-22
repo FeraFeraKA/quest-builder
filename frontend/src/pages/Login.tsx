@@ -33,7 +33,7 @@ const Login = () => {
         className="absolute inset-0 -z-50 h-screen
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
-      <div className="my-4 text-center flex flex-col items-center ">
+      <div className="text-center flex flex-col items-center ">
         <h1 className="font-pixel text-green-300">Авторизация</h1>
         <form
           className="flex flex-col items-center my-4 gap-4"

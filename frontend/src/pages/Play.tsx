@@ -10,7 +10,7 @@ const Play = () => {
     useQuestTraversal({ questId });
 
   return (
-    <div className="flex flex-col items-center justify-center text-center mt-4 gap-4">
+    <div className="flex flex-col items-center justify-center text-center gap-4">
       {currentNode ? <h1>{currentNode.description}</h1> : null}
       {!currentNodeId || !quest ? (
         <h1>У тебя не выбран стартовый узел</h1>

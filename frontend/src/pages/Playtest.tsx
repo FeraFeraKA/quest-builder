@@ -17,7 +17,7 @@ const Playtest = () => {
   } = useQuestTraversal({ questId });
 
   return (
-    <div className="flex flex-col items-center justify-center text-center mt-4 gap-4">
+    <div className="flex flex-col items-center justify-center text-center gap-4">
       <h1>Тестирование истории</h1>
       {currentNode ? <h1>{currentNode.description}</h1> : null}
       {!currentNodeId || !quest ? (

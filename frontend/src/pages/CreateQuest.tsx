@@ -34,7 +34,7 @@ const CreateQuest = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center my-10">
+      <div className="flex flex-col items-center text-center">
         <h1>Создать квест</h1>
         <form
           className="flex flex-col gap-4 mt-4 justify-center items-stretch"

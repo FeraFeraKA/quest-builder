@@ -8,8 +8,8 @@ const MainPage = () => {
 
   return (
     <>
-      <div className="mx-auto my-20 max-w-300 text-center">
-        <h1 className="mx-auto font-pixel text-4xl md:text-6xl text-yellow-300 max-w-200">
+      <div className="mx-auto my-10 max-w-300 text-center">
+        <h1 className="mx-auto font-pixel text-4xl md:text-6xl text-yellow-300 max-w-240">
           {t("mainPage.heroTitle")}
         </h1>
         <p className="md:text-2xl text-lg mt-4">{t("mainPage.description")}</p>

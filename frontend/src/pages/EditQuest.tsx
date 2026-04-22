@@ -44,8 +44,8 @@ const EditQuest = () => {
 
   return (
     <>
-      <div className="text-center mt-10">
-        <h1>Создать квест</h1>
+      <div className="flex flex-col items-center text-center">
+        <h1>Обновить квест</h1>
         <form
           className="flex flex-col gap-4 mt-4 justify-center items-center"
           onSubmit={(e) => handleSubmit(e)}

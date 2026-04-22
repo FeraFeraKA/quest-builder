@@ -10,7 +10,7 @@ const EditorPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center gap-4 m-3 text-3xl font-pixel text-yellow-300">
+      <div className="flex flex-col items-center text-center gap-4 text-3xl font-pixel text-yellow-300">
         <h1>Это редактор</h1>
         <p className="font-pixel text-yellow-300">Твои узлы (события): </p>
         {isError && <p>{error.message}</p>}
@@ -19,7 +19,7 @@ const EditorPage = () => {
         ) : (
           <p>У тебя нет узлов (событий)</p>
         )}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <LinkButton
             url={`/quests/${questId}/graph`}
             text="Перейти к графу"

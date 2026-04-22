@@ -2,6 +2,7 @@ type TLabel = {
   label?: string;
   textSize?: string;
   gapX?: string;
+  mt?: string;
 };
 
 type TInputProps = React.InputHTMLAttributes<HTMLInputElement> & TLabel;
@@ -11,6 +12,7 @@ const Input = ({
   height = "h-13",
   textSize = "text-xl",
   gapX = "gap-x-4",
+  mt,
   ...props
 }: TInputProps) => {
   return (
@@ -20,7 +22,7 @@ const Input = ({
       >
         <label>{label}</label>
 
-        <div className="inline-flex items-stretch">
+        <div className={`inline-flex items-stretch ${mt} md:mt-0`}>
           <img
             src="/images/input-left.png"
             alt=""

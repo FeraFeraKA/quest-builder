@@ -11,7 +11,7 @@ const Footer = () => {
       >
         <div className="mt-1.5 flex flex-col md:flex-row justify-center text-center">
           <span className="font-pixel text-3xl text-yellow-300">
-            <p className="inline text-2xl">&copy;</p>
+            &copy;
             {t("footer.copyright")}
           </span>
         </div>
