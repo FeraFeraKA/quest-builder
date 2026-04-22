@@ -2,14 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useLogout from "../../hooks/auth/useLogout";
 import useMe from "../../hooks/auth/useMe";
-import Button from "../ui/Button";
-import LinkButton from "../ui/LinkButton";
+import NavbarActions from "../ui/NavbarActions";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: user } = useMe();
   const logoutMutation = useLogout();
-  const { t } = useTranslation("layout");
   const { i18n } = useTranslation();
   const currentLanguage = i18n.resolvedLanguage;
 
@@ -17,39 +15,25 @@ const Navbar = () => {
     void i18n.changeLanguage(language);
   };
 
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <nav className="hidden lg:flex gap-6">
-        <Button
-          text="RU"
-          onClick={() => handleChangeLanguage("ru")}
-          hidden={currentLanguage === "ru"}
+        <NavbarActions
+          user={user}
+          currentLanguage={currentLanguage}
+          isLogoutPending={logoutMutation.isPending}
+          onLogout={() => logoutMutation.mutate(undefined)}
+          handleChangeLanguage={handleChangeLanguage}
+          handleCloseModal={handleCloseModal}
         />
-        <Button
-          text="EN"
-          onClick={() => handleChangeLanguage("en")}
-          hidden={currentLanguage === "en"}
-          className="mr-6"
-        />
-        {user ? null : (
-          <LinkButton text={t("navbar.register")} url="/auth/register" />
-        )}
-        {user ? null : (
-          <LinkButton text={t("navbar.login")} url="/auth/login" />
-        )}
-        {user ? <LinkButton text={t("navbar.profile")} url="/quests" /> : null}
-        {user ? (
-          <Button
-            type="button"
-            disabled={logoutMutation.isPending}
-            onClick={() => logoutMutation.mutate(undefined)}
-            text={t("navbar.logout")}
-          />
-        ) : null}
       </nav>
 
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen((prev) => !prev)}
         className="lg:hidden flex flex-col gap-1 border-none p-0"
       >
         <span className="w-6 h-0.5 bg-yellow-400"></span>
@@ -61,37 +45,18 @@ const Navbar = () => {
         <div className="lg:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5">
           <div
             className="absolute inset-0 bg-black/50"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={handleCloseModal}
           ></div>
 
           <div className="relative flex flex-col items-center gap-5 w-fit">
-            <Button
-              text="RU"
-              onClick={() => handleChangeLanguage("ru")}
-              hidden={currentLanguage === "ru"}
+            <NavbarActions
+              user={user}
+              currentLanguage={currentLanguage}
+              isLogoutPending={logoutMutation.isPending}
+              onLogout={() => logoutMutation.mutate(undefined)}
+              handleChangeLanguage={handleChangeLanguage}
+              handleCloseModal={handleCloseModal}
             />
-            <Button
-              text="EN"
-              onClick={() => handleChangeLanguage("en")}
-              hidden={currentLanguage === "en"}
-            />
-            {user ? null : (
-              <LinkButton text={t("navbar.register")} url="/auth/register" />
-            )}
-            {user ? null : (
-              <LinkButton text={t("navbar.login")} url="/auth/login" />
-            )}
-            {user ? (
-              <LinkButton text={t("navbar.profile")} url="/quests" />
-            ) : null}
-            {user ? (
-              <Button
-                type="button"
-                disabled={logoutMutation.isPending}
-                onClick={() => logoutMutation.mutate(undefined)}
-                text={t("navbar.logout")}
-              />
-            ) : null}
           </div>
         </div>
       )}

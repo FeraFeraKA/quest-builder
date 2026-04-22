@@ -5,6 +5,7 @@ interface ILinkButtonProps {
   url: string;
   height?: string;
   textSize?: string;
+  onClick?: () => void;
 }
 
 const LinkButton = ({
@@ -12,11 +13,13 @@ const LinkButton = ({
   url,
   height = "h-13",
   textSize = "text-xl",
+  onClick,
 }: ILinkButtonProps) => {
   return (
     <Link
       to={url}
       className="inline-flex items-stretch hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:brightness-75"
+      onClick={onClick}
     >
       <img
         src="/images/button-left.png"
