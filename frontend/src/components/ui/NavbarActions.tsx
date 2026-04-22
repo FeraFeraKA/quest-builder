@@ -27,6 +27,7 @@ const NavbarActions = ({
         text="RU"
         onClick={() => handleChangeLanguage("ru")}
         hidden={currentLanguage === "ru"}
+        className="lg:mr-6"
       />
       <Button
         text="EN"

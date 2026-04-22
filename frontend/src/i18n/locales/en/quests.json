@@ -1,7 +1,9 @@
 {
   "mainPage": {
     "heroTitle": "Bring your dreams to life",
-    "startCta": "Start creating a quest"
+    "description": "Quest Builder is a website where you can create your own interactive stories. Build quests, design different choices, visualize the story flow on a graph, play through your own story, and share it with your friends",
+    "startQuest": "Start creating",
+    "continueQuest": "Continue"
   },
   "dashboard": {
     "title": "This is your quests page",
