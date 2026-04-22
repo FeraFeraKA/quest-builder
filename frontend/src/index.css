@@ -36,7 +36,8 @@
     @apply font-pixel text-2xl text-yellow-300;
   }
 
-  p {
+  p,
+  span {
     @apply font-pixel text-yellow-300;
   }
 

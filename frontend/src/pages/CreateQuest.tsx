@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import LinkButton from "../components/ui/LinkButton";
+import Textarea from "../components/ui/Textarea";
 import useCreateQuest from "../hooks/quests/useCreateQuest";
 import useTimeout from "../hooks/useTimeout";
 
@@ -33,23 +34,31 @@ const CreateQuest = () => {
 
   return (
     <>
-      <div className="text-center mt-10">
+      <div className="flex flex-col items-center text-center my-10">
         <h1>Создать квест</h1>
         <form
-          className="flex flex-col gap-4 mt-4 justify-center items-center"
+          className="flex flex-col gap-4 mt-4 justify-center items-stretch"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <Input
-            label="Название"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Input
-            label="Описание"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <div className="flex flex-col md:flex-row items-center gap-4">
+          <div className="self-center">
+            <Input
+              label="Название"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              mt="mt-2"
+            />
+          </div>
+
+          <label className="flex flex-col ">
+            <span className="text-3xl">Описание</span>
+            <Textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={6}
+            />
+          </label>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <Button text="Создать" type="submit" />
             <LinkButton text="Назад" url="/quests" />
           </div>
