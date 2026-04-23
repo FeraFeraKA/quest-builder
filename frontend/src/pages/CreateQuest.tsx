@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
-import LinkButton from "../components/ui/LinkButton";
 import Textarea from "../components/ui/Textarea";
 import useCreateQuest from "../hooks/quests/useCreateQuest";
 import useTimeout from "../hooks/useTimeout";
 
-const CreateQuest = () => {
+interface ICreateQuestProps {
+  handleCloseModal: () => void;
+}
+
+const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [log, setLog] = useState("");
@@ -34,39 +37,45 @@ const CreateQuest = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center">
-        <h1>Создать квест</h1>
-        <form
-          className="flex flex-col gap-4 mt-4 justify-center items-stretch"
-          onSubmit={(e) => handleSubmit(e)}
-        >
-          <div className="self-center">
-            <Input
-              label="Название"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              mt="mt-2"
-            />
-          </div>
+      <div className="flex flex-col items-center text-center fixed inset-0 z-20">
+        <div
+          className="absolute inset-0 bg-black/50"
+          onClick={handleCloseModal}
+        ></div>
 
-          <label className="flex flex-col ">
-            <span className="text-xl md:text-2xl">Описание</span>
-            <Textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={6}
-            />
-          </label>
+        <div className="my-auto z-20">
+          <h1>Создать квест</h1>
+          <form
+            className="flex flex-col gap-4 mt-4 justify-center items-stretch"
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <div className="self-center">
+              <Input
+                label="Название"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                mt="mt-2"
+              />
+            </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <Button text="Создать" type="submit" />
-            <LinkButton text="Назад" url="/quests" />
-          </div>
-          {log ? <p>{log}</p> : null}
-          {createQuestMutation.isError ? (
-            <p>{createQuestMutation.error.message}</p>
-          ) : null}
-        </form>
+            <label className="flex flex-col ">
+              <span className="text-xl md:text-2xl">Описание</span>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={6}
+              />
+            </label>
+
+            <div className="flex items-center justify-center">
+              <Button text="Создать" type="submit" />
+            </div>
+            {log ? <p>{log}</p> : null}
+            {createQuestMutation.isError ? (
+              <p>{createQuestMutation.error.message}</p>
+            ) : null}
+          </form>
+        </div>
       </div>
     </>
   );
