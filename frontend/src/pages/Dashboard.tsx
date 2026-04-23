@@ -53,7 +53,9 @@ const Dashboard = () => {
       {createIsOpen && (
         <CreateQuest handleCloseModal={handleCloseCreateModal} />
       )}
-      {editIsOpen && <EditQuest questId={questId} />}
+      {editIsOpen && (
+        <EditQuest questId={questId} handleEditModal={handleEditModal} />
+      )}
     </>
   );
 };

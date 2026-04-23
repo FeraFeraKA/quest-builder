@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import { useNavigate } from "react-router";
+import type { TQuestId } from "../../api/quests";
 import useDeleteQuest from "../../hooks/quests/useDeleteQuest";
 import Button from "./Button";
 import Card from "./Card";
@@ -11,6 +12,8 @@ interface IQuestProps {
   description: string;
   createdAt: string;
   updatedAt: string;
+  handleEditModal: (flag: boolean) => void;
+  handleSetQuestId: (questId: TQuestId) => void;
 }
 
 dayjs.locale("ru");
@@ -21,6 +24,8 @@ const Quest = ({
   description,
   createdAt,
   updatedAt,
+  handleEditModal,
+  handleSetQuestId,
 }: IQuestProps) => {
   const createdAtTime = dayjs(createdAt).format("D MMMM YYYY");
   const updatedAtTime = dayjs(updatedAt).format("D MMMM YYYY");
@@ -28,7 +33,7 @@ const Quest = ({
   const deleteMutations = useDeleteQuest(id);
 
   const handleCardClick = () => {
-    navigate(`/quests/${id}`);
+    navigate(`/quests/${id}/graph`);
   };
 
   const handleCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -50,7 +55,8 @@ const Quest = ({
 
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    navigate(`/quests/${id}/edit`);
+    handleSetQuestId(id);
+    handleEditModal(true);
   };
 
   return (

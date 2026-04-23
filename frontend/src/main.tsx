@@ -7,10 +7,7 @@ import { getMe } from "./api/auth";
 import Layout from "./components/layout/MainLayout";
 import "./i18n";
 import "./index.css";
-import CreateQuest from "./pages/CreateQuest";
 import Dashboard from "./pages/Dashboard";
-import EditorPage from "./pages/EditorPage";
-import EditQuest from "./pages/EditQuest";
 import Graph from "./pages/Graph";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
@@ -44,21 +41,6 @@ const router = createBrowserRouter([
         path: "/quests",
         loader: requireAuth,
         Component: Dashboard,
-      },
-      {
-        path: "/quests/create",
-        loader: requireAuth,
-        Component: CreateQuest,
-      },
-      {
-        path: "/quests/:id/edit",
-        loader: requireAuth,
-        Component: EditQuest,
-      },
-      {
-        path: "/quests/:id",
-        loader: requireAuth,
-        Component: EditorPage,
       },
       {
         path: "/quests/:id/graph",

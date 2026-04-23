@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import type { TQuestId } from "../api/quests";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
-import LinkButton from "../components/ui/LinkButton";
+import Textarea from "../components/ui/Textarea";
 import useGetQuest from "../hooks/quests/useGetQuest";
 import useUpdateQuest from "../hooks/quests/useUpdateQuest";
 import useTimeout from "../hooks/useTimeout";
 
-const EditQuest = () => {
-  const params = useParams();
-  const questId = params.id!;
+interface IEditQuestProps {
+  questId: TQuestId;
+  handleEditModal: (flag: boolean) => void;
+}
+
+const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
   const { data: quest } = useGetQuest(questId);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -44,31 +47,40 @@ const EditQuest = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center">
-        <h1>Обновить квест</h1>
-        <form
-          className="flex flex-col gap-4 mt-4 justify-center items-center"
-          onSubmit={(e) => handleSubmit(e)}
-        >
-          <Input
-            label="Название"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Input
-            label="Описание"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <Button text="Обновить" type="submit" />
-            <LinkButton text="Назад" url="/quests" />
-          </div>
-          {log ? <p>{log}</p> : null}
-          {updateQuestMutation.isError ? (
-            <p>{updateQuestMutation.error.message}</p>
-          ) : null}
-        </form>
+      <div className="flex flex-col items-center text-center fixed inset-0 z-20">
+        <div
+          className="absolute inset-0 bg-black/50"
+          onClick={() => handleEditModal(false)}
+        ></div>
+
+        <div className="my-auto z-20">
+          <h1>Обновить квест</h1>
+          <form
+            className="flex flex-col gap-4 mt-4 justify-center items-center"
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <Input
+              label="Название"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <label className="flex flex-col ">
+              <span className="text-xl md:text-2xl">Описание</span>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={6}
+              />
+            </label>
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <Button text="Обновить" type="submit" />
+            </div>
+            {log ? <p>{log}</p> : null}
+            {updateQuestMutation.isError ? (
+              <p>{updateQuestMutation.error.message}</p>
+            ) : null}
+          </form>
+        </div>
       </div>
     </>
   );
