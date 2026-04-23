@@ -10,7 +10,7 @@ const Footer = () => {
           bg-[url(/images/navbar.png)] bg-repeat-x bg-top"
       >
         <div className="mt-1.5 flex flex-col md:flex-row justify-center text-center">
-          <span className="font-pixel text-3xl text-yellow-300">
+          <span className="font-pixel text-yellow-300">
             &copy;
             {t("footer.copyright")}
           </span>

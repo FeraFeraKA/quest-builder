@@ -50,7 +50,7 @@ const CreateQuest = () => {
           </div>
 
           <label className="flex flex-col ">
-            <span className="text-3xl">Описание</span>
+            <span className="text-xl md:text-2xl">Описание</span>
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}

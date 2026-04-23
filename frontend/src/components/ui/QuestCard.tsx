@@ -70,17 +70,20 @@ const Quest = ({
           <Button
             text="Удалить"
             height="h-10"
+            textSize="text-lg"
             className="mt-1"
             onClick={(e) => handleDeleteClick(e)}
           />
           <Button
             text="Играть"
             height="h-10"
+            textSize="text-lg"
             onClick={(e) => handlePlayClick(e)}
           />
           <Button
             text="Редактировать"
             height="h-10"
+            textSize="text-lg"
             onClick={(e) => handleEditClick(e)}
           />
         </div>

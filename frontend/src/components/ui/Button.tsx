@@ -9,7 +9,7 @@ type TButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & TText;
 const Button = ({
   text,
   height = "h-13",
-  textSize = "text-xl",
+  textSize = "text-lg md:text-xl",
   className = "",
   ...props
 }: TButtonProps) => {

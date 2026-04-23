@@ -105,7 +105,7 @@ const Textarea = ({
           className={`
             block h-full w-full mt-6
             resize-none bg-transparent
-            font-pixel text-xl text-[#f5d742]
+            font-pixel text-lg md:text-xl text-[#f5d742]
             placeholder:text-[#caa52e]
             outline-none border-none
             [text-shadow:2px_2px_0_#7a1f00]

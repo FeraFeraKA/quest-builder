@@ -12,7 +12,7 @@ const LinkButton = ({
   text,
   url,
   height = "h-13",
-  textSize = "text-xl",
+  textSize = "text-lg md:text-xl",
   onClick,
 }: ILinkButtonProps) => {
   return (
