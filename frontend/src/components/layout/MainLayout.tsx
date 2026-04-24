@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <>
       <div
-        className="inset-0 -z-50 h-full
+        className="inset-0 -z-50 h-full bg-size-[400px_400px]
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       >
         <div className="flex min-h-screen flex-col">

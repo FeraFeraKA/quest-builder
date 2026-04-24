@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { INodeCreate, INodeUpdate, TNodeId } from "../../api/nodes";
 import type { TQuestId } from "../../api/quests";
 import Button from "../ui/Button";
@@ -33,6 +34,7 @@ const Editor = ({
   handleUpdateNode,
   handleSetStartNode,
 }: IEditorProps) => {
+  const { t } = useTranslation(["editor", "common"]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [updateTitle, setUpdateTitle] = useState("");
@@ -52,10 +54,16 @@ const Editor = ({
   }, [selectedNode?.id]);
 
   return (
-    <div className="flex flex-col flex-1 gap-3 justify-center items-center text-center my-4 text-yellow-300 font-pixel">
+    <div
+      className="flex flex-col flex-1 gap-3
+     justify-center items-center text-center
+      py-4 text-yellow-300 font-pixel
+      bg-[url(/images/bg-editor.png)] bg-size-[700px_700px]
+      bg-repeat bg-top [image-rendering:pixelated]"
+    >
       {!selectedNode ? (
         <>
-          <h1>Создать узел</h1>
+          <h1>{t("createMode.title", { ns: "editor" })}</h1>
           <form
             onSubmit={(e) => {
               handleCreateNode(e, { title, description });
@@ -65,7 +73,9 @@ const Editor = ({
             className="flex flex-col justify-center items-center"
           >
             <label className="flex flex-col gap-3">
-              <p className="text-xl md:text-2xl">Название</p>
+              <p className="text-xl md:text-2xl">
+                {t("labels.title", { ns: "common" })}
+              </p>
               <Input
                 gapX="gap-x-0"
                 value={title}
@@ -73,21 +83,33 @@ const Editor = ({
               />
             </label>
             <label className="flex flex-col gap-0.5 mt-2.5">
-              <p className="text-xl md:text-2xl">Описание</p>
+              <p className="text-xl md:text-2xl">
+                {t("labels.description", { ns: "common" })}
+              </p>
               <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
               />
             </label>
-            <Button type="submit" text="Создать" className="mt-3" />
+            <Button
+              type="submit"
+              text={t("createMode.create", { ns: "editor" })}
+              className="mt-3"
+            />
           </form>
-          <LinkButton text="Назад" url={`/quests/${questId}`} />
-          <LinkButton text="Тестировать" url={`/quests/${questId}/playtest`} />
+          <LinkButton
+            text={t("createMode.back", { ns: "editor" })}
+            url={`/quests/${questId}`}
+          />
+          <LinkButton
+            text={t("createMode.playtest", { ns: "editor" })}
+            url={`/quests/${questId}/playtest`}
+          />
         </>
       ) : (
         <>
-          <h1>Редактировать узел</h1>
+          <h1>{t("editMode.title", { ns: "editor" })}</h1>
           <form
             onSubmit={(e) => {
               handleUpdateNode(e, {
@@ -99,7 +121,7 @@ const Editor = ({
             className="flex flex-col justify-center items-center"
           >
             <label className="flex flex-col gap-3">
-              <p>Название</p>
+              <p>{t("labels.title", { ns: "common" })}</p>
               <Input
                 gapX="gap-x-0"
                 value={updateTitle}
@@ -107,17 +129,21 @@ const Editor = ({
               />
             </label>
             <label className="flex flex-col gap-3 mt-2.5">
-              <p>Описание</p>
+              <p>{t("labels.description", { ns: "common" })}</p>
               <Input
                 gapX="gap-x-0"
                 value={updateDescription}
                 onChange={(e) => setUpdateDescription(e.target.value)}
               />
             </label>
-            <Button type="submit" text="Обновить" className="mt-3" />
+            <Button
+              type="submit"
+              text={t("editMode.update", { ns: "editor" })}
+              className="mt-3"
+            />
           </form>
           <Button
-            text="Задать стартовым"
+            text={t("editMode.setAsStart", { ns: "editor" })}
             onClick={handleSetStartNode}
             disabled={selectedNode.id === startNodeId}
           />
