@@ -20,8 +20,8 @@ const Layout = () => {
           <main
             className={
               shouldRemovePadding
-                ? "flex-1 py-10 px-3 sm:px-6 lg:px-10 xl:px-14"
-                : "flex-1"
+                ? "flex-1"
+                : "flex-1 py-10 px-3 sm:px-6 lg:px-10 xl:px-14"
             }
           >
             <Outlet />
