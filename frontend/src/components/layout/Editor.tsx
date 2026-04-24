@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import type { QuestNode } from "../ui/CustomNode";
 import Input from "../ui/Input";
 import LinkButton from "../ui/LinkButton";
+import Textarea from "../ui/Textarea";
 
 interface IEditorProps {
   questId: TQuestId;
@@ -71,12 +72,12 @@ const Editor = ({
                 onChange={(e) => setTitle(e.target.value)}
               />
             </label>
-            <label className="flex flex-col gap-3 mt-2.5">
+            <label className="flex flex-col gap-0.5 mt-2.5">
               <p className="text-xl md:text-2xl">Описание</p>
-              <Input
-                gapX="gap-x-0"
+              <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                rows={6}
               />
             </label>
             <Button type="submit" text="Создать" className="mt-3" />
