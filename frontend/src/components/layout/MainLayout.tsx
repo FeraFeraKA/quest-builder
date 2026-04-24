@@ -5,8 +5,7 @@ import Header from "./Header";
 const Layout = () => {
   const { pathname } = useLocation();
 
-  const noPaddingRoutes = ["/graph"];
-  const shouldRemovePadding = noPaddingRoutes.includes(pathname);
+  const shouldRemovePadding = pathname.endsWith("/graph");
 
   return (
     <>
