@@ -34,5 +34,17 @@
     "delete": "Delete",
     "play": "Play",
     "edit": "Edit"
+  },
+  "guide": {
+    "title": "Welcome!",
+    "p1": "You are in my quest editor. Here I will explain how to use the website.",
+    "p2": "First, create a quest: click the \"Create quest\" button and enter a title and description. After that, your quest card will appear on the quests page.",
+    "p3": "To start editing, click the quest card itself. You will get to the editor page with the graph: the graph is on the left, and the fields and buttons for adding nodes are on the right.",
+    "p4": "Create your first node: enter its title and description. The title will be shown as a choice option, and the description will be shown as the story text.",
+    "p5": "The idea is simple: the title describes the player's action, while the description explains what happens after that action.",
+    "p6": "You can use hotkeys in the editor. To delete a node or an edge, first select an element on the graph, then press Backspace or Delete.",
+    "p7": "If you need to select several elements at once, hold Shift and drag an area with the mouse. All nodes and edges inside the frame will be selected.",
+    "p8": "You can also select multiple elements one by one: hold Ctrl on Windows/Linux or Cmd on macOS and click the nodes or edges you need.",
+    "p9": "To work more comfortably with a large graph, move nodes with the mouse, connect edges between handles, and use graph zooming."
   }
 }
