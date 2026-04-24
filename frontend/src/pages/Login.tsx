@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
@@ -6,6 +7,7 @@ import LinkButton from "../components/ui/LinkButton";
 import useLogin from "../hooks/auth/useLogin";
 
 const Login = () => {
+  const { t } = useTranslation("common");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -34,29 +36,33 @@ const Login = () => {
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
       <div className="text-center flex flex-col items-center ">
-        <h1 className="font-pixel text-green-300">Авторизация</h1>
+        <h1 className="font-pixel text-green-300">{t("auth.loginTitle")}</h1>
         <form
           className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
         >
           <Input
-            label="Никнейм"
+            label={t("labels.nickname")}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <Input
-            label="Пароль"
+            label={t("labels.password")}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button
-            text={loginMutation.isPending ? "Загрузка..." : "Войти"}
+            text={
+              loginMutation.isPending
+                ? t("actions.loading")
+                : t("auth.loginAction")
+            }
             disabled={loginMutation.isPending}
             type="submit"
           />
         </form>
-        <LinkButton text="Назад" url="/" />
+        <LinkButton text={t("actions.back")} url="/" />
         {loginMutation.isError && (
           <p className="mt-4">{loginMutation.error.message}</p>
         )}

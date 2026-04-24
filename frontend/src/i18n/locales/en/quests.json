@@ -17,7 +17,7 @@
     "success": "Quest added successfully!"
   },
   "editQuest": {
-    "title": "Create quest",
+    "title": "Update quest",
     "success": "Quest updated successfully!"
   },
   "editorPage": {

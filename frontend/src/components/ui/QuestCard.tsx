@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import type { TQuestId } from "../../api/quests";
 import useDeleteQuest from "../../hooks/quests/useDeleteQuest";
@@ -16,8 +17,6 @@ interface IQuestProps {
   handleSetQuestId: (questId: TQuestId) => void;
 }
 
-dayjs.locale("ru");
-
 const Quest = ({
   id,
   title,
@@ -27,8 +26,10 @@ const Quest = ({
   handleEditModal,
   handleSetQuestId,
 }: IQuestProps) => {
-  const createdAtTime = dayjs(createdAt).format("D MMMM YYYY");
-  const updatedAtTime = dayjs(updatedAt).format("D MMMM YYYY");
+  const { t, i18n } = useTranslation("quests");
+  const dayjsLocale = i18n.resolvedLanguage?.startsWith("ru") ? "ru" : "en";
+  const createdAtTime = dayjs(createdAt).locale(dayjsLocale).format("D MMMM YYYY");
+  const updatedAtTime = dayjs(updatedAt).locale(dayjsLocale).format("D MMMM YYYY");
   const navigate = useNavigate();
   const deleteMutations = useDeleteQuest(id);
 
@@ -62,7 +63,9 @@ const Quest = ({
   return (
     <>
       <Card
-        className="cursor-pointer whitespace-normal wrap-break-word hover:brightness-110 hover:-translate-y-1 active:translate-y-0 transition-all duration-200"
+        className="cursor-pointer whitespace-normal wrap-break-word
+         hover:brightness-110 hover:-translate-y-1 active:translate-y-0
+         transition-all duration-200"
         onClick={handleCardClick}
         onKeyDown={(e) => handleCardKeyDown(e)}
         role="link"
@@ -70,24 +73,28 @@ const Quest = ({
       >
         <h1>{title}</h1>
         <h2>{description}</h2>
-        <p>Создан: {createdAtTime}</p>
-        <p>Обновлён: {updatedAtTime}</p>
+        <p>
+          {t("card.createdPrefix")} {createdAtTime}
+        </p>
+        <p>
+          {t("card.updatedPrefix")} {updatedAtTime}
+        </p>
         <div className="flex flex-col items-start gap-2">
           <Button
-            text="Удалить"
+            text={t("card.delete")}
             height="h-10"
             textSize="text-lg"
             className="mt-1"
             onClick={(e) => handleDeleteClick(e)}
           />
           <Button
-            text="Играть"
+            text={t("card.play")}
             height="h-10"
             textSize="text-lg"
             onClick={(e) => handlePlayClick(e)}
           />
           <Button
-            text="Редактировать"
+            text={t("card.edit")}
             height="h-10"
             textSize="text-lg"
             onClick={(e) => handleEditClick(e)}

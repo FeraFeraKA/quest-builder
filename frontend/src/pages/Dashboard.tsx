@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { TQuestId } from "../api/quests";
 import QuestList from "../components/layout/QuestList";
 import Button from "../components/ui/Button";
@@ -9,6 +10,7 @@ import CreateQuest from "./CreateQuest";
 import EditQuest from "./EditQuest";
 
 const Dashboard = () => {
+  const { t } = useTranslation("quests");
   const { data: quests, isError, error } = useGetQuests();
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
@@ -30,20 +32,24 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex flex-col gap-4 font-pixel text-yellow-300">
-        <h1 className="text-center">Это твоя страница с квестами</h1>
+        <h1 className="text-center">{t("dashboard.title")}</h1>
         <QuestList
           quests={quests}
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
         />
         <div className="flex flex-col md:flex-row items-center self-center gap-4">
-          <LinkButton text="На главную" url="/" />
+          <LinkButton text={t("dashboard.home")} url="/" />
           <Button
-            text={logoutMutation.isPending ? "Выход..." : "Выйти"}
+            text={
+              logoutMutation.isPending
+                ? t("dashboard.logoutPending")
+                : t("dashboard.logoutIdle")
+            }
             onClick={() => logoutMutation.mutate(undefined)}
           />
           <Button
-            text="Создать квест"
+            text={t("dashboard.createQuest")}
             onClick={() => setCreateIsOpen((prev) => !prev)}
           />
         </div>

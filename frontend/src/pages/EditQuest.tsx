@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { TQuestId } from "../api/quests";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
@@ -13,6 +14,7 @@ interface IEditQuestProps {
 }
 
 const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
+  const { t } = useTranslation(["quests", "common"]);
   const { data: quest } = useGetQuest(questId);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -28,7 +30,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
       {
         onSuccess: () => {
           clearTimeoutSafe();
-          setLog("Квест успешно обновлён!");
+          setLog(t("editQuest.success", { ns: "quests" }));
           startTimeout(() => {
             setLog("");
           }, 5000);
@@ -54,18 +56,20 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
         ></div>
 
         <div className="my-auto z-20">
-          <h1>Обновить квест</h1>
+          <h1>{t("editQuest.title", { ns: "quests" })}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-center"
             onSubmit={(e) => handleSubmit(e)}
           >
             <Input
-              label="Название"
+              label={t("labels.title", { ns: "common" })}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <label className="flex flex-col ">
-              <span className="text-xl md:text-2xl">Описание</span>
+              <span className="text-xl md:text-2xl">
+                {t("labels.description", { ns: "common" })}
+              </span>
               <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -73,7 +77,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
               />
             </label>
             <div className="flex flex-col md:flex-row items-center gap-4">
-              <Button text="Обновить" type="submit" />
+              <Button text={t("actions.update", { ns: "common" })} type="submit" />
             </div>
             {log ? <p>{log}</p> : null}
             {updateQuestMutation.isError ? (

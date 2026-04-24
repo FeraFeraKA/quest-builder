@@ -18,5 +18,11 @@
   "status": {
     "createdPrefix": "Создан:",
     "updatedPrefix": "Обновлён:"
+  },
+  "auth": {
+    "loginTitle": "Авторизация",
+    "registerTitle": "Регистрация",
+    "loginAction": "Войти",
+    "registerAction": "Зарегистрироваться"
   }
 }

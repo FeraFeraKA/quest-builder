@@ -1,9 +1,11 @@
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import Button from "../components/ui/Button";
 import LinkButton from "../components/ui/LinkButton";
 import useQuestTraversal from "../hooks/useQuestTraversal";
 
 const Playtest = () => {
+  const { t } = useTranslation("playtest");
   const params = useParams();
   const questId = params.id!;
   const {
@@ -18,10 +20,10 @@ const Playtest = () => {
 
   return (
     <div className="flex flex-col items-center justify-center text-center gap-4">
-      <h1>Тестирование истории</h1>
+      <h1>{t("playtest.title")}</h1>
       {currentNode ? <h1>{currentNode.description}</h1> : null}
       {!currentNodeId || !quest ? (
-        <h1>У тебя не выбран стартовый узел</h1>
+        <h1>{t("play.noStartNode")}</h1>
       ) : (
         <div className="flex flex-col gap-4 items-center justify-center mt-2">
           {furtherNodes.map((node) => (
@@ -32,13 +34,13 @@ const Playtest = () => {
             />
           ))}
           <Button
-            text="Вернуться назад"
+            text={t("playtest.backStep")}
             onClick={(e) => handleBackClick(e)}
             disabled={stack.length === 0}
           />
         </div>
       )}
-      <LinkButton text="Выйти" url={`/quests/${questId}/graph`} />
+      <LinkButton text={t("playtest.exit")} url={`/quests/${questId}/graph`} />
     </div>
   );
 };

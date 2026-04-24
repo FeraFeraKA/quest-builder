@@ -6,6 +6,7 @@ import {
   type Edge,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import type { INodeCreate, INodeUpdate } from "../api/nodes";
 import Editor from "../components/layout/Editor";
@@ -28,6 +29,7 @@ const getRandomInt = (min: number, max: number) => {
 };
 
 const Graph = () => {
+  const { t } = useTranslation("editor");
   const params = useParams();
   const questId = params.id!;
   const { data: quest } = useGetQuest(questId);
@@ -80,7 +82,7 @@ const Graph = () => {
         },
       ]);
     } catch (error) {
-      console.error("Не удалось создать узел", error);
+      console.error(t("graph.createNodeError"), error);
     }
   };
 
@@ -162,7 +164,7 @@ const Graph = () => {
         ),
       );
     } catch (error) {
-      console.error("Не получилось обновить ноду", error);
+      console.error(t("graph.updateNodeError"), error);
     }
   };
 
@@ -202,7 +204,7 @@ const Graph = () => {
 
       setStartNodeId(updatedQuest.startNodeId!);
     } catch (error) {
-      console.error("Не удалось задать стартовую ноду", error);
+      console.error(t("graph.setStartNodeError"), error);
     }
   };
 
@@ -269,7 +271,8 @@ const Graph = () => {
     <>
       <div className="flex flex-col md:flex-row">
         <div
-          className="w-full md:w-[calc(100dvw-25rem)] text-yellow-300 font-pixel border-2 border-amber-700"
+          className="w-full md:w-[calc(100dvw-25rem)]
+           text-yellow-300 font-pixel"
           style={{ height: graphHeight }}
         >
           <ReactFlow

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Textarea from "../components/ui/Textarea";
@@ -10,6 +11,7 @@ interface ICreateQuestProps {
 }
 
 const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
+  const { t } = useTranslation(["quests", "common"]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [log, setLog] = useState("");
@@ -24,7 +26,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
       {
         onSuccess: () => {
           clearTimeoutSafe();
-          setLog("Квест успешно добавлен!");
+          setLog(t("createQuest.success", { ns: "quests" }));
           setTitle("");
           setDescription("");
           startTimeout(() => {
@@ -44,14 +46,14 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
         ></div>
 
         <div className="my-auto z-20">
-          <h1>Создать квест</h1>
+          <h1>{t("createQuest.title", { ns: "quests" })}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-stretch"
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="self-center">
               <Input
-                label="Название"
+                label={t("labels.title", { ns: "common" })}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 mt="mt-2"
@@ -59,7 +61,9 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
             </div>
 
             <label className="flex flex-col ">
-              <span className="text-xl md:text-2xl">Описание</span>
+              <span className="text-xl md:text-2xl">
+                {t("labels.description", { ns: "common" })}
+              </span>
               <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -68,7 +72,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
             </label>
 
             <div className="flex items-center justify-center">
-              <Button text="Создать" type="submit" />
+              <Button text={t("actions.create", { ns: "common" })} type="submit" />
             </div>
             {log ? <p>{log}</p> : null}
             {createQuestMutation.isError ? (

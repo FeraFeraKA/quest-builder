@@ -18,5 +18,11 @@
   "status": {
     "createdPrefix": "Created:",
     "updatedPrefix": "Updated:"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "loginAction": "Sign in",
+    "registerAction": "Sign up"
   }
 }

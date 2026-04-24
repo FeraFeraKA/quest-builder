@@ -24,13 +24,13 @@ const NavbarActions = ({
   return (
     <>
       <Button
-        text="RU"
+        text={t("navbar.languageRu")}
         onClick={() => handleChangeLanguage("ru")}
         hidden={currentLanguage === "ru"}
         className="lg:mr-6"
       />
       <Button
-        text="EN"
+        text={t("navbar.languageEn")}
         onClick={() => handleChangeLanguage("en")}
         hidden={currentLanguage === "en"}
         className="lg:mr-6"
