@@ -32,6 +32,7 @@ const Graph = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [selectedNodeId, setSelectedNodeId] = useState("");
   const [startNodeId, setStartNodeId] = useState("");
+  const [graphHeight, setGraphHeight] = useState("calc(100dvh - 20rem)");
   const createNodeMutation = useCreateNode();
   const updateNodeMutatuon = useUpdateNode();
   const updateGraphNodeMutation = useUpdateGraphNode();
@@ -241,10 +242,40 @@ const Graph = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quest?.id]);
 
+  useEffect(() => {
+    const desktopMediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const updateGraphHeight = () => {
+      if (desktopMediaQuery.matches) {
+        const desktopHeight = Math.max(
+          0,
+          document.documentElement.scrollHeight - 320,
+        );
+        setGraphHeight(`${desktopHeight}px`);
+        return;
+      }
+
+      setGraphHeight("calc(100dvh - 10rem)");
+    };
+
+    updateGraphHeight();
+
+    desktopMediaQuery.addEventListener("change", updateGraphHeight);
+    window.addEventListener("resize", updateGraphHeight);
+
+    return () => {
+      desktopMediaQuery.removeEventListener("change", updateGraphHeight);
+      window.removeEventListener("resize", updateGraphHeight);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        <div className="h-[calc(100dvh-20rem)] w-full md:w-[calc(100dvw-25rem)] text-yellow-300 font-pixel border-2 border-amber-700">
+        <div
+          className="w-full md:w-[calc(100dvw-25rem)] text-yellow-300 font-pixel border-2 border-amber-700"
+          style={{ height: graphHeight }}
+        >
           <ReactFlow
             nodes={nodes}
             edges={edges}
