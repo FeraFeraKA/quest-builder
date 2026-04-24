@@ -100,7 +100,7 @@ const Editor = ({
           </form>
           <LinkButton
             text={t("createMode.back", { ns: "editor" })}
-            url={`/quests/${questId}`}
+            url={`/quests`}
           />
           <LinkButton
             text={t("createMode.playtest", { ns: "editor" })}
