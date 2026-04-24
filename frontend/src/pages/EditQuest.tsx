@@ -49,7 +49,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
     <>
       <div className="flex flex-col items-center text-center fixed inset-0 z-20">
         <div
-          className="absolute inset-0 bg-black/50"
+          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={() => handleEditModal(false)}
         ></div>
 
