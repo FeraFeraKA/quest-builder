@@ -1,13 +1,14 @@
 import { useTranslation } from "react-i18next";
+import LinkButton from "../components/ui/LinkButton";
 
 const Guide = () => {
-  const { t } = useTranslation("quests");
+  const { t } = useTranslation(["quests", "common"]);
 
   return (
     <div className="text-center max-w-4xl mx-auto">
       <h1>{t("guide.title")}</h1>
 
-      <div className="mt-4 space-y-4 text-left">
+      <div className="flex items-center mt-4 gap-y-4 text-left">
         <p>{t("guide.p1")}</p>
 
         <p>{t("guide.p2")}</p>
@@ -25,6 +26,8 @@ const Guide = () => {
         <p>{t("guide.p8")}</p>
 
         <p>{t("guide.p9")}</p>
+
+        <LinkButton text={t("actions.back", { ns: "common" })} url="/quests" />
       </div>
     </div>
   );
