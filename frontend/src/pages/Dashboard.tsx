@@ -38,7 +38,7 @@ const Dashboard = () => {
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
         />
-        <div className="flex flex-col md:flex-row items-center self-center gap-4">
+        <div className="flex flex-col lg:flex-row items-center self-center gap-4">
           <LinkButton text={t("dashboard.home")} url="/" />
           <Button
             text={
@@ -52,6 +52,7 @@ const Dashboard = () => {
             text={t("dashboard.createQuest")}
             onClick={() => setCreateIsOpen((prev) => !prev)}
           />
+          <LinkButton text={t("dashboard.guide")} url="/guide" />
         </div>
         {isError && <p>{error.message}</p>}
       </div>

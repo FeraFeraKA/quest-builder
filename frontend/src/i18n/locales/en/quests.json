@@ -10,7 +10,8 @@
     "home": "Home",
     "logoutIdle": "Log out",
     "logoutPending": "Logging out...",
-    "createQuest": "Create quest"
+    "createQuest": "Create quest",
+    "guide": "Guide"
   },
   "createQuest": {
     "title": "Create quest",

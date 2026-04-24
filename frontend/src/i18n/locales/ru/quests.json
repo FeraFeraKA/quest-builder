@@ -10,7 +10,8 @@
     "home": "На главную",
     "logoutIdle": "Выйти",
     "logoutPending": "Выход...",
-    "createQuest": "Создать квест"
+    "createQuest": "Создать квест",
+    "guide": "Гайд"
   },
   "createQuest": {
     "title": "Создать квест",

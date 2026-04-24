@@ -9,6 +9,7 @@ import "./i18n";
 import "./index.css";
 import Dashboard from "./pages/Dashboard";
 import Graph from "./pages/Graph";
+import Guide from "./pages/Guide";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
 import Play from "./pages/Play";
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
         path: "/quests",
         loader: requireAuth,
         Component: Dashboard,
+      },
+      {
+        path: "/guide",
+        loader: requireAuth,
+        Component: Guide,
       },
       {
         path: "/quests/:id/graph",
