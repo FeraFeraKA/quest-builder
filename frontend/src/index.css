@@ -28,6 +28,17 @@
     transition: background-color 9999s ease-in-out 0s;
   }
 
+  .react-flow__edge-path {
+    transition:
+      stroke 150ms ease,
+      stroke-width 150ms ease;
+  }
+
+  .react-flow__edge.selected .react-flow__edge-path {
+    stroke: #ec430f !important;
+    stroke-width: 6 !important;
+  }
+
   h1 {
     @apply font-pixel text-2xl md:text-3xl text-yellow-300 font-medium;
   }

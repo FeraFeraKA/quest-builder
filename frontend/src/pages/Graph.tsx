@@ -109,10 +109,6 @@ const Graph = () => {
                 id: createdEdge.id,
                 source: createdEdge.nodeFromId,
                 target: createdEdge.nodeToId,
-                style: {
-                  stroke: "brown",
-                  strokeWidth: 2,
-                },
               }
             : edge,
         ),
@@ -229,10 +225,6 @@ const Graph = () => {
         id: edge.id,
         source: edge.nodeFromId,
         target: edge.nodeToId,
-        style: {
-          stroke: "brown",
-          strokeWidth: 2,
-        },
       })),
     );
 
@@ -287,6 +279,17 @@ const Graph = () => {
             onDelete={handleDelete}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
+            defaultEdgeOptions={{
+              style: {
+                stroke: "brown",
+                strokeWidth: 4,
+              },
+              
+            }}
+            connectionLineStyle={{
+              stroke: "brown",
+              strokeWidth: 4,
+            }}
             fitView
           ></ReactFlow>
         </div>
