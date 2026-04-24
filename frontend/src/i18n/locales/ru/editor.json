@@ -18,5 +18,8 @@
     "createNodeError": "Не удалось создать узел",
     "updateNodeError": "Не получилось обновить ноду",
     "setStartNodeError": "Не удалось задать стартовую ноду"
+  },
+  "edge": {
+    "delete": "Удалить связь"
   }
 }

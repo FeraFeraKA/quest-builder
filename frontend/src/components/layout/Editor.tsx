@@ -1,3 +1,4 @@
+import type { Edge } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { INodeCreate, INodeUpdate, TNodeId } from "../../api/nodes";
@@ -11,6 +12,7 @@ import Textarea from "../ui/Textarea";
 interface IEditorProps {
   questId: TQuestId;
   selectedNode: QuestNode | null;
+  selectedEdge: Edge | null;
   startNodeId: TNodeId;
   handleCreateNode: (
     e: React.SubmitEvent,
@@ -29,6 +31,7 @@ interface IEditorProps {
 const Editor = ({
   questId,
   selectedNode,
+  selectedEdge,
   startNodeId,
   handleCreateNode,
   handleUpdateNode,
@@ -61,7 +64,11 @@ const Editor = ({
       bg-[url(/images/bg-editor.png)] bg-size-[700px_700px]
       bg-repeat bg-top [image-rendering:pixelated]"
     >
-      {!selectedNode ? (
+      {selectedEdge ? (
+        <div className="flex flex-col justify-center items-center">
+          <Button text={t("edge.delete", { ns: "editor" })} />
+        </div>
+      ) : !selectedNode ? (
         <>
           <h1>{t("createMode.title", { ns: "editor" })}</h1>
           <form
@@ -107,7 +114,7 @@ const Editor = ({
             url={`/quests/${questId}/playtest`}
           />
         </>
-      ) : (
+      ) : !selectedEdge ? (
         <>
           <h1>{t("editMode.title", { ns: "editor" })}</h1>
           <form
@@ -148,7 +155,7 @@ const Editor = ({
             disabled={selectedNode.id === startNodeId}
           />
         </>
-      )}
+      ) : null}
     </div>
   );
 };

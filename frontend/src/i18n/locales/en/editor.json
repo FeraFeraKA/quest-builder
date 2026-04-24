@@ -18,5 +18,8 @@
     "createNodeError": "Failed to create node",
     "updateNodeError": "Failed to update node",
     "setStartNodeError": "Failed to set start node"
+  },
+  "edge": {
+    "delete": "Delete edge"
   }
 }

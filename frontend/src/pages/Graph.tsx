@@ -37,6 +37,7 @@ const Graph = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [selectedNodeId, setSelectedNodeId] = useState("");
+  const [selectedEdgeId, setSelectedEdgeId] = useState("");
   const [startNodeId, setStartNodeId] = useState("");
   const [graphHeight, setGraphHeight] = useState("calc(100dvh - 20rem)");
   const createNodeMutation = useCreateNode();
@@ -47,6 +48,7 @@ const Graph = () => {
   const deleteEdgeMutation = useDeleteEdge();
 
   const selectedNode = nodes.find((node) => node.id == selectedNodeId) ?? null;
+  const selectedEdge = edges.find((edge) => edge.id === selectedEdgeId) ?? null;
 
   const handleCreateNode = async (
     e: React.SubmitEvent,
@@ -187,9 +189,16 @@ const Graph = () => {
 
   const handleNodeClick = (_event: React.MouseEvent, node: QuestNode) => {
     setSelectedNodeId(node.id);
+    setSelectedEdgeId("");
   };
 
   const handlePaneClick = () => {
+    setSelectedNodeId("");
+    setSelectedEdgeId("");
+  };
+
+  const handleEdgeClick = (_event: React.MouseEvent, edge: Edge) => {
+    setSelectedEdgeId(edge.id);
     setSelectedNodeId("");
   };
 
@@ -253,7 +262,7 @@ const Graph = () => {
         return;
       }
 
-      setGraphHeight("calc(100dvh - 10rem)");
+      setGraphHeight("calc(100dvh - 15rem)");
     };
 
     updateGraphHeight();
@@ -279,12 +288,14 @@ const Graph = () => {
             nodes={nodes}
             edges={edges}
             nodeTypes={nodeTypes}
+            deleteKeyCode={["Delete", "Backspace"]}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={handleConnect}
             onNodeDragStop={handleNodeDragStop}
             onDelete={handleDelete}
             onNodeClick={handleNodeClick}
+            onEdgeClick={handleEdgeClick}
             onPaneClick={handlePaneClick}
             defaultEdgeOptions={{
               style: {
@@ -302,6 +313,7 @@ const Graph = () => {
         <Editor
           questId={questId}
           selectedNode={selectedNode}
+          selectedEdge={selectedEdge}
           startNodeId={startNodeId}
           handleCreateNode={handleCreateNode}
           handleUpdateNode={handleUpdateNode}
