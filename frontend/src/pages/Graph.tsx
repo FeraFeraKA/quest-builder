@@ -23,6 +23,10 @@ const nodeTypes = {
   customNode: CustomNode,
 };
 
+const getRandomInt = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 const Graph = () => {
   const params = useParams();
   const questId = params.id!;
@@ -56,8 +60,8 @@ const Graph = () => {
         questId,
         title,
         description,
-        positionX: 300,
-        positionY: 300,
+        positionX: getRandomInt(0, 600),
+        positionY: getRandomInt(0, 600),
       });
 
       setNodes((prev) => [
@@ -284,7 +288,6 @@ const Graph = () => {
                 stroke: "brown",
                 strokeWidth: 4,
               },
-              
             }}
             connectionLineStyle={{
               stroke: "brown",
