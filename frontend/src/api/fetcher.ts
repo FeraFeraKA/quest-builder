@@ -39,26 +39,33 @@ export const fetcher = async <T>({
       body: body ? JSON.stringify(body) : undefined,
     });
 
-  let res = await makeRequest();
+  try {
+    let res = await makeRequest();
 
-  if (!res.ok && res.status === 401) {
-    const refreshed = await refreshToken();
+    if (!res.ok && res.status === 401) {
+      const refreshed = await refreshToken();
 
-    if (refreshed) {
-      res = await makeRequest();
-    } else {
-      throw new ApiError("Unauthorized", 401, "UNAUTHORIZED");
+      if (refreshed) {
+        res = await makeRequest();
+      } else {
+        throw new ApiError("Unauthorized", 401, "UNAUTHORIZED");
+      }
     }
-  }
 
-  if (!res.ok) {
-    const data = await res.json();
-    throw new Error(data.error.message);
-  }
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error.message);
+    }
 
-  if (res.status === 204 || res.status === 205) {
-    return undefined as T;
-  }
+    if (res.status === 204 || res.status === 205) {
+      return undefined as T;
+    }
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw error;
+  }
 };
