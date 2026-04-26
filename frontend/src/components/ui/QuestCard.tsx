@@ -28,8 +28,12 @@ const Quest = ({
 }: IQuestProps) => {
   const { t, i18n } = useTranslation("quests");
   const dayjsLocale = i18n.resolvedLanguage?.startsWith("ru") ? "ru" : "en";
-  const createdAtTime = dayjs(createdAt).locale(dayjsLocale).format("D MMMM YYYY");
-  const updatedAtTime = dayjs(updatedAt).locale(dayjsLocale).format("D MMMM YYYY");
+  const createdAtTime = dayjs(createdAt)
+    .locale(dayjsLocale)
+    .format("D MMMM YYYY");
+  const updatedAtTime = dayjs(updatedAt)
+    .locale(dayjsLocale)
+    .format("D MMMM YYYY");
   const navigate = useNavigate();
   const deleteMutations = useDeleteQuest(id);
 
@@ -40,7 +44,7 @@ const Quest = ({
   const handleCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      navigate(`/quests/${id}`);
+      navigate(`/quests/${id}/graph`);
     }
   };
 

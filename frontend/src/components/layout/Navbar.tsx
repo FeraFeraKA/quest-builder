@@ -34,7 +34,7 @@ const Navbar = () => {
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="lg:hidden flex flex-col gap-1 border-none p-0"
+        className="lg:hidden flex flex-col gap-1 border-none mb-0.5"
       >
         <span className="w-6 h-0.5 bg-yellow-400"></span>
         <span className="w-6 h-0.5 bg-yellow-400"></span>

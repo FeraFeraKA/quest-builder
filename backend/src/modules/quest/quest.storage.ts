@@ -1,6 +1,6 @@
-import { prisma } from "./../../shared/lib/prisma.js";
-import type { Prisma } from "./../../../generated/prisma/client.js";
 import type { TUserId } from "../auth/auth.types.js";
+import type { Prisma } from "./../../../generated/prisma/client.js";
+import { prisma } from "./../../shared/lib/prisma.js";
 import type { IQuestCredentials, IQuestData } from "./quest.types.js";
 
 export const QuestStorage = {
@@ -14,6 +14,9 @@ export const QuestStorage = {
     return prisma.quest.findMany({
       where: {
         userId,
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
     });
   },

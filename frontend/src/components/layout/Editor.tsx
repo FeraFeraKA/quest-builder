@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { TEdgeId } from "../../api/edges";
 import type { INodeCreate, INodeUpdate, TNodeId } from "../../api/nodes";
 import type { TQuestId } from "../../api/quests";
+import { submitFormOnModEnter } from "../../helpers/submitTextarea";
 import Button from "../ui/Button";
 import type { QuestNode } from "../ui/CustomNode";
 import Input from "../ui/Input";
@@ -105,6 +106,7 @@ const Editor = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
+                onKeyDown={submitFormOnModEnter}
               />
             </label>
             <Button
@@ -149,6 +151,7 @@ const Editor = ({
                 value={updateDescription}
                 onChange={(e) => setUpdateDescription(e.target.value)}
                 rows={6}
+                onKeyDown={submitFormOnModEnter}
               />
             </label>
             <Button

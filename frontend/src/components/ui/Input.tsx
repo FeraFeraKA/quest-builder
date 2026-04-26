@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 type TLabel = {
   label?: string;
   textSize?: string;
@@ -7,52 +9,60 @@ type TLabel = {
 
 type TInputProps = React.InputHTMLAttributes<HTMLInputElement> & TLabel;
 
-const Input = ({
-  label = "",
-  height = "h-13",
-  textSize = "text-lg md:text-xl",
-  gapX = "gap-x-4",
-  mt,
-  ...props
-}: TInputProps) => {
-  return (
-    <>
-      <div
-        className={`grid md:grid-cols-[max-content_minmax(0,1fr)] ${gapX} items-center font-pixel text-yellow-300`}
-      >
-        <label className="text-xl md:text-2xl">{label}</label>
+const Input = forwardRef<HTMLInputElement, TInputProps>(
+  (
+    {
+      label = "",
+      height = "h-13",
+      textSize = "text-lg md:text-xl",
+      gapX = "gap-x-4",
+      mt,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <>
+        <div
+          className={`grid md:grid-cols-[max-content_minmax(0,1fr)] ${gapX} items-center font-pixel text-yellow-300`}
+        >
+          <label className="text-xl md:text-2xl">{label}</label>
 
-        <div className={`inline-flex items-stretch ${mt} md:mt-0`}>
-          <img
-            src="/images/input-left.png"
-            alt=""
-            className={`block ${height} w-auto shrink-0 [image-rendering:pixelated]`}
-          />
+          <div className={`inline-flex items-stretch ${mt} md:mt-0`}>
+            <img
+              src="/images/input-left.png"
+              alt=""
+              className={`block ${height} w-auto shrink-0 [image-rendering:pixelated]`}
+            />
 
-          <span
-            className={`
+            <span
+              className={`
             relative flex items-center justify-center
             ${height} w-50 shrink-0
             bg-repeat-x bg-size-[auto_100%]
             [image-rendering:pixelated]
           `}
-            style={{ backgroundImage: "url('/images/input-middle.png')" }}
-          >
-            <input
-              {...props}
-              className={`relative z-10 ${textSize} outline-0 w-50 bg-transparent`}
-            />
-          </span>
+              style={{ backgroundImage: "url('/images/input-middle.png')" }}
+            >
+              <input
+                ref={ref}
+                {...props}
+                className={`relative z-10 ${textSize} outline-0 w-50 bg-transparent`}
+              />
+            </span>
 
-          <img
-            src="/images/input-right.png"
-            alt=""
-            className={`block ${height} w-auto shrink-0 [image-rendering:pixelated]`}
-          />
+            <img
+              src="/images/input-right.png"
+              alt=""
+              className={`block ${height} w-auto shrink-0 [image-rendering:pixelated]`}
+            />
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  },
+);
+
+Input.displayName = "Input";
 
 export default Input;
