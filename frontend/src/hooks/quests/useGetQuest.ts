@@ -3,7 +3,7 @@ import { getQuest, type TQuestId } from "../../api/quests";
 
 const useGetQuest = (id: TQuestId) => {
   return useQuery({
-    queryKey: [`quest/${id}`],
+    queryKey: [`quest`, id],
     queryFn: () => getQuest(id),
   });
 };

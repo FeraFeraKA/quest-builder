@@ -33,19 +33,20 @@ const Graph = () => {
   const params = useParams();
   const questId = params.id!;
   const { data: quest } = useGetQuest(questId);
-  const setStartNodeMutation = useSetStartNode();
+
   const [nodes, setNodes, onNodesChange] = useNodesState<QuestNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [selectedNodeId, setSelectedNodeId] = useState("");
   const [selectedEdgeId, setSelectedEdgeId] = useState("");
   const [startNodeId, setStartNodeId] = useState("");
   const [graphHeight, setGraphHeight] = useState("calc(100dvh - 20rem)");
-  const createNodeMutation = useCreateNode();
-  const updateNodeMutatuon = useUpdateNode();
-  const updateGraphNodeMutation = useUpdateGraphNode();
-  const deleteNodeMutation = useDeleteNode();
-  const createEdgeMutation = useCreateEdge();
-  const deleteEdgeMutation = useDeleteEdge();
+  const createNodeMutation = useCreateNode(questId);
+  const updateNodeMutatuon = useUpdateNode(questId);
+  const updateGraphNodeMutation = useUpdateGraphNode(questId);
+  const setStartNodeMutation = useSetStartNode(questId);
+  const deleteNodeMutation = useDeleteNode(questId);
+  const createEdgeMutation = useCreateEdge(questId);
+  const deleteEdgeMutation = useDeleteEdge(questId);
 
   const selectedNode = nodes.find((node) => node.id == selectedNodeId) ?? null;
   const selectedEdge = edges.find((edge) => edge.id === selectedEdgeId) ?? null;
@@ -61,7 +62,6 @@ const Graph = () => {
 
     try {
       const createdNode = await createNodeMutation.mutateAsync({
-        questId,
         title,
         description,
         positionX: getRandomInt(0, 600),
@@ -105,7 +105,6 @@ const Graph = () => {
 
     try {
       const createdEdge = await createEdgeMutation.mutateAsync({
-        questId,
         nodeFromId: connection.source,
         nodeToId: connection.target,
       });

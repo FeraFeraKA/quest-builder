@@ -1,15 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNode, type INodeCreate } from "../../api/nodes";
+import type { TQuestId } from "../../api/quests";
 
-const useCreateNode = () => {
+const useCreateNode = (questId: TQuestId) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({
-      questId,
       title,
       description,
       positionX,
       positionY,
-    }: INodeCreate) =>
+    }: Omit<INodeCreate, "questId">) =>
       createNode({
         questId,
         title,
@@ -17,6 +19,9 @@ const useCreateNode = () => {
         positionX,
         positionY,
       }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["quest", questId] });
+    },
   });
 };
 
