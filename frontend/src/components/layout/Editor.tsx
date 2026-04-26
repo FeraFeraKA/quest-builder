@@ -27,6 +27,7 @@ interface IEditorProps {
     { nodeId, title, description }: INodeUpdate,
   ) => Promise<void>;
   handleSetStartNode: () => void;
+  handleNodeDelete: (nodeId: TNodeId) => void;
   handleEdgeDelete: (edgeId: TEdgeId) => void;
 }
 
@@ -38,6 +39,7 @@ const Editor = ({
   handleCreateNode,
   handleUpdateNode,
   handleSetStartNode,
+  handleNodeDelete,
   handleEdgeDelete,
 }: IEditorProps) => {
   const { t } = useTranslation(["editor", "common"]);
@@ -159,6 +161,10 @@ const Editor = ({
             text={t("editMode.setAsStart", { ns: "editor" })}
             onClick={handleSetStartNode}
             disabled={selectedNode.id === startNodeId}
+          />
+          <Button
+            text={t("node.delete")}
+            onClick={() => handleNodeDelete(selectedNode.id)}
           />
         </>
       ) : null}

@@ -12,7 +12,8 @@
   },
   "node": {
     "titlePrefix": "Title:",
-    "descriptionPrefix": "Description:"
+    "descriptionPrefix": "Description:",
+    "delete": "Delete node"
   },
   "graph": {
     "createNodeError": "Failed to create node",

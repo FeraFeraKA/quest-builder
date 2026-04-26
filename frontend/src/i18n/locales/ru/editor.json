@@ -12,7 +12,8 @@
   },
   "node": {
     "titlePrefix": "Название:",
-    "descriptionPrefix": "Описание:"
+    "descriptionPrefix": "Описание:",
+    "delete": "Удалить узел"
   },
   "graph": {
     "createNodeError": "Не удалось создать узел",
