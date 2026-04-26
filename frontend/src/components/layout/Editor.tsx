@@ -137,10 +137,10 @@ const Editor = ({
             </label>
             <label className="flex flex-col gap-3 mt-2.5">
               <p>{t("labels.description", { ns: "common" })}</p>
-              <Input
-                gapX="gap-x-0"
+              <Textarea
                 value={updateDescription}
                 onChange={(e) => setUpdateDescription(e.target.value)}
+                rows={6}
               />
             </label>
             <Button
