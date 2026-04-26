@@ -8,7 +8,7 @@ const Guide = () => {
     <div className="text-center max-w-4xl mx-auto">
       <h1>{t("guide.title")}</h1>
 
-      <div className="flex items-center mt-4 gap-y-4 text-left">
+      <div className="flex flex-col items-center mt-4 gap-y-4 text-left">
         <p>{t("guide.p1")}</p>
 
         <p>{t("guide.p2")}</p>

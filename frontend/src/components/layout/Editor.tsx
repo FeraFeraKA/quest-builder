@@ -1,6 +1,7 @@
 import type { Edge } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { TEdgeId } from "../../api/edges";
 import type { INodeCreate, INodeUpdate, TNodeId } from "../../api/nodes";
 import type { TQuestId } from "../../api/quests";
 import Button from "../ui/Button";
@@ -26,6 +27,7 @@ interface IEditorProps {
     { nodeId, title, description }: INodeUpdate,
   ) => Promise<void>;
   handleSetStartNode: () => void;
+  handleEdgeDelete: (edgeId: TEdgeId) => void;
 }
 
 const Editor = ({
@@ -36,6 +38,7 @@ const Editor = ({
   handleCreateNode,
   handleUpdateNode,
   handleSetStartNode,
+  handleEdgeDelete,
 }: IEditorProps) => {
   const { t } = useTranslation(["editor", "common"]);
   const [title, setTitle] = useState("");
@@ -66,7 +69,10 @@ const Editor = ({
     >
       {selectedEdge ? (
         <div className="flex flex-col justify-center items-center">
-          <Button text={t("edge.delete", { ns: "editor" })} />
+          <Button
+            text={t("edge.delete", { ns: "editor" })}
+            onClick={() => handleEdgeDelete(selectedEdge.id)}
+          />
         </div>
       ) : !selectedNode ? (
         <>

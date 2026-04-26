@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
+import type { TEdgeId } from "../api/edges";
 import type { INodeCreate, INodeUpdate } from "../api/nodes";
 import Editor from "../components/layout/Editor";
 import CustomNode, { type QuestNode } from "../components/ui/CustomNode";
@@ -186,6 +187,16 @@ const Graph = () => {
     );
   };
 
+  const handleEdgeDelete = async (edgeId: TEdgeId) => {
+    try {
+      await deleteEdgeMutation.mutateAsync(edgeId);
+
+      setEdges((prev) => prev.filter((edge) => edge.id !== edgeId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleNodeClick = (_event: React.MouseEvent, node: QuestNode) => {
     setSelectedNodeId(node.id);
     setSelectedEdgeId("");
@@ -317,6 +328,7 @@ const Graph = () => {
           handleCreateNode={handleCreateNode}
           handleUpdateNode={handleUpdateNode}
           handleSetStartNode={handleSetStartNode}
+          handleEdgeDelete={handleEdgeDelete}
         />
       </div>
     </>
