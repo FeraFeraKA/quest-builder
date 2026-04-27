@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import Footer from "./Footer";
+import GlobalLoadingBar from "./GlobalLoadingBar";
 import Header from "./Header";
 
 const Layout = () => {
@@ -14,6 +15,8 @@ const Layout = () => {
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       >
         <div className="flex min-h-screen flex-col">
+          <GlobalLoadingBar />
+
           <Header />
 
           <main
