@@ -2,10 +2,15 @@ import { useIsFetching, useIsMutating } from "@tanstack/react-query";
 import LoadingBar from "../ui/LoadingBar";
 
 const GlobalLoadingBar = () => {
-  const isFetching = useIsFetching();
-  const isMutating = useIsMutating();
+  const fetchingCount = useIsFetching({
+    predicate: (query) => !query.meta?.skipGlobalLoader,
+  });
 
-  const isLoading = isFetching > 0 || isMutating > 0;
+  const mutatingCount = useIsMutating({
+    predicate: (mutation) => !mutation.meta?.skipGlobalLoader,
+  });
+
+  const isLoading = fetchingCount > 0 || mutatingCount > 0;
 
   return <LoadingBar isLoading={isLoading} />;
 };

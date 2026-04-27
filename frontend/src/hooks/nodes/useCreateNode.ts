@@ -22,6 +22,9 @@ const useCreateNode = (questId: TQuestId) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["quest", questId] });
     },
+    meta: {
+      skipGlobalLoader: true,
+    },
   });
 };
 

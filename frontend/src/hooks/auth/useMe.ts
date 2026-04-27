@@ -10,6 +10,9 @@ const useMe = () => {
       if (error instanceof ApiError && error.status === 401) return false;
       return count < 3;
     },
+    meta: {
+      skipGlobalLoader: true,
+    },
   });
 };
 

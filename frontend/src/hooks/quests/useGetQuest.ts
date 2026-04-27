@@ -5,6 +5,9 @@ const useGetQuest = (id: TQuestId) => {
   return useQuery({
     queryKey: [`quest`, id],
     queryFn: () => getQuest(id),
+    meta: {
+      skipGlobalLoader: true,
+    },
   });
 };
 

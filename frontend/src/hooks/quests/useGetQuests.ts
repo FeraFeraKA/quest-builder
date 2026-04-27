@@ -5,6 +5,9 @@ const useGetQuests = () => {
   return useQuery({
     queryKey: ["quests"],
     queryFn: getQuests,
+    meta: {
+      skipGlobalLoader: true,
+    },
   });
 };
 
