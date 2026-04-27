@@ -47,12 +47,16 @@ const Dashboard = () => {
                 : t("quests:dashboard.logoutIdle")
             }
             onClick={() => logoutMutation.mutate(undefined)}
+            disabled={logoutMutation.isPending}
           />
           <Button
             text={t("quests:dashboard.createQuest")}
             onClick={() => setCreateIsOpen((prev) => !prev)}
           />
           <LinkButton text={t("quests:dashboard.guide")} url="/guide" />
+          {logoutMutation.isError ? (
+            <p>{logoutMutation.error.message}</p>
+          ) : null}
         </div>
         {isError && <p>{error.message}</p>}
       </div>

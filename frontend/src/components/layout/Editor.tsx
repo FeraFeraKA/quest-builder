@@ -184,13 +184,9 @@ const Editor = ({
             {updateNode.isError ? <p>{updateNode.error}</p> : null}
           </form>
           <Button
-            text={
-              setStartNode.isPending
-                ? t("editor:editMode.settingAsStart")
-                : t("editor:editMode.setAsStart")
-            }
+            text={t("editor:editMode.setAsStart")}
             onClick={setStartNode.run}
-            disabled={selectedNode.id === startNodeId || setStartNode.isPending}
+            disabled={selectedNode.id === startNodeId}
           />
           {setStartNode.isError ? <p>{setStartNode.error}</p> : null}
           <Button

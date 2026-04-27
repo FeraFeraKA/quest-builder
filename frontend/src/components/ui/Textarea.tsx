@@ -103,7 +103,7 @@ const Textarea = ({
         <textarea
           {...props}
           className={`
-            block h-full w-full mt-6
+            block h-full w-full mt-6 pb-6
             resize-none bg-transparent
             font-pixel text-lg md:text-xl text-[#f5d742]
             placeholder:text-[#caa52e]
