@@ -7,7 +7,7 @@ import LinkButton from "../components/ui/LinkButton";
 import useLogin from "../hooks/auth/useLogin";
 
 const Login = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -36,18 +36,20 @@ const Login = () => {
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
       <div className="text-center flex flex-col items-center ">
-        <h1 className="font-pixel text-green-300">{t("auth.loginTitle")}</h1>
+        <h1 className="font-pixel text-green-300">
+          {t("common:auth.loginTitle")}
+        </h1>
         <form
           className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
         >
           <Input
-            label={t("labels.nickname")}
+            label={t("common:labels.nickname")}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <Input
-            label={t("labels.password")}
+            label={t("common:labels.password")}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -55,14 +57,14 @@ const Login = () => {
           <Button
             text={
               loginMutation.isPending
-                ? t("actions.loading")
-                : t("auth.loginAction")
+                ? t("common:actions.loading")
+                : t("common:auth.loginAction")
             }
             disabled={loginMutation.isPending}
             type="submit"
           />
         </form>
-        <LinkButton text={t("actions.back")} url="/" />
+        <LinkButton text={t("common:actions.back")} url="/" />
         {loginMutation.isError && (
           <p className="mt-4">{loginMutation.error.message}</p>
         )}

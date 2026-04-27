@@ -10,7 +10,7 @@ import CreateQuest from "./CreateQuest";
 import EditQuest from "./EditQuest";
 
 const Dashboard = () => {
-  const { t } = useTranslation("quests");
+  const { t } = useTranslation();
   const { data: quests, isError, error } = useGetQuests();
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
@@ -32,27 +32,27 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex flex-col gap-4 font-pixel text-yellow-300">
-        <h1 className="text-center">{t("dashboard.title")}</h1>
+        <h1 className="text-center">{t("quests:dashboard.title")}</h1>
         <QuestList
           quests={quests}
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
         />
         <div className="flex flex-col lg:flex-row items-center self-center gap-4">
-          <LinkButton text={t("dashboard.home")} url="/" />
+          <LinkButton text={t("quests:dashboard.home")} url="/" />
           <Button
             text={
               logoutMutation.isPending
-                ? t("dashboard.logoutPending")
-                : t("dashboard.logoutIdle")
+                ? t("quests:dashboard.logoutPending")
+                : t("quests:dashboard.logoutIdle")
             }
             onClick={() => logoutMutation.mutate(undefined)}
           />
           <Button
-            text={t("dashboard.createQuest")}
+            text={t("quests:dashboard.createQuest")}
             onClick={() => setCreateIsOpen((prev) => !prev)}
           />
-          <LinkButton text={t("dashboard.guide")} url="/guide" />
+          <LinkButton text={t("quests:dashboard.guide")} url="/guide" />
         </div>
         {isError && <p>{error.message}</p>}
       </div>

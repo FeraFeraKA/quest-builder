@@ -7,16 +7,16 @@ interface INodeProps {
 }
 
 const Node = ({ title, description }: INodeProps) => {
-  const { t } = useTranslation("editor");
+  const { t } = useTranslation();
 
   return (
     <>
       <Card className="hover:brightness-110 hover:-translate-y-1 transition-all duration-200">
         <h1>
-          {t("node.titlePrefix")} {title}
+          {t("editor:node.titlePrefix")} {title}
         </h1>
         <p>
-          {t("node.descriptionPrefix")} {description}
+          {t("editor:node.descriptionPrefix")} {description}
         </p>
       </Card>
     </>

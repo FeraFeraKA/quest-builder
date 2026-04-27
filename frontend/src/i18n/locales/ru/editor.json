@@ -2,18 +2,22 @@
   "createMode": {
     "title": "Создать узел",
     "create": "Создать",
+    "creating": "Создание...",
     "back": "Назад",
     "playtest": "Тестировать"
   },
   "editMode": {
     "title": "Редактировать узел",
     "update": "Обновить",
-    "setAsStart": "Задать стартовым"
+    "updating": "Обновление...",
+    "setAsStart": "Задать стартовым",
+    "settingAsStart": "Сохранение..."
   },
   "node": {
     "titlePrefix": "Название:",
     "descriptionPrefix": "Описание:",
-    "delete": "Удалить узел"
+    "delete": "Удалить узел",
+    "deleting": "Удаление..."
   },
   "graph": {
     "createNodeError": "Не удалось создать узел",
@@ -21,6 +25,7 @@
     "setStartNodeError": "Не удалось задать стартовую ноду"
   },
   "edge": {
-    "delete": "Удалить связь"
+    "delete": "Удалить связь",
+    "deleting": "Удаление..."
   }
 }

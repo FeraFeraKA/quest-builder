@@ -15,7 +15,7 @@ interface IEditQuestProps {
 }
 
 const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
-  const { t } = useTranslation(["quests", "common"]);
+  const { t } = useTranslation();
   const { data: quest } = useGetQuest(questId);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,7 +32,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
       {
         onSuccess: () => {
           clearTimeoutSafe();
-          setLog(t("editQuest.success", { ns: "quests" }));
+          setLog(t("quests:editQuest.success"));
           startTimeout(() => {
             setLog("");
           }, 5000);
@@ -62,7 +62,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
         ></div>
 
         <div className="my-auto z-20">
-          <h1>{t("editQuest.title", { ns: "quests" })}</h1>
+          <h1>{t("quests:editQuest.title")}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-center"
             onSubmit={(e) => handleSubmit(e)}
@@ -71,14 +71,14 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
             }}
           >
             <Input
-              label={t("labels.title", { ns: "common" })}
+              label={t("common:labels.title")}
               value={title}
               ref={titleRef}
               onChange={(e) => setTitle(e.target.value)}
             />
             <label className="flex flex-col ">
               <span className="text-xl md:text-2xl">
-                {t("labels.description", { ns: "common" })}
+                {t("common:labels.description")}
               </span>
               <Textarea
                 value={description}
@@ -89,11 +89,16 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
             </label>
             <div className="flex flex-col gap-4 items-center justify-center">
               <Button
-                text={t("actions.update", { ns: "common" })}
+                text={
+                  updateQuestMutation.isPending
+                    ? "Обновление..."
+                    : t("common:actions.update")
+                }
                 type="submit"
+                disabled={updateQuestMutation.isPending}
               />
               <Button
-                text={t("actions.back", { ns: "common" })}
+                text={t("common:actions.back")}
                 onClick={() => handleEditModal(false)}
               />
             </div>

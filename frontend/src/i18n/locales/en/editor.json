@@ -2,18 +2,22 @@
   "createMode": {
     "title": "Create node",
     "create": "Create",
+    "creating": "Creating...",
     "back": "Back",
     "playtest": "Playtest"
   },
   "editMode": {
     "title": "Edit node",
     "update": "Update",
-    "setAsStart": "Set as start"
+    "updating": "Updating...",
+    "setAsStart": "Set as start",
+    "settingAsStart": "Saving..."
   },
   "node": {
     "titlePrefix": "Title:",
     "descriptionPrefix": "Description:",
-    "delete": "Delete node"
+    "delete": "Delete node",
+    "deleting": "Deleting..."
   },
   "graph": {
     "createNodeError": "Failed to create node",
@@ -21,6 +25,7 @@
     "setStartNodeError": "Failed to set start node"
   },
   "edge": {
-    "delete": "Delete edge"
+    "delete": "Delete edge",
+    "deleting": "Deleting..."
   }
 }

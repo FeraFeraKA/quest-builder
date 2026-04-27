@@ -32,6 +32,7 @@
     "createdPrefix": "Создан:",
     "updatedPrefix": "Обновлён:",
     "delete": "Удалить",
+    "deleting": "Удаление...",
     "play": "Играть",
     "edit": "Редактировать"
   },

@@ -11,25 +11,36 @@ import Input from "../ui/Input";
 import LinkButton from "../ui/LinkButton";
 import Textarea from "../ui/Textarea";
 
+type CreateNodeHandler = (
+  e: React.SubmitEvent,
+  {
+    title,
+    description,
+  }: Omit<INodeCreate, "questId" | "positionX" | "positionY">,
+) => Promise<void>;
+
+type UpdateNodeHandler = (
+  e: React.SubmitEvent,
+  { nodeId, title, description }: INodeUpdate,
+) => Promise<void>;
+
+interface IEditorAction<THandler> {
+  run: THandler;
+  isPending: boolean;
+  isError: boolean;
+  error?: string;
+}
+
 interface IEditorProps {
   questId: TQuestId;
   selectedNode: QuestNode | null;
   selectedEdge: Edge | null;
   startNodeId: TNodeId;
-  handleCreateNode: (
-    e: React.SubmitEvent,
-    {
-      title,
-      description,
-    }: Omit<INodeCreate, "questId" | "positionX" | "positionY">,
-  ) => Promise<void>;
-  handleUpdateNode: (
-    e: React.SubmitEvent,
-    { nodeId, title, description }: INodeUpdate,
-  ) => Promise<void>;
-  handleSetStartNode: () => void;
-  handleNodeDelete: (nodeId: TNodeId) => void;
-  handleEdgeDelete: (edgeId: TEdgeId) => void;
+  createNode: IEditorAction<CreateNodeHandler>;
+  updateNode: IEditorAction<UpdateNodeHandler>;
+  setStartNode: IEditorAction<() => void>;
+  deleteNode: IEditorAction<(nodeId: TNodeId) => void>;
+  deleteEdge: IEditorAction<(edgeId: TEdgeId) => void>;
 }
 
 const Editor = ({
@@ -37,19 +48,18 @@ const Editor = ({
   selectedNode,
   selectedEdge,
   startNodeId,
-  handleCreateNode,
-  handleUpdateNode,
-  handleSetStartNode,
-  handleNodeDelete,
-  handleEdgeDelete,
+  setStartNode,
+  createNode,
+  updateNode,
+  deleteNode,
+  deleteEdge,
 }: IEditorProps) => {
-  const { t } = useTranslation(["editor", "common"]);
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [updateTitle, setUpdateTitle] = useState("");
   const [updateDescription, setUpdateDescription] = useState("");
 
-  // MVP: sync form state from selected node, later replace with keyed edit form
   useEffect(() => {
     if (!selectedNode) {
       setUpdateTitle("");
@@ -73,25 +83,29 @@ const Editor = ({
       {selectedEdge ? (
         <div className="flex flex-col justify-center items-center">
           <Button
-            text={t("edge.delete", { ns: "editor" })}
-            onClick={() => handleEdgeDelete(selectedEdge.id)}
+            text={
+              deleteEdge.isPending
+                ? t("editor:edge.deleting")
+                : t("editor:edge.delete")
+            }
+            onClick={() => deleteEdge.run(selectedEdge.id)}
+            disabled={deleteEdge.isPending}
           />
+          {deleteEdge.isError ? <p>{deleteEdge.error}</p> : null}
         </div>
       ) : !selectedNode ? (
         <>
-          <h1>{t("createMode.title", { ns: "editor" })}</h1>
+          <h1>{t("editor:createMode.title")}</h1>
           <form
             onSubmit={(e) => {
-              handleCreateNode(e, { title, description });
+              createNode.run(e, { title, description });
               setTitle("");
               setDescription("");
             }}
             className="flex flex-col justify-center items-center"
           >
             <label className="flex flex-col gap-3">
-              <p className="text-xl md:text-2xl">
-                {t("labels.title", { ns: "common" })}
-              </p>
+              <p className="text-xl md:text-2xl">{t("common:labels.title")}</p>
               <Input
                 gapX="gap-x-0"
                 value={title}
@@ -100,7 +114,7 @@ const Editor = ({
             </label>
             <label className="flex flex-col gap-0.5 mt-2.5">
               <p className="text-xl md:text-2xl">
-                {t("labels.description", { ns: "common" })}
+                {t("common:labels.description")}
               </p>
               <Textarea
                 value={description}
@@ -111,25 +125,28 @@ const Editor = ({
             </label>
             <Button
               type="submit"
-              text={t("createMode.create", { ns: "editor" })}
+              text={
+                createNode.isPending
+                  ? t("editor:createMode.creating")
+                  : t("editor:createMode.create")
+              }
               className="mt-3"
+              disabled={createNode.isPending}
             />
+            {createNode.isError ? <p>{createNode.error}</p> : null}
           </form>
+          <LinkButton text={t("editor:createMode.back")} url={`/quests`} />
           <LinkButton
-            text={t("createMode.back", { ns: "editor" })}
-            url={`/quests`}
-          />
-          <LinkButton
-            text={t("createMode.playtest", { ns: "editor" })}
+            text={t("editor:createMode.playtest")}
             url={`/quests/${questId}/playtest`}
           />
         </>
       ) : !selectedEdge ? (
         <>
-          <h1>{t("editMode.title", { ns: "editor" })}</h1>
+          <h1>{t("editor:editMode.title")}</h1>
           <form
             onSubmit={(e) => {
-              handleUpdateNode(e, {
+              updateNode.run(e, {
                 nodeId: selectedNode.id,
                 title: updateTitle,
                 description: updateDescription,
@@ -138,7 +155,7 @@ const Editor = ({
             className="flex flex-col justify-center items-center"
           >
             <label className="flex flex-col gap-3">
-              <p>{t("labels.title", { ns: "common" })}</p>
+              <p>{t("common:labels.title")}</p>
               <Input
                 gapX="gap-x-0"
                 value={updateTitle}
@@ -146,7 +163,7 @@ const Editor = ({
               />
             </label>
             <label className="flex flex-col gap-3 mt-2.5">
-              <p>{t("labels.description", { ns: "common" })}</p>
+              <p>{t("common:labels.description")}</p>
               <Textarea
                 value={updateDescription}
                 onChange={(e) => setUpdateDescription(e.target.value)}
@@ -156,19 +173,36 @@ const Editor = ({
             </label>
             <Button
               type="submit"
-              text={t("editMode.update", { ns: "editor" })}
+              text={
+                updateNode.isPending
+                  ? t("editor:editMode.updating")
+                  : t("editor:editMode.update")
+              }
               className="mt-3"
+              disabled={updateNode.isPending}
             />
+            {updateNode.isError ? <p>{updateNode.error}</p> : null}
           </form>
           <Button
-            text={t("editMode.setAsStart", { ns: "editor" })}
-            onClick={handleSetStartNode}
-            disabled={selectedNode.id === startNodeId}
+            text={
+              setStartNode.isPending
+                ? t("editor:editMode.settingAsStart")
+                : t("editor:editMode.setAsStart")
+            }
+            onClick={setStartNode.run}
+            disabled={selectedNode.id === startNodeId || setStartNode.isPending}
           />
+          {setStartNode.isError ? <p>{setStartNode.error}</p> : null}
           <Button
-            text={t("node.delete")}
-            onClick={() => handleNodeDelete(selectedNode.id)}
+            text={
+              deleteNode.isPending
+                ? t("editor:node.deleting")
+                : t("editor:node.delete")
+            }
+            onClick={() => deleteNode.run(selectedNode.id)}
+            disabled={deleteNode.isPending}
           />
+          {deleteNode.isError ? <p>{deleteNode.error}</p> : null}
         </>
       ) : null}
     </div>

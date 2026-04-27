@@ -5,7 +5,7 @@ import LinkButton from "../components/ui/LinkButton";
 import useQuestTraversal from "../hooks/useQuestTraversal";
 
 const Play = () => {
-  const { t } = useTranslation("playtest");
+  const { t } = useTranslation();
   const params = useParams();
   const questId = params.id!;
   const { currentNode, currentNodeId, quest, furtherNodes, handleNextClick } =
@@ -15,7 +15,7 @@ const Play = () => {
     <div className="flex flex-col items-center justify-center text-center gap-4">
       {currentNode ? <h1>{currentNode.description}</h1> : null}
       {!currentNodeId || !quest ? (
-        <h1>{t("play.noStartNode")}</h1>
+        <h1>{t("playtest:play.noStartNode")}</h1>
       ) : (
         <div className="flex flex-col gap-4 items-center justify-center mt-2">
           {furtherNodes.map((node) => (
@@ -27,7 +27,7 @@ const Play = () => {
           ))}
         </div>
       )}
-      <LinkButton text={t("play.exit")} url={`/quests`} />
+      <LinkButton text={t("playtest:play.exit")} url={`/quests`} />
     </div>
   );
 };

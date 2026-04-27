@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
 const Logo = () => {
-  const { t } = useTranslation("layout");
+  const { t } = useTranslation();
 
   return (
     <>
@@ -10,7 +10,7 @@ const Logo = () => {
         <Link to="/">
           <img
             src="/images/logo.png"
-            alt={t("logo.alt")}
+            alt={t("layout:logo.alt")}
             className="block h-auto w-full object-contain"
           />
         </Link>

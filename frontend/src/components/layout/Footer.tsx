@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const { t } = useTranslation("layout");
+  const { t } = useTranslation();
 
   return (
     <>
@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="mt-1.5 flex flex-col md:flex-row justify-center text-center">
           <span className="font-pixel text-yellow-300">
             &copy;
-            {t("footer.copyright")}
+            {t("layout:footer.copyright")}
           </span>
         </div>
       </footer>

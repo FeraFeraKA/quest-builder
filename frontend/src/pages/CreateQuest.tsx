@@ -12,7 +12,7 @@ interface ICreateQuestProps {
 }
 
 const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
-  const { t } = useTranslation(["quests", "common"]);
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [log, setLog] = useState("");
@@ -28,7 +28,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
       {
         onSuccess: () => {
           clearTimeoutSafe();
-          setLog(t("createQuest.success", { ns: "quests" }));
+          setLog(t("quests:createQuest.success"));
           setTitle("");
           setDescription("");
           startTimeout(() => {
@@ -52,7 +52,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
         ></div>
 
         <div className="my-auto z-20">
-          <h1>{t("createQuest.title", { ns: "quests" })}</h1>
+          <h1>{t("quests:createQuest.title")}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-stretch"
             onSubmit={(e) => handleSubmit(e)}
@@ -62,7 +62,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
           >
             <div className="self-center">
               <Input
-                label={t("labels.title", { ns: "common" })}
+                label={t("common:labels.title")}
                 value={title}
                 ref={titleRef}
                 onChange={(e) => setTitle(e.target.value)}
@@ -72,7 +72,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
 
             <label className="flex flex-col ">
               <span className="text-xl md:text-2xl">
-                {t("labels.description", { ns: "common" })}
+                {t("common:labels.description")}
               </span>
               <Textarea
                 value={description}
@@ -84,11 +84,16 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
 
             <div className="flex flex-col gap-4 items-center justify-center">
               <Button
-                text={t("actions.create", { ns: "common" })}
+                text={
+                  createQuestMutation.isPending
+                    ? "Создание..."
+                    : t("common:actions.create")
+                }
                 type="submit"
+                disabled={createQuestMutation.isPending}
               />
               <Button
-                text={t("actions.back", { ns: "common" })}
+                text={t("common:actions.back")}
                 onClick={handleCloseModal}
               />
             </div>

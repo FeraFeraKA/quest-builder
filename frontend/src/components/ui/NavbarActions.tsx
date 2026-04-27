@@ -19,39 +19,39 @@ const NavbarActions = ({
   handleChangeLanguage,
   handleCloseModal,
 }: NavbarActionsProps) => {
-  const { t } = useTranslation("layout");
+  const { t } = useTranslation();
 
   return (
     <>
       <Button
-        text={t("navbar.languageRu")}
+        text={t("layout:navbar.languageRu")}
         onClick={() => handleChangeLanguage("ru")}
         hidden={currentLanguage === "ru"}
         className="lg:mr-6"
       />
       <Button
-        text={t("navbar.languageEn")}
+        text={t("layout:navbar.languageEn")}
         onClick={() => handleChangeLanguage("en")}
         hidden={currentLanguage === "en"}
         className="lg:mr-6"
       />
       {user ? null : (
         <LinkButton
-          text={t("navbar.register")}
+          text={t("layout:navbar.register")}
           url="/auth/register"
           onClick={handleCloseModal}
         />
       )}
       {user ? null : (
         <LinkButton
-          text={t("navbar.login")}
+          text={t("layout:navbar.login")}
           url="/auth/login"
           onClick={handleCloseModal}
         />
       )}
       {user ? (
         <LinkButton
-          text={t("navbar.profile")}
+          text={t("layout:navbar.profile")}
           url="/quests"
           onClick={handleCloseModal}
         />
@@ -64,7 +64,7 @@ const NavbarActions = ({
             onLogout();
             handleCloseModal();
           }}
-          text={t("navbar.logout")}
+          text={t("layout:navbar.logout")}
         />
       ) : null}
     </>

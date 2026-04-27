@@ -32,6 +32,7 @@
     "createdPrefix": "Created:",
     "updatedPrefix": "Updated:",
     "delete": "Delete",
+    "deleting": "Deleting...",
     "play": "Play",
     "edit": "Edit"
   },

@@ -20,7 +20,7 @@ const namespaces = [
   "layout",
 ] as const;
 
-export const defaultNS = "common";
+export const defaultNS = namespaces;
 
 export const resources = {
   ru: {

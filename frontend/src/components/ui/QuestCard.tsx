@@ -26,7 +26,7 @@ const Quest = ({
   handleEditModal,
   handleSetQuestId,
 }: IQuestProps) => {
-  const { t, i18n } = useTranslation("quests");
+  const { t, i18n } = useTranslation();
   const dayjsLocale = i18n.resolvedLanguage?.startsWith("ru") ? "ru" : "en";
   const createdAtTime = dayjs(createdAt)
     .locale(dayjsLocale)
@@ -35,7 +35,7 @@ const Quest = ({
     .locale(dayjsLocale)
     .format("D MMMM YYYY");
   const navigate = useNavigate();
-  const deleteMutations = useDeleteQuest(id);
+  const deleteQuestMutations = useDeleteQuest(id);
 
   const handleCardClick = () => {
     navigate(`/quests/${id}/graph`);
@@ -50,7 +50,7 @@ const Quest = ({
 
   const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    deleteMutations.mutate();
+    deleteQuestMutations.mutate();
   };
 
   const handlePlayClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,31 +78,39 @@ const Quest = ({
         <h1>{title}</h1>
         <h2>{description}</h2>
         <p>
-          {t("card.createdPrefix")} {createdAtTime}
+          {t("quests:card.createdPrefix")} {createdAtTime}
         </p>
         <p>
-          {t("card.updatedPrefix")} {updatedAtTime}
+          {t("quests:card.updatedPrefix")} {updatedAtTime}
         </p>
         <div className="flex flex-col items-start gap-2">
           <Button
-            text={t("card.delete")}
+            text={
+              deleteQuestMutations.isPending
+                ? t("quests:card.deleting")
+                : t("quests:card.delete")
+            }
             height="h-10"
             textSize="text-lg"
             className="mt-1"
             onClick={(e) => handleDeleteClick(e)}
+            disabled={deleteQuestMutations.isPending}
           />
           <Button
-            text={t("card.play")}
+            text={t("quests:card.play")}
             height="h-10"
             textSize="text-lg"
             onClick={(e) => handlePlayClick(e)}
           />
           <Button
-            text={t("card.edit")}
+            text={t("quests:card.edit")}
             height="h-10"
             textSize="text-lg"
             onClick={(e) => handleEditClick(e)}
           />
+          {deleteQuestMutations.isError ? (
+            <p>{deleteQuestMutations.error.message}</p>
+          ) : null}
         </div>
       </Card>
     </>

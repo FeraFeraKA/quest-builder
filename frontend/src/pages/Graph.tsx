@@ -30,7 +30,7 @@ const getRandomInt = (min: number, max: number) => {
 };
 
 const Graph = () => {
-  const { t } = useTranslation("editor");
+  const { t } = useTranslation();
   const params = useParams();
   const questId = params.id!;
   const { data: quest } = useGetQuest(questId);
@@ -85,7 +85,7 @@ const Graph = () => {
         },
       ]);
     } catch (error) {
-      console.error(t("graph.createNodeError"), error);
+      console.error(t("editor:graph.createNodeError"), error);
     }
   };
 
@@ -166,7 +166,7 @@ const Graph = () => {
         ),
       );
     } catch (error) {
-      console.error(t("graph.updateNodeError"), error);
+      console.error(t("editor:graph.updateNodeError"), error);
     }
   };
 
@@ -233,7 +233,7 @@ const Graph = () => {
 
       setStartNodeId(updatedQuest.startNodeId!);
     } catch (error) {
-      console.error(t("graph.setStartNodeError"), error);
+      console.error(t("editor:graph.setStartNodeError"), error);
     }
   };
 
@@ -335,11 +335,36 @@ const Graph = () => {
           selectedNode={selectedNode}
           selectedEdge={selectedEdge}
           startNodeId={startNodeId}
-          handleCreateNode={handleCreateNode}
-          handleUpdateNode={handleUpdateNode}
-          handleSetStartNode={handleSetStartNode}
-          handleNodeDelete={handleNodeDelete}
-          handleEdgeDelete={handleEdgeDelete}
+          createNode={{
+            run: handleCreateNode,
+            isPending: createNodeMutation.isPending,
+            isError: createNodeMutation.isError,
+            error: createNodeMutation.error?.message,
+          }}
+          updateNode={{
+            run: handleUpdateNode,
+            isPending: updateNodeMutatuon.isPending,
+            isError: updateNodeMutatuon.isError,
+            error: updateNodeMutatuon.error?.message,
+          }}
+          setStartNode={{
+            run: handleSetStartNode,
+            isPending: setStartNodeMutation.isPending,
+            isError: setStartNodeMutation.isError,
+            error: setStartNodeMutation.error?.message,
+          }}
+          deleteNode={{
+            run: handleNodeDelete,
+            isPending: deleteNodeMutation.isPending,
+            isError: deleteNodeMutation.isError,
+            error: deleteNodeMutation.error?.message,
+          }}
+          deleteEdge={{
+            run: handleEdgeDelete,
+            isPending: deleteEdgeMutation.isPending,
+            isError: deleteEdgeMutation.isError,
+            error: deleteEdgeMutation.error?.message,
+          }}
         />
       </div>
     </>
