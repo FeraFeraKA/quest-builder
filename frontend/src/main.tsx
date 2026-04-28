@@ -1,19 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { getMe } from "./api/auth";
 import Layout from "./components/layout/MainLayout";
+import { Dashboard, Graph, Play, Playtest } from "./helpers/lazyPages";
 import "./i18n";
 import "./index.css";
-import Dashboard from "./pages/Dashboard";
-import Graph from "./pages/Graph";
 import Guide from "./pages/Guide";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
-import Play from "./pages/Play";
-import Playtest from "./pages/Playtest";
 import Register from "./pages/Register";
 
 const requireAuth = async () => {
@@ -71,8 +68,10 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Suspense>
   </StrictMode>,
 );

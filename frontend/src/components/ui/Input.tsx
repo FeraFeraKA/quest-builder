@@ -24,7 +24,10 @@ const Input = forwardRef<HTMLInputElement, TInputProps>(
     return (
       <>
         <div
-          className={`grid md:grid-cols-[max-content_minmax(0,1fr)] ${gapX} items-center font-pixel text-yellow-300`}
+          className={`
+            grid md:grid-cols-[max-content_minmax(0,1fr)]
+            ${gapX} items-center font-pixel text-yellow-300
+          `}
         >
           <label className="text-xl md:text-2xl">{label}</label>
 
