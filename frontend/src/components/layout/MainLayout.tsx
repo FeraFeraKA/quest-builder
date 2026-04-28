@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router";
+import usePreloadImages from "../../hooks/usePreloadImages";
 import Footer from "./Footer";
 import GlobalLoadingBar from "./GlobalLoadingBar";
 import Header from "./Header";
@@ -8,32 +9,40 @@ const Layout = () => {
 
   const shouldRemovePadding = pathname.endsWith("/graph");
 
-  return (
-    <>
-      <div
-        className="inset-0 -z-50 h-full bg-size-[400px_400px]
+  const areAssetsLoaded = usePreloadImages();
+
+  if (!areAssetsLoaded) {
+    return <div className="min-h-screen bg-white" />;
+  }
+
+  if (areAssetsLoaded) {
+    return (
+      <>
+        <div
+          className="inset-0 -z-50 h-full bg-size-[400px_400px]
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
-      >
-        <div className="flex min-h-screen flex-col">
-          <GlobalLoadingBar />
+        >
+          <div className="flex min-h-screen flex-col">
+            <GlobalLoadingBar />
 
-          <Header />
+            <Header />
 
-          <main
-            className={
-              shouldRemovePadding
-                ? "flex-1"
-                : "flex-1 py-10 px-3 sm:px-6 lg:px-10 xl:px-14"
-            }
-          >
-            <Outlet />
-          </main>
+            <main
+              className={
+                shouldRemovePadding
+                  ? "flex-1"
+                  : "flex-1 py-10 px-3 sm:px-6 lg:px-10 xl:px-14"
+              }
+            >
+              <Outlet />
+            </main>
 
-          <Footer />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 };
 
 export default Layout;
