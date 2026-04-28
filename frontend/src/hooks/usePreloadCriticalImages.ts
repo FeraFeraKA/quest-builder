@@ -25,7 +25,7 @@ const preloadImage = (src: string) => {
   });
 };
 
-const usePreloadImages = () => {
+const usePreloadCriticalImages = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -45,4 +45,4 @@ const usePreloadImages = () => {
   return isLoaded;
 };
 
-export default usePreloadImages;
+export default usePreloadCriticalImages;

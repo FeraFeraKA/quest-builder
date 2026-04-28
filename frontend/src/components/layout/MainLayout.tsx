@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
-import usePreloadImages from "../../hooks/usePreloadImages";
+import usePreloadCriticalImages from "../../hooks/usePreloadCriticalImages";
+import usePreloadSecondaryAssets from "../../hooks/usePreloadSecondaryImages";
 import Footer from "./Footer";
 import GlobalLoadingBar from "./GlobalLoadingBar";
 import Header from "./Header";
@@ -9,13 +10,15 @@ const Layout = () => {
 
   const shouldRemovePadding = pathname.endsWith("/graph");
 
-  const areAssetsLoaded = usePreloadImages();
+  const areCriticalAssetsLoaded = usePreloadCriticalImages();
 
-  if (!areAssetsLoaded) {
+  usePreloadSecondaryAssets();
+
+  if (!areCriticalAssetsLoaded) {
     return <div className="min-h-screen bg-white" />;
   }
 
-  if (areAssetsLoaded) {
+  if (areCriticalAssetsLoaded) {
     return (
       <>
         <div
