@@ -91,7 +91,7 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
               <Button
                 text={
                   updateQuestMutation.isPending
-                    ? "Обновление..."
+                    ? t("quests:editQuest.updating")
                     : t("common:actions.update")
                 }
                 type="submit"

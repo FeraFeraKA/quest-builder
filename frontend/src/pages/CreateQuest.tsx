@@ -86,7 +86,7 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
               <Button
                 text={
                   createQuestMutation.isPending
-                    ? "Создание..."
+                    ? t("quests:createQuest.creating")
                     : t("common:actions.create")
                 }
                 type="submit"

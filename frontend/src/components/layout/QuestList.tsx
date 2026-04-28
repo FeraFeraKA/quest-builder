@@ -15,7 +15,7 @@ const QuestList = ({
 }: IQuestListProps) => {
   return (
     <>
-      <div className="grid justify-center gap-4 grid-cols-[repeat(auto-fit,minmax(310px,360px))]">
+      <div className="min-h-91.5 grid justify-center gap-4 grid-cols-[repeat(auto-fit,minmax(310px,360px))]">
         {quests?.map((quest) => (
           <Quest
             key={quest.id}

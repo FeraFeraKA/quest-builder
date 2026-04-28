@@ -15,10 +15,12 @@
   },
   "createQuest": {
     "title": "Create quest",
+    "creating": "Creating...",
     "success": "Quest added successfully!"
   },
   "editQuest": {
     "title": "Update quest",
+    "updating": "Updating...",
     "success": "Quest updated successfully!"
   },
   "editorPage": {

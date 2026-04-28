@@ -15,10 +15,12 @@
   },
   "createQuest": {
     "title": "Создать квест",
+    "creating": "Создание...",
     "success": "Квест успешно добавлен!"
   },
   "editQuest": {
     "title": "Обновить квест",
+    "updating": "Обновление...",
     "success": "Квест успешно обновлён!"
   },
   "editorPage": {

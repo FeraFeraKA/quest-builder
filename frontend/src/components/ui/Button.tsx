@@ -11,10 +11,12 @@ const Button = ({
   height = "h-13",
   textSize = "text-lg md:text-xl",
   className = "",
+  type = "button",
   ...props
 }: TButtonProps) => {
   return (
     <button
+      type={type}
       {...props}
       className={`
         inline-flex items-stretch transition-all duration-200
