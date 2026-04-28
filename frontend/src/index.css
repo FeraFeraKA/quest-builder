@@ -3,10 +3,10 @@
 
 @font-face {
   font-family: "Pixellari";
-  src: url("/fonts/Pixellari.ttf") format("truetype");
+  src: url("/fonts/Pixellari.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @theme {
