@@ -4,6 +4,8 @@ import useLogout from "../../hooks/auth/useLogout";
 import useMe from "../../hooks/auth/useMe";
 import NavbarActions from "../ui/NavbarActions";
 
+const mobileMenuId = "mobile-navbar-menu";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: user } = useMe();
@@ -33,6 +35,10 @@ const Navbar = () => {
       </nav>
 
       <button
+        type="button"
+        aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+        aria-expanded={isOpen}
+        aria-controls={mobileMenuId}
         onClick={() => setIsOpen((prev) => !prev)}
         className="lg:hidden flex flex-col gap-1 border-none mb-0.5"
       >
@@ -42,7 +48,10 @@ const Navbar = () => {
       </button>
 
       {isOpen && (
-        <div className="lg:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5">
+        <div
+          id={mobileMenuId}
+          className="lg:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5"
+        >
           <div
             className="absolute inset-0 bg-black/50"
             onClick={handleCloseModal}
