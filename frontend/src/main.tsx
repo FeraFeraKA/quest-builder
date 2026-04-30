@@ -11,7 +11,9 @@ import "./index.css";
 import Guide from "./pages/Guide";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import Register from "./pages/Register";
+import RouteErrorPage from "./pages/RouteErrorPage";
 
 const requireAuth = async () => {
   try {
@@ -25,6 +27,7 @@ const requireAuth = async () => {
 const router = createBrowserRouter([
   {
     Component: Layout,
+    errorElement: <RouteErrorPage />,
     children: [
       { path: "/", Component: MainPage },
       {
@@ -59,6 +62,10 @@ const router = createBrowserRouter([
         path: "/quests/:id/play",
         loader: requireAuth,
         Component: Play,
+      },
+      {
+        path: "*",
+        Component: NotFoundPage,
       },
     ],
   },
