@@ -5,7 +5,14 @@
     "profile": "Profile",
     "logout": "Log out",
     "register": "Register",
-    "login": "Login"
+    "login": "Login",
+    "primaryNav": "Primary navigation",
+    "mobileMenu": "Mobile menu",
+    "mobileNav": "Primary mobile navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchToRussian": "Switch language to Russian",
+    "switchToEnglish": "Switch language to English"
   },
   "footer": {
     "copyright": "2026. Made by Fera."

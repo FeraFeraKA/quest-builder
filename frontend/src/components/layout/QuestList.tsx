@@ -4,18 +4,24 @@ import Quest from "../ui/QuestCard";
 
 interface IQuestListProps {
   quests?: IQuest[];
+  label: string;
   handleEditModal: (flag: boolean) => void;
   handleSetQuestId: (questId: TQuestId) => void;
 }
 
 const QuestList = ({
   quests,
+  label,
   handleEditModal,
   handleSetQuestId,
 }: IQuestListProps) => {
   return (
     <>
-      <div className="min-h-91.5 grid justify-center gap-4 grid-cols-[repeat(auto-fit,minmax(310px,360px))]">
+      <div
+        role="list"
+        aria-label={label}
+        className="min-h-91.5 grid justify-center gap-4 grid-cols-[repeat(auto-fit,minmax(310px,360px))]"
+      >
         {quests?.map((quest) => (
           <Quest
             key={quest.id}

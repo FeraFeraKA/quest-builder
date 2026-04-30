@@ -6,6 +6,8 @@
   },
   "play": {
     "noStartNode": "No start node selected",
-    "exit": "Exit"
+    "exit": "Exit",
+    "choicesLabel": "Available action choices",
+    "chooseAction": "Choose action {{title}}"
   }
 }

@@ -1,29 +1,33 @@
 import { Link } from "react-router";
 
-interface ILinkButtonProps {
+type TLinkButtonProps = Omit<
+  React.ComponentProps<typeof Link>,
+  "to" | "children"
+> & {
   text: string;
   url: string;
   height?: string;
   textSize?: string;
-  onClick?: () => void;
-}
+};
 
 const LinkButton = ({
   text,
   url,
   height = "h-13",
   textSize = "text-lg md:text-xl",
-  onClick,
-}: ILinkButtonProps) => {
+  className = "",
+  ...props
+}: TLinkButtonProps) => {
   return (
     <Link
       to={url}
-      className="
+      className={`
         inline-flex items-stretch transition-all duration-200
         hover:-translate-y-0.5 active:translate-y-0
         disabled:opacity-60 disabled:cursor-not-allowed disabled:brightness-75
-      "
-      onClick={onClick}
+        ${className}
+      `}
+      {...props}
     >
       <img
         src="/images/button-left.png"

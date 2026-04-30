@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Button from "../components/ui/Button";
@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const registerMutation = useRegister();
+  const titleId = useId();
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -35,13 +36,18 @@ const Register = () => {
         className="absolute inset-0 -z-50 h-screen
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
-      <div className="text-center flex flex-col items-center ">
-        <h1 className="font-pixel text-green-300">
+      <div
+        className="text-center flex flex-col items-center "
+        aria-labelledby={titleId}
+      >
+        <h1 id={titleId} className="font-pixel text-green-300">
           {t("common:auth.registerTitle")}
         </h1>
         <form
           className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
+          aria-labelledby={titleId}
+          aria-busy={registerMutation.isPending}
         >
           <Input
             label={t("common:labels.nickname")}
@@ -70,7 +76,9 @@ const Register = () => {
           textSize="text-md md:text-xl"
         />
         {registerMutation.isError && (
-          <p className="mt-4">{registerMutation.error.message}</p>
+          <p role="alert" className="mt-4">
+            {registerMutation.error.message}
+          </p>
         )}
       </div>
     </>

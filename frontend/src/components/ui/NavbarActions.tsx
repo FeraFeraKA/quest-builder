@@ -28,12 +28,14 @@ const NavbarActions = ({
         onClick={() => handleChangeLanguage("ru")}
         hidden={currentLanguage === "ru"}
         className="lg:mr-6"
+        aria-label={t("layout:navbar.switchToRussian")}
       />
       <Button
         text={t("layout:navbar.languageEn")}
         onClick={() => handleChangeLanguage("en")}
         hidden={currentLanguage === "en"}
         className="lg:mr-6"
+        aria-label={t("layout:navbar.switchToEnglish")}
       />
       {user ? null : (
         <LinkButton

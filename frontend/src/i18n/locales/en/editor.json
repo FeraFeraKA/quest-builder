@@ -20,11 +20,13 @@
     "deleting": "Deleting..."
   },
   "graph": {
+    "canvasLabel": "Quest graph",
     "createNodeError": "Failed to create node",
     "updateNodeError": "Failed to update node",
     "setStartNodeError": "Failed to set start node"
   },
   "edge": {
+    "title": "Selected edge",
     "delete": "Delete edge",
     "deleting": "Deleting..."
   }

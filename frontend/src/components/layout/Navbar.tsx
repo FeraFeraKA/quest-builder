@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: user } = useMe();
   const logoutMutation = useLogout();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLanguage = i18n.resolvedLanguage;
 
   const handleChangeLanguage = (language: "ru" | "en") => {
@@ -23,7 +23,10 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="hidden lg:flex gap-6">
+      <nav
+        aria-label={t("layout:navbar.primaryNav")}
+        className="hidden lg:flex gap-6"
+      >
         <NavbarActions
           user={user}
           currentLanguage={currentLanguage}
@@ -36,7 +39,9 @@ const Navbar = () => {
 
       <button
         type="button"
-        aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+        aria-label={
+          isOpen ? t("layout:navbar.closeMenu") : t("layout:navbar.openMenu")
+        }
         aria-expanded={isOpen}
         aria-controls={mobileMenuId}
         onClick={() => setIsOpen((prev) => !prev)}
@@ -50,14 +55,20 @@ const Navbar = () => {
       {isOpen && (
         <div
           id={mobileMenuId}
+          role="dialog"
+          aria-label={t("layout:navbar.mobileMenu")}
           className="lg:hidden flex flex-col items-center fixed inset-0 z-20 pt-20 gap-5"
         >
           <div
+            aria-hidden="true"
             className="absolute inset-0 bg-black/50"
             onClick={handleCloseModal}
           ></div>
 
-          <div className="relative flex flex-col items-center gap-5 w-fit">
+          <nav
+            aria-label={t("layout:navbar.mobileNav")}
+            className="relative flex flex-col items-center gap-5 w-fit"
+          >
             <NavbarActions
               user={user}
               currentLanguage={currentLanguage}
@@ -66,7 +77,7 @@ const Navbar = () => {
               handleChangeLanguage={handleChangeLanguage}
               handleCloseModal={handleCloseModal}
             />
-          </div>
+          </nav>
         </div>
       )}
     </>

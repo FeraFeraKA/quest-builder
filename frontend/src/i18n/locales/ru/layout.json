@@ -5,7 +5,14 @@
     "profile": "Профиль",
     "logout": "Выйти",
     "register": "Регистрация",
-    "login": "Вход"
+    "login": "Вход",
+    "primaryNav": "Основная навигация",
+    "mobileMenu": "Мобильное меню",
+    "mobileNav": "Основная мобильная навигация",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "switchToRussian": "Переключить язык на русский",
+    "switchToEnglish": "Переключить язык на английский"
   },
   "footer": {
     "copyright": "2026. Сделано Fera."

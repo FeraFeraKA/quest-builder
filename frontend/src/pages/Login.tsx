@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Button from "../components/ui/Button";
@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const loginMutation = useLogin();
+  const titleId = useId();
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -35,13 +36,18 @@ const Login = () => {
         className="absolute inset-0 -z-50 h-screen
         bg-[url(/images/bg.png)] bg-repeat bg-top [image-rendering:pixelated]"
       ></div>
-      <div className="text-center flex flex-col items-center ">
-        <h1 className="font-pixel text-green-300">
+      <div
+        className="text-center flex flex-col items-center "
+        aria-labelledby={titleId}
+      >
+        <h1 id={titleId} className="font-pixel text-green-300">
           {t("common:auth.loginTitle")}
         </h1>
         <form
           className="flex flex-col items-center my-4 gap-4"
           onSubmit={(e) => handleSubmit(e)}
+          aria-labelledby={titleId}
+          aria-busy={loginMutation.isPending}
         >
           <Input
             label={t("common:labels.nickname")}
@@ -66,7 +72,9 @@ const Login = () => {
         </form>
         <LinkButton text={t("common:actions.back")} url="/" />
         {loginMutation.isError && (
-          <p className="mt-4">{loginMutation.error.message}</p>
+          <p role="alert" className="mt-4">
+            {loginMutation.error.message}
+          </p>
         )}
       </div>
     </>

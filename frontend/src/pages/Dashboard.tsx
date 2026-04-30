@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { TQuestId } from "../api/quests";
 import QuestList from "../components/layout/QuestList";
@@ -16,6 +16,7 @@ const Dashboard = () => {
   const [editIsOpen, setEditIsOpen] = useState(false);
   const [questId, setQuestId] = useState("");
   const logoutMutation = useLogout();
+  const titleId = useId();
 
   const handleCloseCreateModal = () => {
     setCreateIsOpen(false);
@@ -31,10 +32,16 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 font-pixel text-yellow-300">
-        <h1 className="text-center">{t("quests:dashboard.title")}</h1>
+      <div
+        className="flex flex-col gap-4 font-pixel text-yellow-300"
+        aria-labelledby={titleId}
+      >
+        <h1 id={titleId} className="text-center">
+          {t("quests:dashboard.title")}
+        </h1>
         <QuestList
           quests={quests}
+          label={t("quests:dashboard.questListLabel")}
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
         />
@@ -52,13 +59,15 @@ const Dashboard = () => {
           <Button
             text={t("quests:dashboard.createQuest")}
             onClick={() => setCreateIsOpen((prev) => !prev)}
+            aria-expanded={createIsOpen}
+            aria-haspopup="dialog"
           />
           <LinkButton text={t("quests:dashboard.guide")} url="/guide" />
           {logoutMutation.isError ? (
-            <p>{logoutMutation.error.message}</p>
+            <p role="alert">{logoutMutation.error.message}</p>
           ) : null}
         </div>
-        {isError && <p>{error.message}</p>}
+        {isError && <p role="alert">{error.message}</p>}
       </div>
 
       {createIsOpen && (

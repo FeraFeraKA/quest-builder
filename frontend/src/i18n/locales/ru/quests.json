@@ -7,6 +7,7 @@
   },
   "dashboard": {
     "title": "Это твоя страница с квестами",
+    "questListLabel": "Список твоих квестов",
     "home": "На главную",
     "logoutIdle": "Выйти",
     "logoutPending": "Выход...",
@@ -36,7 +37,11 @@
     "delete": "Удалить",
     "deleting": "Удаление...",
     "play": "Играть",
-    "edit": "Редактировать"
+    "edit": "Редактировать",
+    "openGraph": "Открыть граф квеста {{title}}",
+    "deleteQuest": "Удалить квест {{title}}",
+    "playQuest": "Играть в квест {{title}}",
+    "editQuest": "Редактировать квест {{title}}"
   },
   "guide": {
     "title": "Приветствую тебя!",
