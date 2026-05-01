@@ -16,9 +16,14 @@ const Playtest = () => {
     quest,
     furtherNodes,
     stack,
+    isPending,
+    isError,
+    error,
     handleNextClick,
     handleBackClick,
   } = useQuestTraversal({ questId });
+
+  const hasChoices = furtherNodes.length > 0;
 
   return (
     <div
@@ -30,24 +35,36 @@ const Playtest = () => {
         <h1 aria-live="polite">{currentNode.description}</h1>
       ) : null}
 
-      {!currentNodeId || !quest ? (
+      {isPending ? (
+        <p role="status" aria-live="polite">
+          {t("playtest:play.loading")}
+        </p>
+      ) : isError ? (
+        <p role="alert">{error?.message ?? t("playtest:play.loadError")}</p>
+      ) : !currentNodeId || !quest ? (
         <h1 role="alert">{t("playtest:play.noStartNode")}</h1>
+      ) : !currentNode ? (
+        <p role="alert">{t("playtest:play.missingCurrentNode")}</p>
       ) : (
         <div
           role="group"
           aria-label={t("playtest:play.choicesLabel")}
           className="flex flex-col gap-4 items-center justify-center mt-2"
         >
-          {furtherNodes.map((node) => (
-            <Button
-              text={node.title}
-              key={node.id}
-              onClick={(e) => handleNextClick(e, node.id)}
-              aria-label={t("playtest:play.chooseAction", {
-                title: node.title,
-              })}
-            />
-          ))}
+          {hasChoices ? (
+            furtherNodes.map((node) => (
+              <Button
+                text={node.title}
+                key={node.id}
+                onClick={(e) => handleNextClick(e, node.id)}
+                aria-label={t("playtest:play.chooseAction", {
+                  title: node.title,
+                })}
+              />
+            ))
+          ) : (
+            <p role="status">{t("playtest:play.endNode")}</p>
+          )}
           <Button
             text={t("playtest:playtest.backStep")}
             onClick={(e) => handleBackClick(e)}

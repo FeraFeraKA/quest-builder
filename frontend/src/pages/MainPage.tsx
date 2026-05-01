@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
+import Button from "../components/ui/Button";
 import LinkButton from "../components/ui/LinkButton";
 import useMe from "../hooks/auth/useMe";
 
 const MainPage = () => {
   const { t } = useTranslation();
-  const { data: user } = useMe();
+  const { data: user, isPending } = useMe();
 
   return (
     <>
@@ -16,16 +17,25 @@ const MainPage = () => {
           {t("quests:mainPage.description")}
         </p>
         <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-10">
-          <LinkButton
-            text={t(
-              user
-                ? "quests:mainPage.continueQuest"
-                : "quests:mainPage.startQuest",
-            )}
-            url={user ? "/quests" : "/auth/register"}
-            height="h-13 md:h-16"
-            textSize="text-lg md:text-2xl"
-          />
+          {isPending ? (
+            <Button
+              text={t("common:actions.loading")}
+              height="h-13 md:h-16"
+              textSize="text-lg md:text-2xl"
+              disabled
+            />
+          ) : (
+            <LinkButton
+              text={t(
+                user
+                  ? "quests:mainPage.continueQuest"
+                  : "quests:mainPage.startQuest",
+              )}
+              url={user ? "/quests" : "/auth/register"}
+              height="h-13 md:h-16"
+              textSize="text-lg md:text-2xl"
+            />
+          )}
         </div>
       </div>
     </>

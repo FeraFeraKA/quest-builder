@@ -5,7 +5,11 @@
     "exit": "Exit"
   },
   "play": {
+    "loading": "Loading quest...",
+    "loadError": "Failed to load quest",
     "noStartNode": "No start node selected",
+    "missingCurrentNode": "Current node was not found",
+    "endNode": "This is the end of the current branch.",
     "exit": "Exit",
     "choicesLabel": "Available action choices",
     "chooseAction": "Choose action {{title}}"

@@ -10,8 +10,18 @@ const Play = () => {
   const params = useParams();
   const questId = params.id!;
   const titleId = useId();
-  const { currentNode, currentNodeId, quest, furtherNodes, handleNextClick } =
-    useQuestTraversal({ questId });
+  const {
+    currentNode,
+    currentNodeId,
+    quest,
+    furtherNodes,
+    isPending,
+    isError,
+    error,
+    handleNextClick,
+  } = useQuestTraversal({ questId });
+
+  const hasChoices = furtherNodes.length > 0;
 
   return (
     <div
@@ -24,27 +34,45 @@ const Play = () => {
         </h1>
       ) : null}
 
-      {!currentNodeId || !quest ? (
+      {isPending ? (
+        <p id={titleId} role="status" aria-live="polite">
+          {t("playtest:play.loading")}
+        </p>
+      ) : isError ? (
+        <p id={titleId} role="alert">
+          {error?.message ?? t("playtest:play.loadError")}
+        </p>
+      ) : !currentNodeId || !quest ? (
         <h1 id={titleId} role="alert">
           {t("playtest:play.noStartNode")}
         </h1>
+      ) : !currentNode ? (
+        <p id={titleId} role="alert">
+          {t("playtest:play.missingCurrentNode")}
+        </p>
       ) : (
-        <div
-          role="group"
-          aria-label={t("playtest:play.choicesLabel")}
-          className="flex flex-col gap-4 items-center justify-center mt-2"
-        >
-          {furtherNodes.map((node) => (
-            <Button
-              text={node.title}
-              key={node.id}
-              onClick={(e) => handleNextClick(e, node.id)}
-              aria-label={t("playtest:play.chooseAction", {
-                title: node.title,
-              })}
-            />
-          ))}
-        </div>
+        <>
+          {hasChoices ? (
+            <div
+              role="group"
+              aria-label={t("playtest:play.choicesLabel")}
+              className="flex flex-col gap-4 items-center justify-center mt-2"
+            >
+              {furtherNodes.map((node) => (
+                <Button
+                  text={node.title}
+                  key={node.id}
+                  onClick={(e) => handleNextClick(e, node.id)}
+                  aria-label={t("playtest:play.chooseAction", {
+                    title: node.title,
+                  })}
+                />
+              ))}
+            </div>
+          ) : (
+            <p role="status">{t("playtest:play.endNode")}</p>
+          )}
+        </>
       )}
       <LinkButton text={t("playtest:play.exit")} url={`/quests`} />
     </div>

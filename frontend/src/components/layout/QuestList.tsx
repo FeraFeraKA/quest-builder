@@ -5,6 +5,7 @@ import Quest from "../ui/QuestCard";
 interface IQuestListProps {
   quests?: IQuest[];
   label: string;
+  emptyMessage: string;
   handleEditModal: (flag: boolean) => void;
   handleSetQuestId: (questId: TQuestId) => void;
 }
@@ -12,9 +13,18 @@ interface IQuestListProps {
 const QuestList = ({
   quests,
   label,
+  emptyMessage,
   handleEditModal,
   handleSetQuestId,
 }: IQuestListProps) => {
+  if (quests && quests.length === 0) {
+    return (
+      <div className="min-h-91.5 flex items-center justify-center text-center">
+        <p role="status">{emptyMessage}</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div

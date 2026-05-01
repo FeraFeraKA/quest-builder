@@ -42,6 +42,7 @@ const Dashboard = () => {
         <QuestList
           quests={quests}
           label={t("quests:dashboard.questListLabel")}
+          emptyMessage={t("quests:dashboard.emptyQuests")}
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
         />

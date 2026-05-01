@@ -8,6 +8,7 @@
   "dashboard": {
     "title": "This is your quests page",
     "questListLabel": "Your quests list",
+    "emptyQuests": "You do not have any quests yet. Create your first quest to start.",
     "home": "Home",
     "logoutIdle": "Log out",
     "logoutPending": "Logging out...",
