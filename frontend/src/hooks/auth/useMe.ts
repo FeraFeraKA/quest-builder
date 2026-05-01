@@ -4,7 +4,7 @@ import { ApiError } from "../../helpers/apiError";
 
 const useMe = () => {
   return useQuery({
-    queryFn: getMe,
+    queryFn: () => getMe({ notifyOnAuthExpired: false }),
     queryKey: ["me"],
     retry: (count, error) => {
       if (error instanceof ApiError && error.status === 401) return false;
