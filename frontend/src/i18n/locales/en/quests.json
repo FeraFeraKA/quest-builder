@@ -25,6 +25,12 @@
     "updating": "Updating...",
     "success": "Quest updated successfully!"
   },
+  "deleteQuest": {
+    "title": "Delete quest?",
+    "description": "Quest \"{{title}}\" will be permanently deleted.",
+    "confirm": "Yes, delete",
+    "cancel": "Cancel"
+  },
   "editorPage": {
     "title": "This is the editor",
     "nodesTitle": "Your nodes (events):",

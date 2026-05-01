@@ -4,7 +4,6 @@ import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import type { TQuestId } from "../../api/quests";
-import useDeleteQuest from "../../hooks/quests/useDeleteQuest";
 import Button from "./Button";
 import Card from "./Card";
 import LinkButton from "./LinkButton";
@@ -17,6 +16,7 @@ interface IQuestProps {
   updatedAt: string;
   handleEditModal: (flag: boolean) => void;
   handleSetQuestId: (questId: TQuestId) => void;
+  handleDeleteQuest: (quest: { id: TQuestId; title: string }) => void;
 }
 
 const Quest = ({
@@ -27,6 +27,7 @@ const Quest = ({
   updatedAt,
   handleEditModal,
   handleSetQuestId,
+  handleDeleteQuest,
 }: IQuestProps) => {
   const { t, i18n } = useTranslation();
   const titleId = useId();
@@ -41,10 +42,8 @@ const Quest = ({
     .locale(dayjsLocale)
     .format("D MMMM YYYY");
 
-  const deleteQuestMutation = useDeleteQuest(id);
-
   const handleDeleteClick = () => {
-    deleteQuestMutation.mutate();
+    handleDeleteQuest({ id, title });
   };
 
   const handleEditClick = () => {
@@ -56,7 +55,6 @@ const Quest = ({
     <Card
       role="listitem"
       aria-labelledby={titleId}
-      aria-busy={deleteQuestMutation.isPending}
       className="
         relative whitespace-normal wrap-break-word
         hover:brightness-110 hover:-translate-y-1 active:translate-y-0
@@ -88,17 +86,13 @@ const Quest = ({
 
       <div className="relative z-15 pointer-events-auto inline-flex flex-col items-start gap-2">
         <Button
-          text={
-            deleteQuestMutation.isPending
-              ? t("quests:card.deleting")
-              : t("quests:card.delete")
-          }
+          text={t("quests:card.delete")}
           height="h-10"
           textSize="text-lg"
           className="mt-1"
           onClick={handleDeleteClick}
-          disabled={deleteQuestMutation.isPending}
           aria-label={t("quests:card.deleteQuest", { title })}
+          aria-haspopup="dialog"
         />
 
         <LinkButton
@@ -117,10 +111,6 @@ const Quest = ({
           aria-label={t("quests:card.editQuest", { title })}
           aria-haspopup="dialog"
         />
-
-        {deleteQuestMutation.isError && (
-          <p role="alert">{deleteQuestMutation.error.message}</p>
-        )}
       </div>
     </Card>
   );

@@ -3,8 +3,10 @@ import { useTranslation } from "react-i18next";
 import type { TQuestId } from "../api/quests";
 import QuestList from "../components/layout/QuestList";
 import Button from "../components/ui/Button";
+import DeleteQuestConfirmModal from "../components/ui/DeleteQuestConfirmModal";
 import LinkButton from "../components/ui/LinkButton";
 import useLogout from "../hooks/auth/useLogout";
+import useDeleteQuest from "../hooks/quests/useDeleteQuest";
 import useGetQuests from "../hooks/quests/useGetQuests";
 import CreateQuest from "./CreateQuest";
 import EditQuest from "./EditQuest";
@@ -15,7 +17,12 @@ const Dashboard = () => {
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
   const [questId, setQuestId] = useState("");
+  const [deleteQuest, setDeleteQuest] = useState<{
+    id: TQuestId;
+    title: string;
+  } | null>(null);
   const logoutMutation = useLogout();
+  const deleteQuestMutation = useDeleteQuest(deleteQuest?.id ?? "");
   const titleId = useId();
 
   const handleCloseCreateModal = () => {
@@ -28,6 +35,21 @@ const Dashboard = () => {
 
   const handleSetQuestId = (questId: TQuestId) => {
     setQuestId(questId);
+  };
+
+  const handleCloseDeleteModal = () => {
+    deleteQuestMutation.reset();
+    setDeleteQuest(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deleteQuest) return;
+
+    deleteQuestMutation.mutate(undefined, {
+      onSuccess: () => {
+        setDeleteQuest(null);
+      },
+    });
   };
 
   return (
@@ -45,6 +67,7 @@ const Dashboard = () => {
           emptyMessage={t("quests:dashboard.emptyQuests")}
           handleEditModal={handleEditModal}
           handleSetQuestId={handleSetQuestId}
+          handleDeleteQuest={setDeleteQuest}
         />
         <div className="flex flex-col lg:flex-row items-center self-center gap-4">
           <LinkButton text={t("quests:dashboard.home")} url="/" />
@@ -76,6 +99,16 @@ const Dashboard = () => {
       )}
       {editIsOpen && (
         <EditQuest questId={questId} handleEditModal={handleEditModal} />
+      )}
+      {deleteQuest && (
+        <DeleteQuestConfirmModal
+          questTitle={deleteQuest.title}
+          isPending={deleteQuestMutation.isPending}
+          isError={deleteQuestMutation.isError}
+          errorMessage={deleteQuestMutation.error?.message}
+          onClose={handleCloseDeleteModal}
+          onConfirm={handleConfirmDelete}
+        />
       )}
     </>
   );

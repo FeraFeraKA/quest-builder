@@ -8,6 +8,7 @@ interface IQuestListProps {
   emptyMessage: string;
   handleEditModal: (flag: boolean) => void;
   handleSetQuestId: (questId: TQuestId) => void;
+  handleDeleteQuest: (quest: { id: TQuestId; title: string }) => void;
 }
 
 const QuestList = ({
@@ -16,6 +17,7 @@ const QuestList = ({
   emptyMessage,
   handleEditModal,
   handleSetQuestId,
+  handleDeleteQuest,
 }: IQuestListProps) => {
   if (quests && quests.length === 0) {
     return (
@@ -42,6 +44,7 @@ const QuestList = ({
             updatedAt={quest.updatedAt}
             handleEditModal={handleEditModal}
             handleSetQuestId={handleSetQuestId}
+            handleDeleteQuest={handleDeleteQuest}
           />
         ))}
       </div>
