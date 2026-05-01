@@ -24,5 +24,12 @@
     "registerTitle": "Register",
     "loginAction": "Sign in",
     "registerAction": "Sign up"
+  },
+  "errorPage": {
+    "genericTitle": "Something went wrong",
+    "unexpected": "Unexpected error occurred.",
+    "notFound": "Page not found.",
+    "unauthorized": "You are not authorized.",
+    "backToMain": "Back to main page"
   }
 }
