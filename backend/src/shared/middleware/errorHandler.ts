@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { HttpError } from "../error/httpError.js";
+import { clearAuthCookies } from "../helpers/authCookies.js";
 
 export function errorHandler(
   err: Error,
@@ -10,6 +11,13 @@ export function errorHandler(
 ) {
   console.error(err);
   if (err instanceof HttpError) {
+    if (
+      err.status === 401 &&
+      ["/auth/refresh", "/auth/logout"].includes(req.originalUrl)
+    ) {
+      clearAuthCookies(res);
+    }
+
     return res.status(err.status).json({
       error: {
         code: err.code,

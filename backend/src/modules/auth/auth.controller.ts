@@ -1,7 +1,28 @@
 import type { Request, Response } from "express";
+import {
+  accessTokenCookieOptions,
+  clearAuthCookies,
+  refreshTokenCookieOptions,
+} from "../../shared/helpers/authCookies.js";
+import { HttpError } from "../../shared/error/httpError.js";
 import { RefreshTokenSchema } from "../token/token.schema.js";
 import RegisterLoginSchema from "./auth.schema.js";
 import { AuthService } from "./auth.service.js";
+
+const getRefreshTokenCookie = (req: Request) => {
+  const token = req.cookies["refreshToken"];
+  const parsedToken = RefreshTokenSchema.safeParse(token);
+
+  if (!parsedToken.success) {
+    throw new HttpError(
+      401,
+      token ? "INVALID_TOKEN" : "NO_TOKEN",
+      "Invalid credentials",
+    );
+  }
+
+  return parsedToken.data;
+};
 
 export const AuthController = {
   async register(req: Request, res: Response) {
@@ -9,18 +30,8 @@ export const AuthController = {
     const userDb = await AuthService.register(data);
     res
       .status(201)
-      .cookie("accessToken", userDb.accessToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 60 * 60 * 1000,
-      })
-      .cookie("refreshToken", userDb.refreshToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      })
+      .cookie("accessToken", userDb.accessToken, accessTokenCookieOptions)
+      .cookie("refreshToken", userDb.refreshToken, refreshTokenCookieOptions)
       .json(userDb.user);
   },
 
@@ -29,18 +40,8 @@ export const AuthController = {
     const userDb = await AuthService.login(data);
     res
       .status(200)
-      .cookie("accessToken", userDb.accessToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 60 * 60 * 1000,
-      })
-      .cookie("refreshToken", userDb.refreshToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      })
+      .cookie("accessToken", userDb.accessToken, accessTokenCookieOptions)
+      .cookie("refreshToken", userDb.refreshToken, refreshTokenCookieOptions)
       .json(userDb.user);
   },
 
@@ -51,30 +52,19 @@ export const AuthController = {
   },
 
   async logout(req: Request, res: Response) {
-    const refreshToken = RefreshTokenSchema.parse(req.cookies["refreshToken"]);
+    const refreshToken = getRefreshTokenCookie(req);
     const success = await AuthService.logout(refreshToken);
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    clearAuthCookies(res);
     res.status(200).json(success);
   },
 
   async refresh(req: Request, res: Response) {
-    const refreshToken = RefreshTokenSchema.parse(req.cookies["refreshToken"]);
+    const refreshToken = getRefreshTokenCookie(req);
     const tokens = await AuthService.refresh(refreshToken);
     res
       .status(200)
-      .cookie("accessToken", tokens.accessToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 60 * 60 * 1000,
-      })
-      .cookie("refreshToken", tokens.refreshToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      })
+      .cookie("accessToken", tokens.accessToken, accessTokenCookieOptions)
+      .cookie("refreshToken", tokens.refreshToken, refreshTokenCookieOptions)
       .json({ success: true });
   },
 };
