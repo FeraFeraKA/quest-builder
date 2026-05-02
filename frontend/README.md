@@ -1,75 +1,93 @@
-# React + TypeScript + Vite
+# Quest Builder Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for **Quest Builder** — a fullstack app for creating interactive branching quests with a visual graph editor.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- TypeScript
+- React Router
+- React Flow
+- TanStack Query
+- Tailwind CSS
+- i18next
+- Day.js
+- Vitest
 
-## React Compiler
+## Getting Started
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app expects the backend API to be available through the configured Vite proxy / deployment setup.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Available Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm run dev
 ```
+
+Starts the development server.
+
+```bash
+pnpm lint
+```
+
+Runs ESLint.
+
+```bash
+pnpm test
+```
+
+Runs Vitest tests.
+
+```bash
+pnpm build
+```
+
+Builds the frontend for production.
+
+```bash
+pnpm preview
+```
+
+Previews the production build locally.
+
+```bash
+pnpm audit --prod
+```
+
+Checks production dependencies for vulnerabilities.
+
+## Project Structure
+
+```txt
+src/
+  api/          API functions and fetcher
+  components/   Reusable UI and layout components
+  helpers/      Shared frontend helpers
+  hooks/        Custom React hooks
+  i18n/         Translation files and i18n setup
+  pages/        Route pages
+  test/         Test setup and test files
+```
+
+## Production Checklist
+
+Before release:
+
+```bash
+pnpm lint
+pnpm test
+pnpm build
+pnpm audit --prod
+```
+
+## Notes
+
+- Server state is handled with TanStack Query.
+- Route-level pages are lazy-loaded to reduce the main bundle size.
+- Critical UI assets are preloaded before rendering the main layout.
+- Tests are written with Vitest and React Testing Library.
