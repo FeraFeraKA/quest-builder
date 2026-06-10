@@ -303,6 +303,8 @@ const Graph = () => {
           className="w-full md:w-[calc(100dvw-25rem)]
            text-yellow-300 font-pixel"
           style={{ height: graphHeight }}
+          role="region"
+          aria-label={t("editor:graph.canvasLabel")}
         >
           <ReactFlow
             nodes={nodes}

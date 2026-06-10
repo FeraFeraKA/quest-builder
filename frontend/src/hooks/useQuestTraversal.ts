@@ -13,7 +13,7 @@ interface IQuestTraversalProps {
 }
 
 const useQuestTraversal = ({ questId }: IQuestTraversalProps) => {
-  const { data: quest } = useGetQuest(questId);
+  const { data: quest, isPending, isError, error } = useGetQuest(questId);
   const [currentNodeId, setCurrentNodeId] = useState("");
   const [stack, setStack] = useState<IStack[]>([]);
 
@@ -70,6 +70,9 @@ const useQuestTraversal = ({ questId }: IQuestTraversalProps) => {
     quest,
     furtherNodes,
     stack,
+    isPending,
+    isError,
+    error,
     handleNextClick,
     handleBackClick,
   };

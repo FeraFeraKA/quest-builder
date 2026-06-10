@@ -1,17 +1,16 @@
 # Quest Builder
 
-Quest Builder is a fullstack web application for creating interactive branching
-quests.  
-Users can visually build story flows as node graphs, connect paths, choose a
-starting node, and playtest quests directly in the browser.
+Quest Builder is a fullstack web application for creating interactive branching quests.
+
+Users can visually build story flows as node graphs, connect paths, choose a starting node, playtest quests directly in the browser, and share playable stories with others.
 
 ## Status
 
-MVP Released - **v0.1.0**
+✅ **v1.0.0 Released**
 
-Core functionality is implemented and fully usable.  
-The project is currently in active development and planned for further
-improvements.
+Core functionality is implemented, polished, and ready for production use.
+
+The project remains in active development and will continue to receive improvements and new features.
 
 ---
 
@@ -22,7 +21,8 @@ improvements.
 - User registration
 - User login / logout
 - Protected routes
-- Token refresh flow
+- Access token refresh flow
+- Auth-aware navigation
 
 ### Quest Management
 
@@ -30,6 +30,7 @@ improvements.
 - Edit quests
 - Delete quests
 - View personal quest list
+- Quest creation and editing via modal windows
 
 ### Visual Quest Editor
 
@@ -37,14 +38,25 @@ improvements.
 - Edit nodes
 - Delete nodes
 - Connect nodes with edges
-- Select start node
+- Delete edges
+- Select starting node
 - Graph-based quest structure
+- Optimistic updates for graph interactions
 
 ### Playtest Mode
 
-- Start quest from selected node
-- Navigate through quest flow
-- Test branching logic directly in browser
+- Start quest from the selected start node
+- Navigate through branching story paths
+- Test quest logic directly in the browser
+
+### UI / UX
+
+- Responsive layout
+- Internationalization support
+- Global loading states
+- Optimized asset loading
+- Route error and not found pages
+- Improved accessibility for navigation, forms, and modals
 
 ---
 
@@ -58,12 +70,17 @@ improvements.
 - React Flow
 - TanStack Query
 - Tailwind CSS
+- i18next
+- Day.js
+- Vitest
 
 ### Backend
 
 - Node.js
 - Express
+- TypeScript
 - Zod
+- JWT authentication
 
 ### Database
 
@@ -74,15 +91,15 @@ improvements.
 
 ## Screenshots
 
-_Will be here later_
+Will be added later.
 
 ---
 
 ## Getting Started
 
-### Run frontend and backend in separate terminals.
+Run frontend and backend in separate terminals.
 
-### Clone repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/FeraFeraKA/quest-builder
@@ -105,59 +122,81 @@ pnpm install
 pnpm run dev
 ```
 
-Create `.env` file inside `backend/`:
+Create a `.env` file inside `backend/`:
 
 ```env
 PORT=3000
 CORS_ORIGIN=http://localhost:5173
+
 DATABASE_URL=postgresql://username:password@host:5432/dbname?sslmode=require
 DATABASE_DIRECT_URL=postgresql://username:password@host:5432/dbname?sslmode=require
+
 JWT_ACCESS_SECRET=change_me
 JWT_REFRESH_SECRET=change_me
 JWT_ACCESS_EXPIRES_IN=30m
 JWT_REFRESH_EXPIRES_IN=14d
-
 ```
 
 ---
 
-## Planned for v1.0
+## Quality Checks
 
-- Improved UI / UX
-- Cleaner navigation flow
-- Performance improvements
-- Better responsive layout
-- Codebase cleanup and optimization
+Run checks before creating a production build.
+
+### Frontend
+
+```bash
+cd frontend
+pnpm lint
+pnpm test
+pnpm build
+pnpm audit --prod
+```
+
+### Backend
+
+```bash
+cd backend
+pnpm lint
+pnpm build
+```
 
 ---
 
-## Known Issues
+## Known Limitations
 
-- Duplicate auth requests may occur on first load for unauthorized users
-- Refresh flow requires optimization
-- Some editor interactions still need polish
-- Delete nodes (desktop only for now)
+- Parallel expired-auth requests may still trigger multiple refresh attempts.
+- Some advanced graph editor interactions can be improved further.
+- Full end-to-end test coverage is planned for future versions.
+- Screenshots and demo materials are not added yet.
 
 ---
 
 ## Roadmap
 
-### v0.1.0 - MVP release
+### v1.0.0 — Production Release
 
-- Core functionality completed
-
-### v1.0.0 - polished release
-
+- Polished MVP functionality
 - Improved UI / UX
 - Internationalization
-- Full mobile responsiveness
-- Remove unnecessary pages
+- Responsive layout improvements
+- Optimized frontend assets
+- Route error handling
+- Basic frontend tests and CI
 
-### v1.1.0 - guest access
+### v1.1.0 — Public Quest Sharing
 
-- Users can play any quest via link without registration
+- Users can play shared quests via link
+- Guest access for published quests
 
-### v1.2.0 - items system
+### v1.2.0 — Items System
 
 - Add items
 - Add item-based choice conditions
+- Add inventory mechanics for quests
+
+---
+
+## License
+
+No license specified yet.

@@ -24,5 +24,12 @@
     "registerTitle": "Регистрация",
     "loginAction": "Войти",
     "registerAction": "Зарегистрироваться"
+  },
+  "errorPage": {
+    "genericTitle": "Что-то пошло не так",
+    "unexpected": "Произошла непредвиденная ошибка.",
+    "notFound": "Страница не найдена.",
+    "unauthorized": "У тебя нет доступа.",
+    "backToMain": "На главную"
   }
 }

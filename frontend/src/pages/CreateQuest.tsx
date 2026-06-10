@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
@@ -19,6 +19,8 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
   const createQuestMutation = useCreateQuest();
   const { startTimeout, clearTimeoutSafe } = useTimeout();
   const titleRef = useRef<HTMLInputElement>(null);
+  const dialogTitleId = useId();
+  const descriptionId = useId();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,15 +49,22 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
     <>
       <div className="flex flex-col items-center text-center fixed inset-0 z-20">
         <div
+          aria-hidden="true"
           className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={handleCloseModal}
         ></div>
 
-        <div className="my-auto z-20">
-          <h1>{t("quests:createQuest.title")}</h1>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={dialogTitleId}
+          className="my-auto z-20"
+        >
+          <h1 id={dialogTitleId}>{t("quests:createQuest.title")}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-stretch"
             onSubmit={(e) => handleSubmit(e)}
+            aria-busy={createQuestMutation.isPending}
             onKeyDown={(e) => {
               if (e.key === "Escape") handleCloseModal();
             }}
@@ -70,11 +79,12 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
               />
             </div>
 
-            <label className="flex flex-col ">
+            <label className="flex flex-col " htmlFor={descriptionId}>
               <span className="text-xl md:text-2xl">
                 {t("common:labels.description")}
               </span>
               <Textarea
+                id={descriptionId}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
@@ -97,9 +107,13 @@ const CreateQuest = ({ handleCloseModal }: ICreateQuestProps) => {
                 onClick={handleCloseModal}
               />
             </div>
-            {log ? <p>{log}</p> : null}
+            {log ? (
+              <p role="status" aria-live="polite">
+                {log}
+              </p>
+            ) : null}
             {createQuestMutation.isError ? (
-              <p>{createQuestMutation.error.message}</p>
+              <p role="alert">{createQuestMutation.error.message}</p>
             ) : null}
           </form>
         </div>

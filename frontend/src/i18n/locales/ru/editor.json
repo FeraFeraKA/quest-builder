@@ -20,11 +20,13 @@
     "deleting": "Удаление..."
   },
   "graph": {
+    "canvasLabel": "Граф квеста",
     "createNodeError": "Не удалось создать узел",
     "updateNodeError": "Не получилось обновить ноду",
     "setStartNodeError": "Не удалось задать стартовую ноду"
   },
   "edge": {
+    "title": "Выбрана связь",
     "delete": "Удалить связь",
     "deleting": "Удаление..."
   }

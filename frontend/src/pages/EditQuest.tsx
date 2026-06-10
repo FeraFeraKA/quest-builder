@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { TQuestId } from "../api/quests";
 import Button from "../components/ui/Button";
@@ -23,6 +23,8 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
   const updateQuestMutation = useUpdateQuest();
   const { startTimeout, clearTimeoutSafe } = useTimeout();
   const titleRef = useRef<HTMLInputElement>(null);
+  const dialogTitleId = useId();
+  const descriptionId = useId();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,15 +59,22 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
     <>
       <div className="flex flex-col items-center text-center fixed inset-0 z-20">
         <div
+          aria-hidden="true"
           className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={() => handleEditModal(false)}
         ></div>
 
-        <div className="my-auto z-20">
-          <h1>{t("quests:editQuest.title")}</h1>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={dialogTitleId}
+          className="my-auto z-20"
+        >
+          <h1 id={dialogTitleId}>{t("quests:editQuest.title")}</h1>
           <form
             className="flex flex-col gap-4 mt-4 justify-center items-center"
             onSubmit={(e) => handleSubmit(e)}
+            aria-busy={updateQuestMutation.isPending}
             onKeyDown={(e) => {
               if (e.key === "Escape") handleEditModal(false);
             }}
@@ -76,11 +85,12 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
               ref={titleRef}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label className="flex flex-col ">
+            <label className="flex flex-col " htmlFor={descriptionId}>
               <span className="text-xl md:text-2xl">
                 {t("common:labels.description")}
               </span>
               <Textarea
+                id={descriptionId}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
@@ -102,9 +112,13 @@ const EditQuest = ({ questId, handleEditModal }: IEditQuestProps) => {
                 onClick={() => handleEditModal(false)}
               />
             </div>
-            {log ? <p>{log}</p> : null}
+            {log ? (
+              <p role="status" aria-live="polite">
+                {log}
+              </p>
+            ) : null}
             {updateQuestMutation.isError ? (
-              <p>{updateQuestMutation.error.message}</p>
+              <p role="alert">{updateQuestMutation.error.message}</p>
             ) : null}
           </form>
         </div>

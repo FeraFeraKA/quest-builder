@@ -1,10 +1,11 @@
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
 
 type TLabel = {
   label?: string;
   textSize?: string;
   gapX?: string;
   mt?: string;
+  stacked?: boolean;
 };
 
 type TInputProps = React.InputHTMLAttributes<HTMLInputElement> & TLabel;
@@ -17,21 +18,35 @@ const Input = forwardRef<HTMLInputElement, TInputProps>(
       textSize = "text-lg md:text-xl",
       gapX = "gap-x-4",
       mt,
+      stacked = false,
       ...props
     },
     ref,
   ) => {
+    const generatedId = useId();
+    const inputId = props.id ?? generatedId;
+
     return (
       <>
         <div
           className={`
-            grid md:grid-cols-[max-content_minmax(0,1fr)]
+            ${
+              stacked
+                ? "flex flex-col gap-3"
+                : "grid md:grid-cols-[max-content_minmax(0,1fr)]"
+            }
             ${gapX} items-center font-pixel text-yellow-300
           `}
         >
-          <label className="text-xl md:text-2xl">{label}</label>
+          {label ? (
+            <label htmlFor={inputId} className="text-xl md:text-2xl">
+              {label}
+            </label>
+          ) : null}
 
-          <div className={`inline-flex items-stretch ${mt} md:mt-0`}>
+          <div
+            className={`inline-flex items-stretch ${mt} ${stacked ? "" : "md:mt-0"}`}
+          >
             <img
               src="/images/input-left.png"
               alt=""
@@ -50,6 +65,7 @@ const Input = forwardRef<HTMLInputElement, TInputProps>(
               <input
                 ref={ref}
                 {...props}
+                id={inputId}
                 className={`relative z-10 ${textSize} outline-0 w-50 bg-transparent`}
               />
             </span>

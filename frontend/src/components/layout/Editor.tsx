@@ -1,5 +1,5 @@
 import type { Edge } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { TEdgeId } from "../../api/edges";
 import type { INodeCreate, INodeUpdate, TNodeId } from "../../api/nodes";
@@ -59,6 +59,9 @@ const Editor = ({
   const [description, setDescription] = useState("");
   const [updateTitle, setUpdateTitle] = useState("");
   const [updateDescription, setUpdateDescription] = useState("");
+  const titleId = useId();
+  const createDescriptionId = useId();
+  const updateDescriptionId = useId();
 
   useEffect(() => {
     if (!selectedNode) {
@@ -74,14 +77,20 @@ const Editor = ({
 
   return (
     <div
+      role="region"
+      aria-labelledby={titleId}
       className="flex flex-col flex-1 gap-3
-     justify-center items-center text-center
+      justify-center items-center text-center
       py-4 text-yellow-300 font-pixel
       bg-[url(/images/bg-editor.png)] bg-size-[700px_700px]
       bg-repeat bg-top [image-rendering:pixelated]"
     >
       {selectedEdge ? (
-        <div className="flex flex-col justify-center items-center">
+        <div
+          className="flex flex-col justify-center items-center"
+          aria-busy={deleteEdge.isPending}
+        >
+          <h1 id={titleId}>{t("editor:edge.title")}</h1>
           <Button
             text={
               deleteEdge.isPending
@@ -91,11 +100,11 @@ const Editor = ({
             onClick={() => deleteEdge.run(selectedEdge.id)}
             disabled={deleteEdge.isPending}
           />
-          {deleteEdge.isError ? <p>{deleteEdge.error}</p> : null}
+          {deleteEdge.isError ? <p role="alert">{deleteEdge.error}</p> : null}
         </div>
       ) : !selectedNode ? (
         <>
-          <h1>{t("editor:createMode.title")}</h1>
+          <h1 id={titleId}>{t("editor:createMode.title")}</h1>
           <form
             onSubmit={(e) => {
               createNode.run(e, { title, description });
@@ -103,20 +112,25 @@ const Editor = ({
               setDescription("");
             }}
             className="flex flex-col justify-center items-center"
+            aria-labelledby={titleId}
+            aria-busy={createNode.isPending}
           >
-            <label className="flex flex-col gap-3">
-              <p className="text-xl md:text-2xl">{t("common:labels.title")}</p>
-              <Input
-                gapX="gap-x-0"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </label>
-            <label className="flex flex-col gap-0.5 mt-2.5">
-              <p className="text-xl md:text-2xl">
+            <Input
+              label={t("common:labels.title")}
+              gapX="gap-x-0"
+              stacked
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <label
+              className="flex flex-col gap-0.5 mt-2.5"
+              htmlFor={createDescriptionId}
+            >
+              <span className="text-xl md:text-2xl">
                 {t("common:labels.description")}
-              </p>
+              </span>
               <Textarea
+                id={createDescriptionId}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
@@ -133,7 +147,7 @@ const Editor = ({
               className="mt-3"
               disabled={createNode.isPending}
             />
-            {createNode.isError ? <p>{createNode.error}</p> : null}
+            {createNode.isError ? <p role="alert">{createNode.error}</p> : null}
           </form>
           <LinkButton text={t("editor:createMode.back")} url={`/quests`} />
           <LinkButton
@@ -143,7 +157,7 @@ const Editor = ({
         </>
       ) : !selectedEdge ? (
         <>
-          <h1>{t("editor:editMode.title")}</h1>
+          <h1 id={titleId}>{t("editor:editMode.title")}</h1>
           <form
             onSubmit={(e) => {
               updateNode.run(e, {
@@ -153,18 +167,25 @@ const Editor = ({
               });
             }}
             className="flex flex-col justify-center items-center"
+            aria-labelledby={titleId}
+            aria-busy={updateNode.isPending}
           >
-            <label className="flex flex-col gap-3">
-              <p>{t("common:labels.title")}</p>
-              <Input
-                gapX="gap-x-0"
-                value={updateTitle}
-                onChange={(e) => setUpdateTitle(e.target.value)}
-              />
-            </label>
-            <label className="flex flex-col gap-3 mt-2.5">
-              <p>{t("common:labels.description")}</p>
+            <Input
+              label={t("common:labels.title")}
+              gapX="gap-x-0"
+              stacked
+              value={updateTitle}
+              onChange={(e) => setUpdateTitle(e.target.value)}
+            />
+            <label
+              className="flex flex-col gap-0.5 mt-2.5"
+              htmlFor={updateDescriptionId}
+            >
+              <span className="text-xl md:text-2xl">
+                {t("common:labels.description")}
+              </span>
               <Textarea
+                id={updateDescriptionId}
                 value={updateDescription}
                 onChange={(e) => setUpdateDescription(e.target.value)}
                 rows={6}
@@ -181,14 +202,20 @@ const Editor = ({
               className="mt-3"
               disabled={updateNode.isPending}
             />
-            {updateNode.isError ? <p>{updateNode.error}</p> : null}
+            {updateNode.isError ? <p role="alert">{updateNode.error}</p> : null}
           </form>
           <Button
-            text={t("editor:editMode.setAsStart")}
+            text={
+              setStartNode.isPending
+                ? t("editor:editMode.settingAsStart")
+                : t("editor:editMode.setAsStart")
+            }
             onClick={setStartNode.run}
-            disabled={selectedNode.id === startNodeId}
+            disabled={selectedNode.id === startNodeId || setStartNode.isPending}
           />
-          {setStartNode.isError ? <p>{setStartNode.error}</p> : null}
+          {setStartNode.isError ? (
+            <p role="alert">{setStartNode.error}</p>
+          ) : null}
           <Button
             text={
               deleteNode.isPending
@@ -198,7 +225,7 @@ const Editor = ({
             onClick={() => deleteNode.run(selectedNode.id)}
             disabled={deleteNode.isPending}
           />
-          {deleteNode.isError ? <p>{deleteNode.error}</p> : null}
+          {deleteNode.isError ? <p role="alert">{deleteNode.error}</p> : null}
         </>
       ) : null}
     </div>
