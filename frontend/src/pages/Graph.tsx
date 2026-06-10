@@ -4,6 +4,7 @@ import {
   useNodesState,
   type Connection,
   type Edge,
+  type OnNodeDrag,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -126,7 +127,7 @@ const Graph = () => {
     }
   };
 
-  const handleNodeDragStop = (_event: React.MouseEvent, node: QuestNode) => {
+  const handleNodeDragStop: OnNodeDrag<QuestNode> = (_event, node) => {
     updateGraphNodeMutation.mutate({
       nodeId: node.id,
       positionX: node.position.x,
@@ -265,6 +266,7 @@ const Graph = () => {
 
     if (!quest.startNodeId) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStartNodeId(quest.startNodeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quest?.id]);

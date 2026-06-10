@@ -59,7 +59,8 @@ const useQuestTraversal = ({ questId }: IQuestTraversalProps) => {
 
   useEffect(() => {
     if (!quest || !quest.startNodeId) return;
-
+    
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentNodeId(quest.startNodeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quest?.startNodeId]);

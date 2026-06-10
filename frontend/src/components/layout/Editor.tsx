@@ -65,6 +65,7 @@ const Editor = ({
 
   useEffect(() => {
     if (!selectedNode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUpdateTitle("");
       setUpdateDescription("");
       return;
